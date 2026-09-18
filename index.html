@@ -2,64 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YokelBook Global</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
-body{background:#f0f2f5;color:#050505}
-header{background:#fff;position:sticky;top:0;z-index:100;padding:10px 15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.logo{font-weight:900;font-size:22px;color:#1877f2} .logo span{color:#000}
-.search{background:#f0f2f5;border:none;padding:8px 15px;border-radius:20px;width:40vw}
-.main{max-width:600px;margin:10px auto;padding:0 10px}
-.card{background:#fff;border-radius:10px;margin-bottom:15px;padding:15px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-.btn{background:#1877f2;color:#fff;border:none;padding:8px 15px;border-radius:6px;font-weight:bold;width:100%;margin-top:10px}
-input,textarea{width:100%;padding:10px;margin:5px 0;border:1px solid #ddd;border-radius:6px}
-.stories{display:flex;gap:10px;overflow-x:auto;padding:10px 0}
-.story{min-width:68px;text-align:center}
-.story img{width:60px;height:60px;border-radius:50%;border:3px solid #1877f2}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#f0f2f5}
+.navbar{background:#1877f2;padding:10px 15px;color:white;display:flex;justify-content:space-between;position:sticky;top:0}
+.post-box{background:white;padding:15px;margin:15px;border-radius:8px}
+.post-box textarea{width:100%;border:none;background:#f0f2f5;border-radius:20px;padding:12px;outline:none}
+.post-btn{background:#1877f2;color:white;border:none;padding:8px 20px;border-radius:20px;font-weight:bold;margin-top:10px;width:100%}
+.post{background:white;padding:15px;margin:15px;border-radius:8px}
+.ad-box{background:white;padding:10px;margin:15px;border-radius:8px;text-align:center;border:1px dashed #1877f2}
 </style>
 </head>
 <body>
-<header>
-<div class="logo">Yokel<span>Book</span> Global</div>
-<input class="search" placeholder="Search YokelBook">
-</header>
-<div class="main">
-<div class="card">
-<div class="stories">
-<div class="story"><img src="https://i.pravatar.cc/100?img=1"><div>You</div></div>
-<div class="story"><img src="https://i.pravatar.cc/100?img=2"><div>John</div></div>
-<div class="story"><img src="https://i.pravatar.cc/100?img=3"><div>Sarah</div></div>
-<div class="story"><img src="https://i.pravatar.cc/100?img=4"><div>Peter</div></div>
+<div class="navbar"><b>yokelbook 🇵🇬</b><span>CEO: Taani</span></div>
+<div class="post-box">
+<textarea id="postInput" rows="3" placeholder="What's on your mind, Taani?"></textarea>
+<button class="post-btn" onclick="makePost()">Post to YokelBook</button>
 </div>
+<div class="ad-box">
+<small>Advertisement - Your Money Spot 💰</small>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0000000000000000" data-ad-slot="123" data-ad-format="auto"></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
 </div>
-<div class="card">
-<h3>Create Post</h3>
-<textarea id="postText" placeholder="What's on your mind, Taani?"></textarea>
-<input id="postImg" placeholder="Image URL (optional)">
-<button class="btn" onclick="createPost()">Post to YokelBook</button>
-</div>
-<div id="feed">
-<div class="card">
-<b>Welcome to YokelBook Global 🌍</b><br><br>
-Your PNG Facebook is LIVE! Post anything - it will appear here!
-<br><br>
-<button class="btn" style="background:#42b72a">Share • Like • Comment Working!</button>
-</div>
-</div>
-</div>
+<div id="feed"><div class="post">🌍 WE DID IT PNG! 🇵🇬<br><br>Welcome to YokelBook Global - Built in Port Moresby, for the world!</div></div>
 <script>
-function createPost(){
-let t=document.getElementById('postText').value;
-let img=document.getElementById('postImg').value;
-if(!t)return alert('Write something!');
-let feed=document.getElementById('feed');
-let div=document.createElement('div');
-div.className='card';
-div.innerHTML=`<b>tbrenton286-bot</b> • Just now<br><br>${t}<br>${img?`<br><img src="${img}" style="width:100%;border-radius:10px;margin-top:10px">`:''}<br><br><button class="btn" style="background:#f0f2f5;color:#000">👍 Like • 💬 Comment • ↗️ Share</button>`;
-feed.prepend(div);
-document.getElementById('postText').value='';
-document.getElementById('postImg').value='';
+function makePost(){
+ let t=document.getElementById('postInput').value;
+ if(!t.trim())return;
+ let d=document.createElement('div');d.className='post';d.innerHTML='<b>Taani</b><br><br>'+t;
+ document.getElementById('feed').prepend(d);
+ document.getElementById('postInput').value='';
 }
 </script>
 </body>
