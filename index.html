@@ -1,54 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YokelBook Global - Connect The World</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8955037909878326" crossorigin="anonymous"></script>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YokelBook Global - CEO Taani</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#f0f2f5}
-.navbar{background:#1877f2;padding:10px 15px;color:white;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
-.post-box{background:white;padding:15px;margin:15px;border-radius:8px}
-.post-box textarea{width:100%;border:none;background:#f0f2f5;border-radius:20px;padding:10px 15px;outline:none;resize:none}
-.post-btn{background:#1877f2;color:white;border:none;padding:8px 20px;border-radius:8px;margin-top:10px;font-weight:bold;cursor:pointer}
-.post{background:white;padding:15px;margin:15px;border-radius:8px}
-.ad-box{background:white;padding:10px;margin:15px;border-radius:8px;text-align:center;border:1px dashed #1877f2}
-.footer{padding:20px;text-align:center;color:gray;font-size:12px}
-</style>
-</head>
-<body>
-<div class="navbar"><div><b>YokelBook 🌍</b><span> CEO: Taani</span></div><div>Global</div></div>
-
+body{margin:0;font-family:Arial;background:#f0f2f5}
+.header{background:#1877f2;color:#fff;padding:12px;position:sticky;top:0;z-index:10;display:flex;justify-content:space-between}
+.post-box{background:#fff;margin:10px;padding:12px;border-radius:8px;box-shadow:0 1px 2px #0002}
+.post-box textarea{width:100%;height:60px;border:0;background:#f0f2f5;border-radius:20px;padding:12px;resize:none;outline:none}
+.btn{background:#1877f2;color:#fff;border:0;padding:8px 18px;border-radius:6px;font-weight:bold;margin-top:8px}
+.post{background:#fff;margin:10px;padding:12px;border-radius:8px;box-shadow:0 1px 2px #0002}
+.post img{max-width:100%;border-radius:8px;margin-top:8px}
+.actions{display:flex;gap:15px;margin-top:8px;border-top:1px solid #eee;padding-top:8px}
+.actions button{border:0;background:none;color:#65676b;font-weight:bold}
+.comment{background:#f0f2f5;margin:4px 0;padding:6px 10px;border-radius:12px;font-size:14px}
+</style></head><body>
+<div class="header"><b>YokelBook 🌍 CEO: Taani</b><span>LIVE</span></div>
 <div class="post-box">
-<textarea rows="3" placeholder="What's on your mind, Taani?"></textarea>
-<button onclick="makePost()">Post to YokelBook</button>
+<textarea id="text" placeholder="What's on your mind, Taani? PNG to World!"></textarea>
+<input type="file" id="photo" accept="image/*"><br>
+<button class="btn" onclick="createPost()">Post to YokelBook</button>
+<small id="status">✅ Connected to Firebase!</small>
 </div>
-
-<div class="post">
-<h3>Welcome to YokelBook Global!</h3>
-<p>Connect with friends around the world. Share your stories, photos and ideas. YokelBook is built for everyone - fast, simple and global.</p>
-<p>We are based in Port Moresby, Papua New Guinea and connecting the Pacific to the world.</p>
-</div>
-
-<div class="ad-box">
-<small>Money Spot 💰</small>
-<p>Ads will help us keep YokelBook free!</p>
-</div>
-
-<div class="post">
-<h3>About Us</h3>
-<p>YokelBook Global is a social network created by Taani to bring communities together. Our mission is free expression and connection.</p>
-<h3>Privacy Policy</h3>
-<p>We respect your privacy. We do not sell your data. We use cookies to improve experience.</p>
-<h3>Contact</h3>
-<p>Email: yokelbook.global@gmail.com</p>
-</div>
-
-<div class="footer">© 2026 YokelBook Global - All Rights Reserved</div>
-
-<script>
-function makePost(){alert("Post feature coming soon! Your YokelBook is live!");}
-</script>
-</body>
-</html>
+<div id="feed">Loading...</div>
+<div class="post-box"><b>About Us</b><br>YokelBook Global is a social network created by Taani in Port Moresby, PNG.<br><b>Privacy:</b> We respect privacy. No data selling.<br><b>Contact:</b> Port Moresby HQ</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, updateDoc, doc, increment, arrayUnion } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyA7JJpeSfV-pY-XCtsdXLvITFQmAvZ8pKo",
+  authDomain: "yokelbook-global.firebaseapp.com",
+  projectId: "yokelbook-global",
+  storageBucket: "yokelbook-global.firebasestorage.app",
+  messagingSenderId: "1048288092483",
+  appId: "1:1048288092483:web:5c17ea9a5e55db3bd3cff6",
+  measurementId: "G-NT90RVWPMZ"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const postsCol = collection(db, "posts");
+function toBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=rej;r.readAsDataURL(file);});}
+window.createPost=async()=>{
+ const txt=document.getElementById("text").value.trim();
+ const ph=document.getElementById("photo");
+ if(!txt&&!ph.files[0])return alert("Write something!");
+ document.getElementById("status").innerText="Posting...";
+ let img=""; if(ph.files[0]){if(ph.files[0].size>900000)return alert("Photo too big! <1MB"); img=await toBase64(ph.files[0]);}
+ await addDoc(postsCol,{text:txt,image:img,likes:0,comments:[],author:"Taani",createdAt:serverTimestamp()});
+ document.getElementById("text").value=""; ph.value=""; document.getElementById("status").innerText="✅ Posted! Live!";
+}
+window.likePost=async(id)=>{await updateDoc(doc(db,"posts",id),{likes:increment(1)});}
+window.addComment=async(id)=>{const c=prompt("Comment:"); if(!c)return; await updateDoc(doc(db,"posts",id),{comments:arrayUnion(c)});}
+const q=query(postsCol,orderBy("createdAt","desc"));
+onSnapshot(q,(snap)=>{
+ const feed=document.getElementById("feed"); feed.innerHTML="";
+ if(snap.empty)feed.innerHTML="<div class='post-box'>No posts yet. Be first! 🇵🇬</div>";
+ snap.forEach(d=>{const p=d.data(); const div=document.createElement("div"); div.className="post";
+ div.innerHTML=`<b>${p.author}</b> <small>${p.createdAt?new Date(p.createdAt.seconds*1000).toLocaleString():'now'}</small><div style="margin:8px 0">${(p.text||'').replace(/</g,'&lt;')}</div>${p.image?`<img src="${p.image}">`:''}<div class="actions"><button onclick="likePost('${d.id}')">👍 Like (${p.likes||0})</button><button onclick="addComment('${d.id}')">💬 Comment (${(p.comments||[]).length})</button></div><div>${(p.comments||[]).map(c=>`<div class='comment'>${c.replace(/</g,'&lt;')}</div>`).join('')}</div>`;
+ feed.appendChild(div);});
+});
+</script></body></html>
