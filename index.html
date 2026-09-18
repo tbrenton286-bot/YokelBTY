@@ -3,39 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YokelBook Global</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+<title>YokelBook Global - Connect The World</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8955037909878326" crossorigin="anonymous"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#f0f2f5}
-.navbar{background:#1877f2;padding:10px 15px;color:white;display:flex;justify-content:space-between;position:sticky;top:0}
+.navbar{background:#1877f2;padding:10px 15px;color:white;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
 .post-box{background:white;padding:15px;margin:15px;border-radius:8px}
-.post-box textarea{width:100%;border:none;background:#f0f2f5;border-radius:20px;padding:12px;outline:none}
-.post-btn{background:#1877f2;color:white;border:none;padding:8px 20px;border-radius:20px;font-weight:bold;margin-top:10px;width:100%}
+.post-box textarea{width:100%;border:none;background:#f0f2f5;border-radius:20px;padding:10px 15px;outline:none;resize:none}
+.post-btn{background:#1877f2;color:white;border:none;padding:8px 20px;border-radius:8px;margin-top:10px;font-weight:bold;cursor:pointer}
 .post{background:white;padding:15px;margin:15px;border-radius:8px}
 .ad-box{background:white;padding:10px;margin:15px;border-radius:8px;text-align:center;border:1px dashed #1877f2}
+.footer{padding:20px;text-align:center;color:gray;font-size:12px}
 </style>
 </head>
 <body>
-<div class="navbar"><b>yokelbook 🇵🇬</b><span>CEO: Taani</span></div>
+<div class="navbar"><div><b>YokelBook 🌍</b><span> CEO: Taani</span></div><div>Global</div></div>
+
 <div class="post-box">
-<textarea id="postInput" rows="3" placeholder="What's on your mind, Taani?"></textarea>
-<button class="post-btn" onclick="makePost()">Post to YokelBook</button>
+<textarea rows="3" placeholder="What's on your mind, Taani?"></textarea>
+<button onclick="makePost()">Post to YokelBook</button>
 </div>
+
+<div class="post">
+<h3>Welcome to YokelBook Global!</h3>
+<p>Connect with friends around the world. Share your stories, photos and ideas. YokelBook is built for everyone - fast, simple and global.</p>
+<p>We are based in Port Moresby, Papua New Guinea and connecting the Pacific to the world.</p>
+</div>
+
 <div class="ad-box">
-<small>Advertisement - Your Money Spot 💰</small>
-<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0000000000000000" data-ad-slot="123" data-ad-format="auto"></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
+<small>Money Spot 💰</small>
+<p>Ads will help us keep YokelBook free!</p>
 </div>
-<div id="feed"><div class="post">🌍 WE DID IT PNG! 🇵🇬<br><br>Welcome to YokelBook Global - Built in Port Moresby, for the world!</div></div>
+
+<div class="post">
+<h3>About Us</h3>
+<p>YokelBook Global is a social network created by Taani to bring communities together. Our mission is free expression and connection.</p>
+<h3>Privacy Policy</h3>
+<p>We respect your privacy. We do not sell your data. We use cookies to improve experience.</p>
+<h3>Contact</h3>
+<p>Email: yokelbook.global@gmail.com</p>
+</div>
+
+<div class="footer">© 2026 YokelBook Global - All Rights Reserved</div>
+
 <script>
-function makePost(){
- let t=document.getElementById('postInput').value;
- if(!t.trim())return;
- let d=document.createElement('div');d.className='post';d.innerHTML='<b>Taani</b><br><br>'+t;
- document.getElementById('feed').prepend(d);
- document.getElementById('postInput').value='';
-}
+function makePost(){alert("Post feature coming soon! Your YokelBook is live!");}
 </script>
 </body>
 </html>
