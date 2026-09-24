@@ -135,4 +135,146 @@ let inbox=JSON.parse(localStorage.getItem('yokel_inbox')||'[]');
 let toks=JSON.parse(localStorage.getItem('yokel_toks')||'[]');
 let earnings=parseFloat(localStorage.getItem('yokel_earn')||'0');
 let currentUser=localStorage.getItem('yokel_user')||'';
-let multiFiles=[], singleFile=null, videoFile=null, videoSizeMB=0, sellMultiFiles=[], reel
+let multiFiles=[], singleFile=null, videoFile=null, videoSizeMB=0, sellMultiFiles=[], reelFile=null, tokFile=null;
+
+function login(){
+ let u=document.getElementById('uName').value.trim();
+ if(!u) return alert('Enter username');
+ currentUser=u; localStorage.setItem('yokel_user',u);
+ document.getElementById('myNameTop').innerText=u;
+ document.getElementById('myAvatar').innerText=u[0].toUpperCase();
+ document.getElementById('profileName').innerText=u;
+ document.getElementById('profileAvatar').innerText=u[0].toUpperCase();
+ document.getElementById('loginScreen').classList.add('hidden');
+ document.getElementById('mainApp').classList.remove('hidden');
+ renderAll();
+}
+function logout(){localStorage.removeItem('yokel_user');location.reload();}
+if(currentUser){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('mainApp').classList.remove('hidden');document.getElementById('myNameTop').innerText=currentUser;document.getElementById('myAvatar').innerText=currentUser[0].toUpperCase();document.getElementById('profileName').innerText=currentUser;document.getElementById('profileAvatar').innerText=currentUser[0].toUpperCase();}
+
+function showPage(id){
+ document.querySelectorAll('#mainApp>div').forEach(d=>{if(d.id.endsWith('Page')) d.classList.add('hidden')});
+ document.getElementById(id).classList.remove('hidden');
+ document.querySelectorAll('.nav span').forEach(s=>s.classList.remove('active'));
+ let map={feedPage:'nFeed'}; if(map[id]) document.getElementById(map[id]).classList.add('active');
+ if(id==='feedPage') renderFeed(); if(id==='reelsPage') renderReels(); if(id==='sellsPage') renderSells(); if(id==='inboxPage') renderInbox(); if(id==='tokboxPage') renderToks(); if(id==='earnPage') renderEarn(); if(id==='profilePage') renderProfile();
+}
+
+function handleMulti(input){
+ multiFiles=[]; document.getElementById('multiPreview').innerHTML='';
+ let files=[...input.files].slice(0,10);
+ if(input.files.length>10) alert('Max 10 photos! Taking first 10 only.');
+ if(!files.length) return;
+ singleFile=null; videoFile=null; document.getElementById('singlePreview').style.display='none'; document.getElementById('videoPreviewInfo').style.display='none';
+ files.forEach(f=>{
+  let r=new FileReader(); r.onload=e=>{
+   multiFiles.push(e.target.result);
+   let img=document.createElement('img'); img.src=e.target.result;
+   document.getElementById('multiPreview').appendChild(img);
+   document.getElementById('uploadStatus').innerText=`${multiFiles.length}/10 photos ready - ONE POST like Facebook!`;
+  }; r.readAsDataURL(f);
+ });
+}
+function handleSingle(input){
+ let f=input.files[0]; if(!f) return;
+ multiFiles=[]; document.getElementById('multiPreview').innerHTML='';
+ let r=new FileReader(); r.onload=e=>{singleFile=e.target.result; videoFile=null; document.getElementById('singlePreview').src=e.target.result; document.getElementById('singlePreview').style.display='block'; document.getElementById('uploadStatus').innerText='Single photo ready';}; r.readAsDataURL(f);
+}
+function handleVideo(input){
+ let f=input.files[0]; if(!f) return;
+ let mb=(f.size/1024/1024).toFixed(2); videoSizeMB=mb;
+ if(f.size>50*1024*1024){alert(`❌ TOO BIG! ${mb}MB > 50MB LIMIT! YokelBTY limit is 50MB only.`); input.value=''; document.getElementById('videoPreviewInfo').innerHTML=`<div class="video-bad">❌ ${mb}MB > 50MB - REJECTED!</div>`; document.getElementById('videoPreviewInfo').style.display='block'; return;}
+ multiFiles=[]; singleFile=null; document.getElementById('multiPreview').innerHTML=''; document.getElementById('singlePreview').style.display='none';
+ let r=new FileReader(); r.onload=e=>{videoFile=e.target.result; document.getElementById('videoPreviewInfo').innerHTML=`<div class="video-ok">✅ Video OK: ${mb}MB / 50MB LIMIT - Ready!</div>`; document.getElementById('videoPreviewInfo').style.display='block'; document.getElementById('uploadStatus').innerText=`Video ${mb}MB / 50MB OK`;}; r.readAsDataURL(f);
+}
+function handleStory(input){ let f=input.files[0]; if(!f) return; alert('📖 Story uploaded! (Demo) - Will disappear in 24h like Facebook'); }
+function handleReelVideo(input){
+ let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2);
+ if(f.size>50*1024*1024){alert(`Reel too big! ${mb}MB > 50MB`); input.value=''; document.getElementById('reelInfo').innerHTML=`<div class="video-bad">❌ ${mb}MB > 50MB</div>`; return;}
+ reelFile=f; document.getElementById('reelInfo').innerHTML=`<div class="video-ok">✅ Reel: ${mb}MB / 50MB OK</div>`;
+}
+function handleTokVideo(input){
+ let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2);
+ if(f.size>50*1024*1024){alert(`TokBox too big! ${mb}MB > 50MB`); input.value=''; return;}
+ tokFile=f; document.getElementById('tokInfo').innerHTML=`✅ TokBox: ${mb}MB / 50MB`;
+}
+function handleSellMulti(input){
+ sellMultiFiles=[]; document.getElementById('sellMultiPreview').innerHTML='';
+ let files=[...input.files].slice(0,10); if(input.files.length>10) alert('Max 10 product photos - taking first 10');
+ files.forEach(f=>{let r=new FileReader(); r.onload=e=>{sellMultiFiles.push(e.target.result); let img=document.createElement('img'); img.src=e.target.result; document.getElementById('sellMultiPreview').appendChild(img);}; r.readAsDataURL(f);});
+}
+
+function makePost(){
+ let text=document.getElementById('postText').value.trim();
+ if(!text && multiFiles.length==0 &&!singleFile &&!videoFile) return alert('Add text, photo or video!');
+ let newPost={id:Date.now(),user:currentUser,text,multi:multiFiles.slice(),single:singleFile,video:videoFile,videoMB:videoSizeMB,time:new Date().toLocaleString(),likes:0,likesList:[],comments:[],react:{like:0,love:0,haha:0,wow:0,sad:0}};
+ posts.unshift(newPost); localStorage.setItem('yokel_posts',JSON.stringify(posts));
+ earnings+=0.05; localStorage.setItem('yokel_earn',earnings);
+ document.getElementById('postText').value=''; multiFiles=[]; singleFile=null; videoFile=null; document.getElementById('multiPreview').innerHTML=''; document.getElementById('singlePreview').style.display='none'; document.getElementById('videoPreviewInfo').style.display='none'; document.getElementById('uploadStatus').innerText='✅ Posted! K0.05 earned!';
+ renderFeed(); alert(`Posted! ${newPost.multi.length?newPost.multi.length+' photos in ONE post':''} ✅`);
+}
+function renderFeed(){
+ let feed=document.getElementById('feed'); feed.innerHTML='';
+ posts.forEach(p=>{
+  let multiHtml=''; if(p.multi && p.multi.length){
+   let cls='post-grid-1'; if(p.multi.length==2) cls='post-grid-2'; else if(p.multi.length==3) cls='post-grid-3'; else if(p.multi.length==4) cls='post-grid-4'; else cls='post-grid-many';
+   multiHtml=`<div class="${cls}" style="margin-top:8px">`; p.multi.forEach(src=> multiHtml+=`<img src="${src}" style="width:100%;border-radius:8px">`); multiHtml+=`</div><div class="small">${p.multi.length} photos in ONE post • Facebook style grid</div>`;
+  }
+  let singleHtml=p.single?`<img src="${p.single}" style="width:100%;border-radius:12px;margin-top:8px;max-height:500px;object-fit:contain">`:'';
+  let videoHtml=p.video?`<video src="${p.video}" controls style="width:100%;border-radius:12px;margin-top:8px"></video><div class="small">Video ${p.videoMB||''}MB / 50MB</div>`:'';
+  let commentsHtml=(p.comments||[]).map(c=>`<div class="small" style="background:#f0f2f5;padding:6px 8px;border-radius:10px;margin:4px 0"><b>${c.user}</b> ${c.text}</div>`).join('');
+  let html=`<div class="card"><div class="flex"><div style="width:36px;height:36px;background:var(--p);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold">${p.user[0].toUpperCase()}</div><div><b>${p.user}</b><br><span class="small">${p.time}</span></div></div><p style="margin:8px 0">${p.text||''}</p>${multiHtml}${singleHtml}${videoHtml}
+  <div class="reaction-bar"><span onclick="reactPost(${p.id},'like')">👍 Like ${p.react?.like||p.likes||0}</span><span onclick="reactPost(${p.id},'love')">❤️ Love ${p.react?.love||0}</span><span onclick="reactPost(${p.id},'haha')">😂 Haha ${p.react?.haha||0}</span><span onclick="commentPost(${p.id})">💬 ${p.comments?.length||0}</span><span onclick="sharePost(${p.id})">↗️ Share</span></div>
+  <div id="cmt-${p.id}">${commentsHtml}</div>
+  <div class="flex" style="margin-top:6px"><input id="cInput-${p.id}" placeholder="Write a comment..." style="margin:0"><button class="btn" style="width:80px;margin:0" onclick="doComment(${p.id})">Post</button></div></div>`;
+  feed.innerHTML+=html;
+ });
+ document.getElementById('pPostCount').innerText=posts.filter(p=>p.user==currentUser).length;
+}
+function reactPost(id,type){
+ let p=posts.find(x=>x.id==id); if(!p) return; if(!p.react) p.react={like:0,love:0,haha:0,wow:0,sad:0};
+ p.react[type]=(p.react[type]||0)+1; if(type=='like') p.likes=(p.likes||0)+1;
+ localStorage.setItem('yokel_posts',JSON.stringify(posts)); if(p.user==currentUser){earnings+=0.01; localStorage.setItem('yokel_earn',earnings);} renderFeed();
+}
+function doComment(id){
+ let inp=document.getElementById('cInput-'+id); let txt=inp.value.trim(); if(!txt) return;
+ let p=posts.find(x=>x.id==id); p.comments=p.comments||[]; p.comments.push({user:currentUser,text:txt,time:Date.now()});
+ localStorage.setItem('yokel_posts',JSON.stringify(posts)); inp.value=''; renderFeed();
+}
+function commentPost(id){document.getElementById('cInput-'+id).focus();}
+function sharePost(id){alert('🔗 Link copied! Share to WhatsApp, Facebook - K0.02 earned!'); earnings+=0.02; localStorage.setItem('yokel_earn',earnings);}
+
+function renderAll(){renderFeed();renderReels();renderSells();renderInbox();renderToks();renderEarn();}
+function renderReels(){let f=document.getElementById('reelsFeed'); f.innerHTML=''; reels.forEach(r=>{f.innerHTML+=`<div class="card"><b>${r.user}</b><p>${r.caption}</p><div class="small">${r.info}</div></div>`;});}
+function postReel(){
+ let cap=document.getElementById('reelCaption').value; if(!reelFile &&!cap) return alert('Add video or caption');
+ let mb=reelFile?(reelFile.size/1024/1024).toFixed(2):0;
+ reels.unshift({user:currentUser,caption:cap,info:`Reel ${mb}MB / 50MB`,time:Date.now()}); localStorage.setItem('yokel_reels',JSON.stringify(reels));
+ earnings+=0.10; localStorage.setItem('yokel_earn',earnings); alert('Reel posted! K0.10 earned!'); renderReels();
+}
+function renderSells(){let f=document.getElementById('sellsFeed'); f.innerHTML=''; sells.forEach(s=>{let imgs=s.multi.map(m=>`<img src="${m}" style="width:100%;height:100px;object-fit:cover;border-radius:8px">`).join(''); f.innerHTML+=`<div class="card"><b>${s.title} - K${s.price}</b><p class="small">${s.location}</p><div class="preview-grid">${imgs}</div><p>${s.desc}</p><div class="small">${s.multi.length} photos in ONE sale • by ${s.user}</div><button class="btn" onclick="alert('Contact seller: ${s.user} - Inbox him!')">Inbox Seller 📥</button></div>`;});}
+function postSell(){
+ let title=document.getElementById('sellTitle').value, price=document.getElementById('sellPrice').value, loc=document.getElementById('sellLocation').value, desc=document.getElementById('sellDesc').value;
+ if(!title || sellMultiFiles.length==0) return alert('Add title + product photos (multi)');
+ sells.unshift({user:currentUser,title,price,location:loc,desc,multi:sellMultiFiles.slice(),time:Date.now()}); localStorage.setItem('yokel_sells',JSON.stringify(sells));
+ earnings+=0.05; localStorage.setItem('yokel_earn',earnings); alert(`Sale posted! ${sellMultiFiles.length} photos in ONE sale!`); renderSells();
+}
+function renderInbox(){let l=document.getElementById('inboxList'); l.innerHTML=''; inbox.forEach(m=>{l.innerHTML+=`<div style="padding:8px;border-bottom:1px solid #eee"><b>${m.from} → ${m.to}</b><br>${m.text}<br><span class="small">${new Date(m.time).toLocaleString()}</span></div>`;});}
+function sendInbox(){
+ let to=document.getElementById('inboxTo').value.trim(), txt=document.getElementById('inboxMsg').value.trim(); if(!to||!txt) return alert('Add to + message');
+ inbox.unshift({from:currentUser,to,text:txt,time:Date.now()}); localStorage.setItem('yokel_inbox',JSON.stringify(inbox)); document.getElementById('inboxMsg').value=''; renderInbox(); alert('Message sent! 📥');
+}
+function renderToks(){let l=document.getElementById('tokList'); l.innerHTML=''; toks.forEach(t=>{l.innerHTML+=`<div class="card"><b>${t.user}</b><p>${t.caption}</p><div class="small">${t.info}</div></div>`;});}
+function postTok(){
+ let cap=document.getElementById('tokCaption').value; let mb=tokFile?(tokFile.size/1024/1024).toFixed(2):0;
+ toks.unshift({user:currentUser,caption:cap,info:`TokBox ${mb}MB / 50MB`,time:Date.now()}); localStorage.setItem('yokel_toks',JSON.stringify(toks));
+ earnings+=0.08; localStorage.setItem('yokel_earn',earnings); alert('TokBox posted!'); renderToks();
+}
+function renderEarn(){document.getElementById('earnBalance').innerText=`K ${earnings.toFixed(2)}`; document.getElementById('earnPosts').innerText=posts.filter(p=>p.user==currentUser).length; document.getElementById('earnLikes').innerText=posts.filter(p=>p.user==currentUser).reduce((a,b)=>a+(b.likes||0),0); document.getElementById('earnHistory').innerHTML=`<div class="small">Earn K0.05 per post (multi photos = same post), K0.01 per like, K0.10 per reel (50MB), K0.08 TokBox, K0.02 share</div>`;}
+function renderProfile(){document.getElementById('pPostCount').innerText=posts.filter(p=>p.user==currentUser).length;}
+function withdraw(){
+ let bank=document.getElementById('bankName').value, acc=document.getElementById('bankAcc').value, name=document.getElementById('bankAccName').value, amt=parseFloat(document.getElementById('withdrawAmt').value);
+ if(!bank||!acc||!name||!amt) return alert('Fill all bank fields'); if(amt<20) return alert('Min K20'); if(amt>earnings) return alert('Not enough balance');
+ earnings-=amt; localStorage.setItem('yokel_earn',earnings); let hist=document.getElementById('withdrawHistory'); hist.innerHTML=`<div style="background:#d4edda;padding:8px;border-radius:8px;margin-top:6px">✅ Withdraw K${amt} to ${bank} - ${acc} (${name}) - Processing 24h. Fee K2 deducted.</div>`+hist.innerHTML; renderEarn(); alert(`Withdraw request K${amt} to ${bank} sent!`);
+}
+</script></body></html>
