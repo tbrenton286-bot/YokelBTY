@@ -1,60 +1,138 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Yokel BTY V16.1 MULTI PHOTOS 50MB</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#f0f2f5;color:#000;padding-bottom:85px}.header{background:#fff;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30;box-shadow:0 1px 3px #ccc}.card{background:#fff;margin:8px 0;padding:12px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.2)}input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;background:#f0f2f5}button{background:#0064d1;color:#fff;border:none;padding:12px 18px;border-radius:20px;font-weight:bold;cursor:pointer;margin:3px}.btn-yellow{background:#ffcc00;color:#000}.btn-red{background:#d00}.btn-black{background:#000;color:#ffcc00}.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:4px 0;border-top:2px solid #ffcc00;z-index:30}.bottom div{text-align:center;font-size:9px;color:#65676b;cursor:pointer}.bottom div.active{color:#0064d1;font-weight:bold}.hidden{display:none!important}.prof{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #ffcc00}#loginScreen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,#fff 0%,#ffe 100%);z-index:9999;display:flex;align-items:center;justify-content:center;padding:15px;overflow-y:auto}.login-box{background:#fff;width:100%;max-width:400px;padding:20px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,.2);text-align:center;border:3px solid #ffcc00}.story-row{display:flex;gap:8px;overflow-x:auto;padding:8px 0}.story{min-width:110px;height:170px;background:#ddd;border-radius:12px;position:relative;overflow:hidden;flex-shrink:0;border:2px solid #0064d1}.story img{width:100%;height:100%;object-fit:cover}.story span{position:absolute;bottom:5px;left:5px;color:#fff;font-weight:bold;font-size:11px;text-shadow:1px 1px 3px #000;background:rgba(0,0,0,.4);padding:2px 6px;border-radius:8px}.tab{display:flex;gap:5px;margin:10px 0}.tab div{flex:1;padding:10px;border-radius:10px;background:#f0f2f5;cursor:pointer;font-weight:bold}.tab div.active{background:#ffcc00}.react-btns{display:flex;gap:6px;flex-wrap:wrap}.react-btn{cursor:pointer;font-size:12px;padding:5px 9px;border-radius:15px;background:#f0f2f5}.react-btn.active{background:#0064d1;color:#fff}.upload-icons{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}.upload-icon{width:70px;height:75px;border:2px dashed #0064d1;border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:#f0f8ff}.upload-icon.big{width:100px;height:90px}.upload-icon.multi{width:110px;height:90px;border-color:#ff6600;background:#fff5e6}.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}.preview-grid img{width:100%;height:120px;object-fit:cover;border-radius:10px;border:2px solid #ffcc00}.preview-grid.single{grid-template-columns:1fr}.preview-grid.single img{height:250px}.preview-grid.triple{grid-template-columns:1fr 1fr 1fr}.preview-grid.triple img{height:100px}.size-info{font-size:11px;color:#0064d1;font-weight:bold;background:#e7f3ff;padding:4px 8px;border-radius:10px;display:inline-block;margin:4px 0}
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YokelBTY V16.1 FULL COMPLETE MULTI 50MB</title>
+<style>
+:root{--p:#1877F2;--bg:#f0f2f5}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica;background:var(--bg);color:#050505}
+.hidden{display:none!important}.card{background:#fff;border-radius:12px;padding:12px;margin:8px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.btn{background:var(--p);color:#fff;border:0;padding:11px 16px;border-radius:8px;font-weight:700;cursor:pointer;width:100%;margin-top:8px}
+.btn:disabled{background:#ccd0d5}.btn-gold{background:#ffb400;color:#000}
+.small{font-size:12px;color:#65676b}.flex{display:flex;gap:8px;align-items:center}
+.upload-icons{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.upload-icon{display:flex;align-items:center;gap:6px;background:#f0f2f5;padding:8px 12px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600}
+.upload-icon.multi{background:#e7f3ff;border:2px solid var(--p);color:var(--p)}
+.preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 0}
+.preview-grid img{width:100%;height:110px;object-fit:cover;border-radius:8px;border:1px solid #ddd}
+.post-grid-1 img{width:100%;max-height:500px;object-fit:contain;border-radius:10px}
+.post-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px}.post-grid-2 img{height:250px;object-fit:cover;width:100%}
+.post-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}.post-grid-3 img{height:180px;object-fit:cover;width:100%}
+.post-grid-4{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px}.post-grid-4 img{height:180px;object-fit:cover;width:100%}
+.post-grid-many{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}.post-grid-many img{height:150px;object-fit:cover;width:100%}
+.reaction-bar{display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;margin:8px 0}
+.reaction-bar span{cursor:pointer;padding:6px 10px;border-radius:6px}.reaction-bar span:hover{background:#f0f2f5}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #ddd;z-index:100}
+.nav span{font-size:22px;cursor:pointer;padding:6px 8px;border-radius:8px;text-align:center;line-height:1.1}.nav span.active{background:#e7f3ff}
+.nav small{display:block;font-size:9px}
+#loginScreen{max-width:420px;margin:30px auto;padding:16px}
+textarea,input,select{width:100%;padding:11px;border:1px solid #ddd;border-radius:8px;margin:6px 0;font-size:14px}
+.badge{background:red;color:#fff;padding:2px 6px;border-radius:10px;font-size:11px}
+.video-ok{background:#d4edda;color:#155724;padding:8px;border-radius:8px;margin:6px 0;font-weight:600}
+.video-bad{background:#f8d7da;color:#721c24;padding:8px;border-radius:8px;margin:6px 0;font-weight:600}
 </style></head><body>
-<div id="loginScreen"><div class="login-box"><h1 style="color:#b80000;font-size:34px">yokel<span style="color:#000">bty</span> 🇵🇬</h1><p style="font-weight:bold">V16.1 MULTI 50MB REAL</p><img id="profPrev" style="width:95px;height:95px;border-radius:50%;display:none;border:3px solid #ffcc00;margin:10px auto"><label style="display:block;background:#f0f2f5;padding:12px;border-radius:20px;margin:10px 0;cursor:pointer">📸 Profile Photo<input type="file" id="profFile" accept="image/*" onchange="previewProf(event)" hidden></label><div class="tab"><div id="tabCreate" class="active" onclick="switchTab('create')">Create Account</div><div id="tabLogin" onclick="switchTab('login')">Login</div></div><input id="userName" placeholder="Your Name" style="background:#fff;border:1px solid #ddd"><div style="position:relative"><input id="userPass" type="password" placeholder="Password" style="padding-right:45px;background:#fff;border:1px solid #ddd"><span onclick="toggleEye()" style="position:absolute;right:15px;top:50%;transform:translateY(-50%);cursor:pointer">👁️</span></div><input id="userPhone" placeholder="Phone (optional)" style="background:#fff;border:1px solid #ddd;display:none"><button id="mainBtn" onclick="handleAuth()" class="btn-yellow" style="width:100%">CREATE & LAUNCH 🚀</button><button onclick="forceEnter()" class="btn-black" style="width:100%;margin-top:8px">FORCE ENTER >></button></div></div>
-<div id="mainApp" class="hidden"><div class="header"><h2 style="color:#b80000">yokel<span style="color:#000">bty</span></h2><div style="display:flex;gap:5px;align-items:center"><div onclick="showPage('inboxPage')" style="position:relative"><span style="font-size:20px;cursor:pointer">📥</span><span id="inboxBadge" style="position:absolute;top:-5px;right:-5px;background:red;color:#fff;font-size:9px;padding:2px 5px;border-radius:10px;display:none">0</span></div><img id="topProf" src="https://via.placeholder.com/40" class="prof"><button onclick="logout()" style="padding:5px 8px;font-size:11px">Logout</button><button onclick="showPage('menuPage')" style="width:28px;height:28px;border-radius:50%">☰</button></div></div>
-<div id="feedPage"><div class="card"><h4 style="font-size:13px">📖 Stories - Upload Story</h4><div class="story-row" id="storyRow"></div><div class="upload-icons"><label class="upload-icon big"><span>➕</span><small>UPLOAD STORY</small><input type="file" id="storyFile" accept="image/*,video/*" onchange="uploadStory(event)" hidden></label></div></div>
-<div class="card"><textarea id="postText" placeholder="Wanem niupela? Write something..."></textarea>
+
+<div id="loginScreen"><div class="card" style="text-align:center"><h1 style="color:var(--p);font-size:32px">YokelBTY</h1>
+<p><b>V16.1 FULL COMPLETE</b><br><span class="small">MULTI 50MB + Earnings + Banks + All Features</span></p>
+<input id="uName" placeholder="Username (e.g. Yokel)">
+<input id="uPass" type="password" placeholder="Password">
+<button class="btn" onclick="login()">Login / Register</button>
+<p class="small" style="margin-top:12px">PNG Social Media - Made for PNG 🇵🇬<br>50MB Video Limit • 10 Photos ONE POST like Facebook</p>
+</div></div>
+
+<div id="mainApp" class="hidden">
+<div id="feedPage"><div class="card">
+<div class="flex"><div style="width:40px;height:40px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold" id="myAvatar">Y</div>
+<div><b id="myNameTop">User</b><br><span class="small">Public • Now</span></div></div>
+<textarea id="postText" placeholder="What's on your mind, Yokel? Share 10 photos in ONE post!"></textarea>
 <div class="upload-icons">
-<label class="upload-icon multi"><span>📸📸📸</span><small>MULTI PHOTOS (10 max)</small><input type="file" id="feedMulti" accept="image/*" multiple onchange="previewMulti(event)" hidden></label>
-<label class="upload-icon"><span>📷</span><small>Single Photo</small><input type="file" id="feedPhoto" accept="image/*" onchange="previewSingle(event)" hidden></label>
-<label class="upload-icon"><span>🎥</span><small>Video 50MB MAX</small><input type="file" id="feedVideo" accept="video/*" onchange="previewVideo(event)" hidden></label>
+<label class="upload-icon multi"><span>📸📸📸</span> MULTI (10) <input type="file" id="multiInput" accept="image/*" multiple hidden onchange="handleMulti(this)"></label>
+<label class="upload-icon">📷 Single <input type="file" id="singleInput" accept="image/*" hidden onchange="handleSingle(this)"></label>
+<label class="upload-icon">🎥 Video 50MB <input type="file" id="videoInput" accept="video/*" hidden onchange="handleVideo(this)"></label>
+<label class="upload-icon">📖 Story <input type="file" id="storyInput" accept="image/*,video/*" hidden onchange="handleStory(this)"></label>
 </div>
-<div id="multiPreview" class="preview-grid" style="display:none"></div>
-<img id="singlePreview" style="display:none;width:100%;max-height:300px;object-fit:cover;border-radius:10px;border:2px solid #ffcc00;margin:8px 0">
-<div id="videoPreviewInfo" style="display:none"><span class="size-info" id="videoSizeInfo"></span><video id="videoPreview" controls style="width:100%;max-height:300px;border-radius:10px;margin-top:6px"></video></div>
-<div id="uploadStatus" style="font-size:12px;color:green;font-weight:bold"></div>
-<button onclick="makePost()" class="btn-yellow" style="width:100%;font-size:16px">📤 Post with Multiple Photos (50MB)</button>
-<small style="color:#65676b">You can upload up to 10 photos in ONE post! Video max 50MB per file - Real check!</small>
+<div id="multiPreview" class="preview-grid"></div>
+<img id="singlePreview" style="display:none;width:100%;border-radius:12px;max-height:400px;object-fit:contain;border:1px solid #ddd">
+<div id="videoPreviewInfo" style="display:none"></div>
+<div id="uploadStatus" class="small" style="color:green;font-weight:600"></div>
+<button onclick="makePost()" class="btn">Post to YokelBTY 🚀</button>
+<div class="small" style="margin-top:6px">✅ Facebook style: Select 10 photos → ONE post with grid! • Video max 50MB shows real MB!</div>
 </div><div id="feed"></div></div>
-<div id="inboxPage" class="hidden"><div class="card"><h3>📥 Inbox</h3><div id="inboxList"></div><div class="card" style="background:#fffbe6"><input id="inboxTo" placeholder="To: Name"><input id="inboxMsgText" placeholder="Message..."><button onclick="sendInbox()" class="btn-yellow">Send 📨</button></div></div></div>
-<div id="tokboxPage" class="hidden"><div class="card"><h3>Tokbox 💬</h3><div id="tokList" style="max-height:350px;overflow-y:auto"></div><div style="display:flex;gap:5px"><input id="tokInput" placeholder="Message..."><button onclick="sendTok()">Send</button></div></div></div>
-<div id="reelsPage" class="hidden"><div class="card"><h3>Reels 🎬 50MB - Earn K1.20</h3><input id="reelTitle" placeholder="Title"><div class="upload-icons"><label class="upload-icon big" style="border-color:red;background:#fff0f0"><span>🎬</span><small>TAP VIDEO 50MB MAX</small><input type="file" id="reelFile" accept="video/*" onchange="previewReel(event)" hidden></label></div><div id="reelVideoInfo" style="display:none"><span class="size-info" id="reelSizeInfo"></span><video id="reelPreview" controls style="width:100%;max-height:300px;border-radius:10px;margin-top:6px;display:none"></video></div><button onclick="postReel()" class="btn-yellow" style="width:100%">Upload Reel 50MB</button><div id="reelFeed"></div></div></div>
-<div id="sellsPage" class="hidden"><div class="card"><h3>🛒 Sells - Multi Photos + 50MB</h3><input id="sellItem" placeholder="What selling?"><input id="sellPrice" placeholder="Price K"><div class="upload-icons"><label class="upload-icon multi big"><span>📦📦</span><small>MULTI PHOTOS Product (10 max)</small><input type="file" id="sellMulti" accept="image/*" multiple onchange="previewSellMulti(event)" hidden></label><label class="upload-icon"><span>🎥</span><small>Video 50MB</small><input type="file" id="sellVideo" accept="video/*" onchange="previewSellVideo(event)" hidden></label></div><div id="sellMultiPreview" class="preview-grid" style="display:none"></div><div id="sellVideoInfo" style="display:none"><span class="size-info" id="sellVideoSize"></span><video id="sellVideoPreview" controls style="width:100%;max-height:250px;border-radius:10px"></video></div><button onclick="postSell()" class="btn-yellow" style="width:100%">Post Sale with Multi Photos</button><div id="sellFeed"></div></div></div>
-<div id="earnPage" class="hidden"><div class="card"><h3>💰 Earnings REAL</h3><table><tr><th>Work</th><th>Rate</th><th>Count</th><th>Total</th></tr><tr><td>Feed Post</td><td>K0.50</td><td id="cPost">0</td><td id="tPost">K0</td></tr><tr><td>Reels</td><td>K1.20</td><td id="cReel">0</td><td id="tReel">K0</td></tr><tr><td>Sells</td><td>K2.00</td><td id="cSell">0</td><td id="tSell">K0</td></tr><tr><td>Story</td><td>K0.30</td><td id="cStory">0</td><td id="tStory">K0</td></tr><tr style="background:#ffcc00;font-weight:bold"><td>TOTAL</td><td></td><td></td><td id="totalBal">K0.00</td></tr></table><button onclick="alert('Withdraw real to BSP!')" class="btn-yellow" style="width:100%">Withdraw REAL 🏦</button></div></div>
-<div id="menuPage" class="hidden"><div class="card"><b id="menuName"></b></div><div class="card"><button onclick="showPage('feedPage')">Feed</button><button onclick="showPage('inboxPage')">Inbox</button><button onclick="showPage('earnPage')" class="btn-yellow">Earnings</button><button class="btn-red" onclick="logout()">Logout</button></div><div class="card" style="background:#fffbe6;border:2px solid #ffcc00"><h4>🏦 PNG Banks</h4><select id="bankName"><option>BSP</option><option>Kina Bank</option><option>MiBank</option></select><input id="accName" placeholder="Account Name"><input id="accNum" placeholder="Number"><button onclick="saveBank()" class="btn-yellow">Save Bank</button><p id="bankSaved"></p></div><div class="card" style="background:#f0f2f5"><h4>📖 Manual V16.1 - 50MB MULTI</h4><p style="font-size:12px"><b>NEW 50MB + MULTI PHOTOS:</b><br>📸 Feed: Tap 📸📸📸 MULTI PHOTOS - select up to 10 photos at once! All show in grid in ONE post! + Video 50MB max with size check!<br>📦 Sells: Tap 📦📦 MULTI PHOTOS - 10 product photos in ONE sale post!<br>🎬 Reels: Video 50MB max - real size check, shows MB!<br>📖 Stories: Upload story<br>📥 Inbox: Real messages<br>All real 50MB limit - if over 50MB, alert! Ready for launch! 🇵🇬</p></div><div id="adminCard" style="display:none;border:3px solid red;padding:10px;background:#ffe6e6"><h4>👑 Admin</h4><p id="adminStats"></p></div></div>
-<div class="bottom"><div class="active" onclick="showPage('feedPage')">🏠<br>Feed</div><div onclick="showPage('tokboxPage')">💬<br>Tokbox</div><div onclick="showPage('inboxPage')">📥<br>Inbox</div><div onclick="showPage('reelsPage')">▶️<br>Reels</div><div onclick="showPage('sellsPage')">🛒<br>Sells</div><div onclick="showPage('earnPage')">💰<br>Earn</div><div onclick="showPage('menuPage')">☰<br>Menu</div></div></div>
+
+<div id="reelsPage" class="hidden"><div class="card"><h3>🎬 Reels - 50MB MAX</h3>
+<input type="file" id="reelInput" accept="video/*" onchange="handleReelVideo(this)">
+<div id="reelInfo" class="small"></div>
+<textarea id="reelCaption" placeholder="Reel caption... PNG vibes"></textarea>
+<button class="btn" onclick="postReel()">Post Reel 🎬</button>
+<div class="small">Video limit 50MB - shows MB, blocks if >50MB</div></div><div id="reelsFeed"></div></div>
+
+<div id="sellsPage" class="hidden"><div class="card"><h3>🛒 Marketplace - MULTI PHOTOS IN ONE SALE</h3>
+<input id="sellTitle" placeholder="What are you selling? e.g. iPhone 13">
+<input id="sellPrice" type="number" placeholder="Price in Kina K">
+<input id="sellLocation" placeholder="Location e.g. Port Moresby">
+<label class="upload-icon multi" style="margin-top:8px">📦📦 MULTI PRODUCT PHOTOS (10 max) <input type="file" id="sellMulti" accept="image/*" multiple hidden onchange="handleSellMulti(this)"></label>
+<div id="sellMultiPreview" class="preview-grid"></div>
+<textarea id="sellDesc" placeholder="Description..."></textarea>
+<button class="btn" onclick="postSell()">Post for Sale 🛒</button>
+</div><div id="sellsFeed"></div></div>
+
+<div id="inboxPage" class="hidden"><div class="card"><h3>📥 Inbox & Messages</h3>
+<div id="inboxList"></div>
+<hr style="margin:10px 0">
+<input id="inboxTo" placeholder="To: username">
+<input id="inboxMsg" placeholder="Type message...">
+<button class="btn" onclick="sendInbox()">Send Message ✉️</button>
+</div></div>
+
+<div id="tokboxPage" class="hidden"><div class="card"><h3>📦 TokBox - Short Videos PNG</h3><div class="small">PNG TokBox like TikTok - 50MB max</div>
+<input type="file" id="tokInput" accept="video/*" onchange="handleTokVideo(this)"><div id="tokInfo" class="small"></div>
+<textarea id="tokCaption" placeholder="TokBox caption..."></textarea><button class="btn" onclick="postTok()">Post to TokBox</button>
+</div><div id="tokList"></div></div>
+
+<div id="earnPage" class="hidden"><div class="card"><h3>💰 Earnings</h3>
+<div style="background:linear-gradient(135deg,#1877F2,#00c6ff);color:#fff;padding:16px;border-radius:12px">
+<div class="small" style="color:#fff">Total Balance</div><h2 id="earnBalance">K 0.00</h2>
+<div class="small" style="color:#fff">From posts, likes, reels, sells - PNG style</div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+<div class="card" style="margin:0;text-align:center"><b id="earnPosts">0</b><br><span class="small">Posts</span></div>
+<div class="card" style="margin:0;text-align:center"><b id="earnLikes">0</b><br><span class="small">Likes Earned</span></div>
+</div>
+<button class="btn btn-gold" onclick="showPage('bankPage')">Withdraw to Bank 🏦</button>
+<div id="earnHistory" style="margin-top:10px"></div>
+</div></div>
+
+<div id="bankPage" class="hidden"><div class="card"><h3>🏦 Bank Withdraw - PNG Banks</h3>
+<select id="bankName"><option value="">Select Bank</option><option>BSP - Bank South Pacific</option><option>Kina Bank</option><option>Nationwide Microbank</option><option>Westpac PNG</option><option>ANZ PNG</option></select>
+<input id="bankAcc" placeholder="Account Number">
+<input id="bankAccName" placeholder="Account Name">
+<input id="withdrawAmt" type="number" placeholder="Amount K to withdraw">
+<button class="btn btn-gold" onclick="withdraw()">Request Withdraw</button>
+<div id="withdrawHistory" class="small" style="margin-top:10px"></div>
+<div class="small" style="margin-top:12px">Min K20 withdraw. 24h processing PNG time. Fee K2.</div>
+</div></div>
+
+<div id="profilePage" class="hidden"><div class="card" style="text-align:center"><div style="width:80px;height:80px;background:var(--p);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-size:36px;font-weight:bold" id="profileAvatar">Y</div>
+<h3 id="profileName">User</h3><p class="small">YokelBTY Member 🇵🇬</p>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px"><div><b id="pPostCount">0</b><br><span class="small">Posts</span></div><div><b id="pFollower">128</b><br><span class="small">Followers</span></div><div><b id="pFollowing">96</b><br><span class="small">Following</span></div></div>
+<button class="btn" onclick="logout()" style="background:#e4e6eb;color:#050505;margin-top:16px">Logout</button>
+</div></div>
+
+<div style="height:80px"></div>
+<div class="nav">
+<span onclick="showPage('feedPage')" id="nFeed" class="active">🏠<small>Feed</small></span>
+<span onclick="showPage('reelsPage')">🎬<small>Reels</small></span>
+<span onclick="showPage('sellsPage')">🛒<small>Sells</small></span>
+<span onclick="showPage('tokboxPage')">📦<small>TokBox</small></span>
+<span onclick="showPage('inboxPage')">📥<small>Inbox</small></span>
+<span onclick="showPage('earnPage')">💰<small>Earn</small></span>
+<span onclick="showPage('bankPage')">🏦<small>Bank</small></span>
+<span onclick="showPage('profilePage')">👤<small>You</small></span>
+</div>
+</div>
+
 <script>
-let mode='create',currentUser=localStorage.getItem('yokelUser')||'',profData=localStorage.getItem('yokelProf')||'',posts=JSON.parse(localStorage.getItem('yokelPosts')||'[]'),toks=JSON.parse(localStorage.getItem('yokelToks')||'[]'),reels=JSON.parse(localStorage.getItem('yokelReels')||'[]'),sells=JSON.parse(localStorage.getItem('yokelSells')||'[]'),stories=JSON.parse(localStorage.getItem('yokelStories')||'[]'),inbox=JSON.parse(localStorage.getItem('yokelInbox')||'[]'),tempMulti=[],tempSingle='',tempVideo='',tempSellMulti=[],tempSellVideo='';
-function switchTab(m){mode=m;document.getElementById('tabCreate').classList.toggle('active',m==='create');document.getElementById('tabLogin').classList.toggle('active',m==='login');document.getElementById('mainBtn').textContent=m==='create'?'CREATE & LAUNCH 🚀':'LOGIN 🚀';document.getElementById('userPhone').style.display=m==='create'?'block':'none'}
-function toggleEye(){let p=document.getElementById('userPass');p.type=p.type==='password'?'text':'password'}
-function previewProf(e){let f=e.target.files[0],r=new FileReader();r.onload=function(){profData=r.result;document.getElementById('profPrev').src=profData;document.getElementById('profPrev').style.display='block';localStorage.setItem('yokelProf',profData)};r.readAsDataURL(f)}
-function checkSize(file){let mb=file.size/(1024*1024);if(mb>50){alert('File too big! '+mb.toFixed(1)+'MB - Max 50MB! Choose smaller.');return false}return true}
-function previewMulti(e){let files=e.target.files;tempMulti=[];if(files.length>10){alert('Max 10 photos! You selected '+files.length);return}let totalMB=0;for(let f of files)totalMB+=f.size/(1024*1024);if(totalMB>50){alert('Total '+totalMB.toFixed(1)+'MB > 50MB! Choose less photos.');return}let grid=document.getElementById('multiPreview');grid.innerHTML='';grid.style.display='grid';grid.className='preview-grid '+(files.length===1?'single':files.length===3?'triple':'');let loaded=0;for(let file of files){let r=new FileReader();r.onload=function(ev){tempMulti.push(ev.target.result);let img=document.createElement('img');img.src=ev.target.result;grid.appendChild(img);loaded++;document.getElementById('uploadStatus').textContent=loaded+' photos loaded - '+(totalMB).toFixed(1)+'MB total - Ready!'};r.readAsDataURL(file)}}
-function previewSingle(e){let f=e.target.files[0];if(!f||!checkSize(f))return;let r=new FileReader();r.onload=function(ev){tempSingle=ev.target.result;tempMulti=[tempSingle];document.getElementById('singlePreview').src=tempSingle;document.getElementById('singlePreview').style.display='block';document.getElementById('uploadStatus').textContent='1 photo - '+(f.size/1024/1024).toFixed(1)+'MB - Ready!'};r.readAsDataURL(f)}
-function previewVideo(e){let f=e.target.files[0];if(!f||!checkSize(f))return;let r=new FileReader();r.onload=function(ev){tempVideo=ev.target.result;let v=document.getElementById('videoPreview');v.src=URL.createObjectURL(f);document.getElementById('videoPreviewInfo').style.display='block';document.getElementById('videoSizeInfo').textContent='Video: '+(f.size/1024/1024).toFixed(1)+'MB / 50MB MAX - Ready!';document.getElementById('uploadStatus').textContent='Video '+(f.size/1024/1024).toFixed(1)+'MB - Ready!'};r.readAsDataURL(f)}
-function previewSellMulti(e){let files=e.target.files;tempSellMulti=[];if(files.length>10){alert('Max 10!');return}let total=0;for(let f of files)total+=f.size/(1024*1024);if(total>50){alert(total.toFixed(1)+'MB > 50MB!');return}let grid=document.getElementById('sellMultiPreview');grid.innerHTML='';grid.style.display='grid';for(let file of files){let r=new FileReader();r.onload=function(ev){tempSellMulti.push(ev.target.result);let img=document.createElement('img');img.src=ev.target.result;grid.appendChild(img)};r.readAsDataURL(file)}}
-function previewSellVideo(e){let f=e.target.files[0];if(!f||!checkSize(f))return;document.getElementById('sellVideoInfo').style.display='block';document.getElementById('sellVideoSize').textContent='Video '+(f.size/1024/1024).toFixed(1)+'MB / 50MB';let v=document.getElementById('sellVideoPreview');v.src=URL.createObjectURL(f);tempSellVideo=URL.createObjectURL(f)}
-function previewReel(e){let f=e.target.files[0];if(!f||!checkSize(f))return;document.getElementById('reelVideoInfo').style.display='block';document.getElementById('reelSizeInfo').textContent='Reel Video: '+(f.size/1024/1024).toFixed(1)+'MB / 50MB MAX';let v=document.getElementById('reelPreview');v.src=URL.createObjectURL(f);v.style.display='block';tempSellVideo=v.src}
-function uploadStory(e){let f=e.target.files[0];if(!f||!checkSize(f))return;let r=new FileReader();r.onload=function(){stories.unshift({user:currentUser,img:r.result,time:Date.now(),prof:profData});localStorage.setItem('yokelStories',JSON.stringify(stories));renderStories();updateEarnings()};r.readAsDataURL(f)}
-function handleAuth(){let n=document.getElementById('userName').value.trim(),pw=document.getElementById('userPass').value;if(!n||!pw){alert('Putim name');return}if(mode==='create'&&localStorage.getItem('yokelPass_'+n)){alert('Exists! Login');return}if(mode==='create')localStorage.setItem('yokelPass_'+n,pw);currentUser=n;localStorage.setItem('yokelUser',n);enterApp()}
-function forceEnter(){currentUser=document.getElementById('userName').value.trim()||localStorage.getItem('yokelUser')||'Yokel';localStorage.setItem('yokelUser',currentUser);enterApp()}
-function enterApp(){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('mainApp').classList.remove('hidden');document.getElementById('menuName').textContent=currentUser;if(profData)document.getElementById('topProf').src=profData;if(currentUser==='tbrenton286-bot')document.getElementById('adminCard').style.display='block';render();renderStories();renderInbox()}
-function logout(){localStorage.removeItem('yokelUser');location.reload()}
-function showPage(id){['feedPage','tokboxPage','inboxPage','reelsPage','sellsPage','earnPage','menuPage'].forEach(p=>document.getElementById(p).classList.add('hidden'));document.getElementById(id).classList.remove('hidden')}
-function makePost(){let t=document.getElementById('postText').value.trim();let imgs=tempMulti.length>0?tempMulti:(tempSingle?[tempSingle]:[]);if(!t&&imgs.length===0&&!tempVideo)return alert('Write or add photos/video');posts.unshift({user:currentUser,text:t,time:Date.now(),prof:profData,imgs:imgs,video:tempVideo,reactions:{like:0,love:0,haha:0,wow:0,sad:0,angry:0},userReaction:null,comments:[]});localStorage.setItem('yokelPosts',JSON.stringify(posts));document.getElementById('postText').value='';tempMulti=[];tempSingle='';tempVideo='';document.getElementById('multiPreview').style.display='none';document.getElementById('singlePreview').style.display='none';document.getElementById('videoPreviewInfo').style.display='none';document.getElementById('uploadStatus').textContent='Posted! Multiple photos real!';render();updateEarnings()}
-function reactPost(i,type){let p=posts[i];if(!p.reactions)p.reactions={like:0,love:0,haha:0,wow:0,sad:0,angry:0};if(p.userReaction===type){p.reactions[type]--;p.userReaction=null}else{if(p.userReaction)p.reactions[p.userReaction]--;p.reactions[type]++;p.userReaction=type}localStorage.setItem('yokelPosts',JSON.stringify(posts));render()}
-function addComment(i){let inp=document.getElementById('commentInput'+i);if(!inp.value.trim())return;posts[i].comments.push({u:currentUser,t:inp.value});localStorage.setItem('yokelPosts',JSON.stringify(posts));render()}
-function sendTok(){let m=document.getElementById('tokInput').value;if(!m)return;toks.push({u:currentUser,m:m,time:Date.now()});localStorage.setItem('yokelToks',JSON.stringify(toks));document.getElementById('tokInput').value='';renderTok()}
-function sendInbox(){let to=document.getElementById('inboxTo').value,msg=document.getElementById('inboxMsgText').value;if(!to||!msg)return;inbox.unshift({type:'messages',from:currentUser,to:to,title:'From '+currentUser,text:msg,time:Date.now(),read:false,icon:'✉️'});localStorage.setItem('yokelInbox',JSON.stringify(inbox));document.getElementById('inboxTo').value='';document.getElementById('inboxMsgText').value='';renderInbox()}
-function postReel(){let title=document.getElementById('reelTitle').value||'My Reel';reels.unshift({u:currentUser,title:title,video:tempSellVideo,time:Date.now()});localStorage.setItem('yokelReels',JSON.stringify(reels));tempSellVideo='';document.getElementById('reelVideoInfo').style.display='none';renderReels();updateEarnings()}
-function postSell(){let i=document.getElementById('sellItem').value,p=document.getElementById('sellPrice').value;if(!i)return;let imgs=tempSellMulti.length>0?tempSellMulti:[];sells.unshift({u:currentUser,item:i,price:p,imgs:imgs,video:tempSellVideo,time:Date.now()});localStorage.setItem('yokelSells',JSON.stringify(sells));tempSellMulti=[];tempSellVideo='';document.getElementById('sellMultiPreview').style.display='none';document.getElementById('sellVideoInfo').style.display='none';renderSells();updateEarnings()}
-function saveBank(){localStorage.setItem('bank_'+currentUser,JSON.stringify({bank:document.getElementById('bankName').value,name:document.getElementById('accName').value,num:document.getElementById('accNum').value}));document.getElementById('bankSaved').textContent='Saved REAL!'}
-function renderStories(){let h=`<div class="story" style="border:2px dashed #0064d1;background:#f0f8ff;display:flex;flex-direction:column;align-items:center;justify-content:center" onclick="document.getElementById('storyFile').click()"><div style="background:#0064d1;color:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center">+</div><span style="color:#000;position:static;background:#fff;margin-top:6px">Create Story</span></div>`;stories.forEach(s=>{h+=`<div class="story"><img src="${s.img}"><span>${s.user}</span></div>`});document.getElementById('storyRow').innerHTML=h}
-function render(){let h='';posts.forEach((p,i)=>{let total=(p.reactions.like||0)+(p.reactions.love||0)+(p.reactions.haha||0);let imgGrid='';if(p.imgs&&p.imgs.length>0){let cls=p.imgs.length===1?'single':p.imgs.length===3?'triple':'';imgGrid=`<div class="preview-grid ${cls}">${p.imgs.map(src=>`<img src="${src}">`).join('')}</div>`}h+=`<div class="card"><div style="display:flex;gap:8px;align-items:center"><img src="${p.prof||'https://via.placeholder.com/40'}" class="prof"><b>${p.user}</b><small style="margin-left:auto;font-size:10px">${new Date(p.time).toLocaleString()}</small></div><p style="margin:8px 0">${p.text}</p>${imgGrid}${p.video?`<video controls style="width:100%;max-height:350px;border-radius:10px"><source src="${p.video}"></video>`:''}${total>0?`<div style="font-size:12px;color:#65676b">👍❤️ ${total} reactions</div>`:''}<div style="border-top:1px solid #eee;margin-top:8px;padding-top:8px"><div class="react-btns"><span class="react-btn ${p.userReaction==='like'?'active':''}" onclick="reactPost(${i},'like')">👍 ${p.reactions.like||''}</span><span class="react-btn ${p.userReaction==='love'?'active':''}" onclick="reactPost(${i},'love')">❤️ ${p.reactions.love||''}</span><span class="react-btn ${p.userReaction==='haha'?'active':''}" onclick="reactPost(${i},'haha')">😂</span><span class="react-btn" onclick="reactPost(${i},'wow')">😮</span><span class="react-btn" onclick="reactPost(${i},'sad')">😢</span><span class="react-btn" onclick="reactPost(${i},'angry')">😡</span></div></div><div style="display:flex;gap:10px;margin-top:8px;font-size:13px;color:#65676b"><span onclick="document.getElementById('commentBox${i}').classList.toggle('hidden')">💬 ${p.comments.length}</span><span>↗️ Share</span></div><div id="commentBox${i}" class="hidden"><div style="background:#f0f2f5;padding:8px;border-radius:12px;margin-top:8px">${p.comments.map(c=>`<div><b>${c.u}:</b> ${c.t}</div>`).join('')}<div style="display:flex;gap:5px;margin-top:6px"><input id="commentInput${i}" placeholder="Comment..."><button onclick="addComment(${i})">Post</button></div></div></div></div>`});document.getElementById('feed').innerHTML=h||'<div class="card">No posts - post multi photos!</div>';renderTok();renderReels();renderSells()}
-function renderTok(){let h='';toks.forEach(t=>{h+=`<div><b>${t.u}:</b> ${t.m}</div>`});document.getElementById('tokList').innerHTML=h}
-function renderReels(){let h='';reels.forEach(r=>{h+=`<div class="card">🎬 <b>${r.u}</b>: ${r.title}${r.video?`<br><video controls style="width:100%;max-height:220px;border-radius:10px"><source src="${r.video}"></video>`:''}</div>`});document.getElementById('reelFeed').innerHTML=h}
-function renderSells(){let h='';sells.forEach(s=>{let imgGrid=s.imgs&&s.imgs.length>0?`<div class="preview-grid ${s.imgs.length===1?'single':''}">${s.imgs.map(src=>`<img src="${src}">`).join('')}</div>`:'';h+=`<div class="card">🛒 <b>${s.u}</b> - ${s.item} - <b style="color:green">K${s.price}</b>${imgGrid}${s.video?`<br><video controls style="width:100%;max-height:200px;border-radius:10px"><source src="${s.video}"></video>`:''}</div>`});document.getElementById('sellFeed').innerHTML=h}
-function renderInbox(){let h='';inbox.forEach(m=>{h+=`<div style="display:flex;gap:10px;padding:10px;border-bottom:1px solid #eee"><div style="font-size:20px">${m.icon}</div><div><b style="font-size:13px">${m.title}</b><div style="font-size:12px">${m.text}</div></div></div>`});document.getElementById('inboxList').innerHTML=h||'Inbox empty';document.getElementById('inboxBadge').style.display=inbox.length>0?'block':'none';document.getElementById('inboxBadge').textContent=inbox.length}
-function updateEarnings(){let myP=posts.filter(p=>p.user===currentUser).length,myR=reels.filter(r=>r.u===currentUser).length,myS=sells.filter(s=>s.u===currentUser).length,mySt=stories.filter(s=>s.user===currentUser).length;document.getElementById('cPost').textContent=myP;document.getElementById('cReel').textContent=myR;document.getElementById('cSell').textContent=myS;document.getElementById('cStory').textContent=mySt;let tP=myP*0.5,tR=myR*1.2,tS=myS*2,tSt=mySt*0.3;document.getElementById('tPost').textContent='K'+tP.toFixed(2);document.getElementById('tReel').textContent='K'+tR.toFixed(2);document.getElementById('tSell').textContent='K'+tS.toFixed(2);document.getElementById('tStory').textContent='K'+tSt.toFixed(2);document.getElementById('totalBal').textContent='K'+(tP+tR+tS+tSt).toFixed(2)}
-if(currentUser)enterApp();
-</script></body></html>
+let posts=JSON.parse(localStorage.getItem('yokel_posts')||'[]');
+let reels=JSON.parse(localStorage.getItem('yokel_reels')||'[]');
+let sells=JSON.parse(localStorage.getItem('yokel_sells')||'[]');
+let inbox=JSON.parse(localStorage.getItem('yokel_inbox')||'[]');
+let toks=JSON.parse(localStorage.getItem('yokel_toks')||'[]');
+let earnings=parseFloat(localStorage.getItem('yokel_earn')||'0');
+let currentUser=localStorage.getItem('yokel_user')||'';
+let multiFiles=[], singleFile=null, videoFile=null, videoSizeMB=0, sellMultiFiles=[], reel
