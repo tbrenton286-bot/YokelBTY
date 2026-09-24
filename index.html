@@ -3,30 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Yokel BTY 🇵🇬 V14.1 FIXED LOGIN</title>
+<title>Yokel BTY V14.2 FORCE ENTER</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#f0f2f5;color:#000;padding-bottom:85px}
 .header{background:#fff;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30;box-shadow:0 1px 3px #ccc}
 .card{background:#fff;margin:8px 0;padding:12px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.2)}
 input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;background:#f0f2f5;color:#000}
-button{background:#0064d1;color:#fff;border:none;padding:12px 18px;border-radius:20px;font-weight:bold;cursor:pointer;margin:3px}
+button{background:#0064d1;color:#fff;border:none;padding:14px 18px;border-radius:20px;font-weight:bold;cursor:pointer;margin:3px;font-size:16px}
 .btn-yellow{background:#ffcc00;color:#000}
 .btn-red{background:#d00;color:#fff}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:6px 0;border-top:2px solid #ffcc00;z-index:30}
-.bottom div{text-align:center;font-size:11px;color:#65676b;cursor:pointer;padding:2px 8px}
-.bottom div.active{color:#0064d1;border-top:2px solid #0064d1}
+.bottom div{text-align:center;font-size:11px;color:#65676b;cursor:pointer}
+.bottom div.active{color:#0064d1}
 .hidden{display:none!important}
-.story-row{display:flex;gap:8px;overflow-x:auto;padding:8px 0}
-.story{min-width:110px;height:180px;background:#ddd;border-radius:10px;position:relative;overflow:hidden;flex-shrink:0;border:2px solid #0064d1}
-.story img{width:100%;height:100%;object-fit:cover}
-.story span{position:absolute;bottom:5px;left:5px;color:#fff;font-weight:bold;font-size:12px;text-shadow:1px 1px 3px #000}
 .prof{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #ffcc00}
-#loginScreen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,#fff 0%,#f0f2f5 100%);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{background:#fff;width:100%;max-width:380px;padding:20px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,.2);text-align:center}
-table{width:100%;border-collapse:collapse;margin:8px 0}
-th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:13px}
-th{background:#ffcc00;color:#000}
+#loginScreen{position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:#fff;width:100%;max-width:380px;padding:20px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,.2);text-align:center;border:2px solid #ffcc00}
 </style>
 </head>
 <body>
@@ -34,63 +27,55 @@ th{background:#ffcc00;color:#000}
 <div id="loginScreen">
 <div class="login-box">
 <h1 style="color:#b80000;font-size:32px">yokel<span style="color:#000">bty</span> 🇵🇬</h1>
-<p style="margin:5px 0 15px;color:#65676b">Village Boy to Global</p>
+<p>Village Boy to Global - V14.2</p>
 <img id="profPrev" style="width:90px;height:90px;border-radius:50%;display:none;border:3px solid #ffcc00;margin:10px auto">
-<label style="display:block;background:#f0f2f5;padding:12px;border-radius:20px;margin:10px 0;cursor:pointer">📸 Choose Profile Photo<input type="file" id="profFile" accept="image/*" onchange="previewProf(event)" hidden></label>
-<input id="userName" placeholder="Your Name" style="background:#fff;border:1px solid #ddd">
-<div style="position:relative"><input id="userPass" type="password" placeholder="Password" style="padding-right:45px;background:#fff;border:1px solid #ddd"><span onclick="toggleEye()" id="eye" style="position:absolute;right:15px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:22px">👁️</span></div>
-<button onclick="login()" class="btn-yellow" style="width:100%;font-size:16px;margin-top:10px">Login / Create Account & Enter 🚀</button>
-<p style="font-size:12px;margin-top:10px;color:#65676b">By tbrenton286-bot | Port Moresby</p>
+<label style="display:block;background:#f0f2f5;padding:12px;border-radius:20px;margin:10px 0;cursor:pointer">📸 Profile Photo<input type="file" id="profFile" accept="image/*" onchange="previewProf(event)" hidden></label>
+<input id="userName" placeholder="Your Name - e.g. Yokel" style="background:#fff;border:1px solid #ddd" value="Yokel">
+<div style="position:relative"><input id="userPass" type="password" placeholder="Password" style="padding-right:45px;background:#fff;border:1px solid #ddd" value="123"><span onclick="toggleEye()" id="eye" style="position:absolute;right:15px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:22px">👁️</span></div>
+<button onclick="login()" class="btn-yellow" style="width:100%">LOGIN & ENTER 🚀</button>
+<button onclick="forceEnter()" style="width:100%;background:#000;color:#ffcc00;margin-top:8px">FORCE ENTER APP >> (If login stuck)</button>
+<button onclick="clearStorage()" style="width:100%;background:#ddd;color:#000;margin-top:8px;font-size:12px">Clear Old Data & Retry</button>
 <p id="who" style="color:#0064d1;margin-top:8px;font-weight:bold"></p>
+<p style="font-size:11px;color:red;margin-top:5px">If not working: Tap FORCE ENTER</p>
 </div>
 </div>
 
 <div id="mainApp" class="hidden">
-<div class="header">
-<h2 style="color:#b80000">yokel<span style="color:#000">bty</span></h2>
-<div style="display:flex;gap:6px;align-items:center"><img id="topProf" src="https://via.placeholder.com/40" class="prof" style="width:32px;height:32px"><button style="width:32px;height:32px;border-radius:50%;padding:0" onclick="logout()">↪️</button><button style="width:32px;height:32px;border-radius:50%;padding:0" onclick="showPage('menuPage')">☰</button></div>
-</div>
+<div class="header"><h2 style="color:#b80000">yokel<span style="color:#000">bty</span></h2><div style="display:flex;gap:6px;align-items:center"><img id="topProf" src="https://via.placeholder.com/40" class="prof"><button onclick="logout()" style="padding:6px 10px;font-size:12px">Logout ↪️</button><button onclick="showPage('menuPage')" style="width:32px;height:32px;border-radius:50%;padding:0">☰</button></div></div>
 <div id="feedPage">
-<div class="card" style="display:flex;gap:10px;align-items:center"><img id="feedProf" src="https://via.placeholder.com/40" class="prof"><input placeholder="What's on your mind?" onclick="document.getElementById('postText').focus()" style="flex:1"><label style="cursor:pointer;font-size:20px">📷<input type="file" id="imgFile" accept="image/*" multiple hidden></label></div>
-<div class="card"><div class="story-row" id="storyRow"><div class="story"><img id="myStoryImg" src="https://via.placeholder.com/110x180"><div style="position:absolute;bottom:35px;left:35px;background:#0064d1;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #fff">+</div><span style="color:#000;bottom:6px;background:#fff;padding:2px 6px;border-radius:4px">Create Story</span></div></div></div>
-<div class="card"><textarea id="postText" placeholder="Wanem niupela samting?"></textarea><input type="file" id="vidFile" accept="video/*"><small>Video 50MB max</small><br><button onclick="makePost()" style="width:100%;background:#0064d1;margin-top:6px">Post</button></div>
+<div class="card" style="display:flex;gap:10px;align-items:center"><img id="feedProf" src="https://via.placeholder.com/40" class="prof"><input placeholder="What's on your mind?" style="flex:1"></div>
+<div class="card"><h4>✅ LOGIN SUCCESS! You are inside app now!</h4><p>Welcome <b id="welcomeName"></b>! This is Feed.</p><textarea id="postText" placeholder="Wanem niupela samting?"></textarea><button onclick="makePost()" style="width:100%">Post to Feed</button></div>
 <div id="feed"></div>
 </div>
-<div id="tokboxPage" class="hidden"><div class="card"><h3>Tokbox 💬</h3><div id="tokList" style="max-height:300px;overflow-y:auto"></div><div style="display:flex;gap:5px"><input id="tokInput" placeholder="Raitim message..."><button onclick="sendTok()">Send</button></div></div></div>
-<div id="reelsPage" class="hidden"><div class="card"><h3>Reels 🎬</h3><input id="reelTitle" placeholder="Title"><input type="file" id="reelFile" accept="video/*"><button onclick="postReel()">Upload Reel (50MB)</button><div id="reelFeed"></div></div></div>
-<div id="sellsPage" class="hidden"><div class="card"><h3>🛒 Sells Pages</h3><input id="sellItem" placeholder="What you selling?"><input id="sellPrice" placeholder="Price K"><button onclick="postSell()">Post Sale</button><div id="sellFeed"></div></div></div>
-<div id="earnPage" class="hidden"><div class="card"><h3>💰 Earnings Table</h3><table><tr><th>Work</th><th>Rate</th><th>Count</th><th>Total</th></tr><tr><td>Feed Post</td><td>K0.50</td><td id="cPost">0</td><td id="tPost">K0.00</td></tr><tr><td>Reels</td><td>K1.20</td><td id="cReel">0</td><td id="tReel">K0.00</td></tr><tr><td>Sells</td><td>K2.00</td><td id="cSell">0</td><td id="tSell">K0.00</td></tr><tr style="background:#ffcc00;font-weight:bold"><td>Total</td><td></td><td></td><td id="totalBal">K0.00</td></tr></table><button onclick="alert('Withdraw to BSP!')" class="btn-yellow">Withdraw 🏦</button></div></div>
-<div id="menuPage" class="hidden"><div class="card"><h3>Menu</h3><div style="display:flex;align-items:center;gap:10px;margin:10px 0"><img id="menuProf" src="https://via.placeholder.com/40" class="prof"><b id="menuName">Guest</b></div><button onclick="showPage('feedPage')">📄 Feed</button><button onclick="showPage('tokboxPage')">💬 Tokbox</button><button onclick="showPage('reelsPage')">🎬 Reels</button><button onclick="showPage('sellsPage')">🛒 Sells</button><button onclick="showPage('earnPage')" class="btn-yellow">💰 Earnings</button><button class="btn-red" onclick="logout()">Logout</button><div class="card" style="background:#f0f2f5"><h4>🏦 PNG Banks</h4><select id="bankName"><option>BSP</option><option>Kina Bank</option><option>MiBank</option></select><input id="accName" placeholder="Account Name"><input id="accNum" placeholder="Account Number"><button onclick="saveBank()" class="btn-yellow">Save Bank</button><p id="bankSaved"></p></div><div class="card" style="background:#f0f2f5"><h4>📖 Manual</h4><p>Yokel BTY V14.1 - Village Boy to Global. Founder: tbrenton286-bot</p></div><div id="adminCard" style="display:none;border:2px solid red;padding:10px;border-radius:8px"><h4>👑 Admin</h4><button class="btn-red" onclick="clearAll()">Delete All</button></div></div></div>
+<div id="tokboxPage" class="hidden"><div class="card"><h3>Tokbox 💬</h3><div id="tokList"></div><div style="display:flex;gap:5px"><input id="tokInput" placeholder="Message..."><button onclick="sendTok()">Send</button></div></div></div>
+<div id="reelsPage" class="hidden"><div class="card"><h3>Reels 🎬 + Creators</h3><div id="reelFeed"></div></div></div>
+<div id="sellsPage" class="hidden"><div class="card"><h3>🛒 Sells Pages</h3><div id="sellFeed"></div></div></div>
+<div id="earnPage" class="hidden"><div class="card"><h3>💰 Earnings Table</h3><p>Total: <b id="totalBal">K0.00</b></p><table style="width:100%;border-collapse:collapse"><tr style="background:#ffcc00"><th>Work</th><th>Count</th><th>Total</th></tr><tr><td>Posts</td><td id="cPost">0</td><td id="tPost">K0</td></tr><tr><td>Reels</td><td id="cReel">0</td><td id="tReel">K0</td></tr></table></div></div>
+<div id="menuPage" class="hidden"><div class="card"><h3>Menu</h3><b id="menuName"></b><br><button onclick="showPage('feedPage')">Feed</button><button onclick="showPage('earnPage')" class="btn-yellow">Earnings</button><button class="btn-red" onclick="logout()">Logout</button><div class="card" style="background:#f0f2f5"><h4>🏦 PNG Banks</h4><select><option>BSP</option><option>Kina</option></select><input placeholder="Account Name"><input placeholder="Account No"><button class="btn-yellow">Save</button></div></div></div>
 <div class="bottom">
 <div id="bFeed" class="active" onclick="showPage('feedPage')">🏠<br>Feed</div>
-<div id="bTok" onclick="showPage('tokboxPage')">💬<br>Tokbox</div>
-<div id="bReel" onclick="showPage('reelsPage')">▶️<br>Reels</div>
-<div id="bSell" onclick="showPage('sellsPage')">🛒<br>Sells</div>
-<div id="bEarn" onclick="showPage('earnPage')">💰<br>Earn</div>
-<div id="bMenu" onclick="showPage('menuPage')">☰<br>Menu</div>
+<div onclick="showPage('tokboxPage')">💬<br>Tokbox</div>
+<div onclick="showPage('reelsPage')">▶️<br>Reels</div>
+<div onclick="showPage('sellsPage')">🛒<br>Sells</div>
+<div onclick="showPage('earnPage')">💰<br>Earn</div>
+<div onclick="showPage('menuPage')">☰<br>Menu</div>
 </div>
 </div>
 
 <script>
-let currentUser=localStorage.getItem('yokelUser')||'';let profData=localStorage.getItem('yokelProf')||'';let posts=JSON.parse(localStorage.getItem('yokelPosts')||'[]');let toks=JSON.parse(localStorage.getItem('yokelToks')||'[]');let reels=JSON.parse(localStorage.getItem('yokelReels')||'[]');let sells=JSON.parse(localStorage.getItem('yokelSells')||'[]');
-function toggleEye(){let p=document.getElementById('userPass'),e=document.getElementById('eye');p.type=p.type==='password'?'text':'password';e.textContent=p.type==='password'?'👁️':'🙈'}
-function previewProf(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){profData=r.result;document.getElementById('profPrev').src=profData;document.getElementById('profPrev').style.display='block';['topProf','feedProf','menuProf','myStoryImg'].forEach(id=>{let el=document.getElementById(id);if(el)el.src=profData})};r.readAsDataURL(f)}
-function login(){let n=document.getElementById('userName').value.trim(),pw=document.getElementById('userPass').value;if(!n||!pw){alert('Putim name na password');return}currentUser=n;localStorage.setItem('yokelUser',n);if(profData)localStorage.setItem('yokelProf',profData);localStorage.setItem('yokelPass_'+n,pw);document.getElementById('loginScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');updateWho()}
-function logout(){localStorage.removeItem('yokelUser');currentUser='';document.getElementById('loginScreen').style.display='flex';document.getElementById('mainApp').classList.add('hidden');}
-function updateWho(){document.getElementById('who').textContent=currentUser?'Login: '+currentUser:'';document.getElementById('menuName').textContent=currentUser||'Guest';if(profData){['topProf','feedProf','menuProf','myStoryImg'].forEach(id=>{let el=document.getElementById(id);if(el)el.src=profData}) }if(currentUser==='tbrenton286-bot')document.getElementById('adminCard').style.display='block';if(currentUser){document.getElementById('loginScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden')}render();updateEarnings()}
-function showPage(id){['feedPage','tokboxPage','reelsPage','sellsPage','earnPage','menuPage'].forEach(p=>document.getElementById(p).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.bottom div').forEach(d=>d.classList.remove('active'));let m={feedPage:'bFeed',tokboxPage:'bTok',reelsPage:'bReel',sellsPage:'bSell',earnPage:'bEarn',menuPage:'bMenu'};if(m[id])document.getElementById(m[id]).classList.add('active')}
-function makePost(){if(!currentUser)return alert('Login');let t=document.getElementById('postText').value;if(!t)return alert('Raitim samting');posts.unshift({user:currentUser,text:t,prof:profData,time:Date.now()});localStorage.setItem('yokelPosts',JSON.stringify(posts));document.getElementById('postText').value='';render();updateEarnings()}
-function sendTok(){let m=document.getElementById('tokInput').value;if(!m)return;toks.push({u:currentUser,m:m});localStorage.setItem('yokelToks',JSON.stringify(toks));document.getElementById('tokInput').value='';renderTok()}
-function postReel(){let title=document.getElementById('reelTitle').value;reels.unshift({u:currentUser,title:title});localStorage.setItem('yokelReels',JSON.stringify(reels));renderReels();updateEarnings()}
-function postSell(){let i=document.getElementById('sellItem').value,p=document.getElementById('sellPrice').value;sells.unshift({u:currentUser,item:i,price:p});localStorage.setItem('yokelSells',JSON.stringify(sells));renderSells();updateEarnings()}
-function saveBank(){localStorage.setItem('bank_'+currentUser,JSON.stringify({bank:document.getElementById('bankName').value,name:document.getElementById('accName').value,num:document.getElementById('accNum').value}));document.getElementById('bankSaved').textContent='Saved!';}
-function clearAll(){if(currentUser!=='tbrenton286-bot')return;if(confirm('Delete all?')){localStorage.removeItem('yokelPosts');posts=[];render()}}
-function render(){let h='';posts.forEach(p=>{h+=`<div class="card"><div style="display:flex;gap:8px;align-items:center"><img src="${p.prof||'https://via.placeholder.com/40'}" class="prof"><b>${p.user}</b><small style="margin-left:auto">${new Date(p.time).toLocaleString()}</small></div><p style="margin:8px 0">${p.text}</p></div>`});document.getElementById('feed').innerHTML=h||'<div class="card">No posts yet</div>';renderTok();renderReels();renderSells()}
-function renderTok(){let h='';toks.forEach(t=>{h+=`<div><b>${t.u}:</b> ${t.m}</div>`});document.getElementById('tokList').innerHTML=h}
-function renderReels(){let h='';reels.forEach(r=>{h+=`<div class="card"><b>${r.u}</b>: ${r.title} 🎬</div>`});document.getElementById('reelFeed').innerHTML=h}
-function renderSells(){let h='';sells.forEach(s=>{h+=`<div class="card">🛒 <b>${s.u}</b> ${s.item} K${s.price}</div>`});document.getElementById('sellFeed').innerHTML=h}
-function updateEarnings(){let myP=posts.filter(p=>p.user===currentUser).length,myR=reels.filter(r=>r.u===currentUser).length,myS=sells.filter(s=>s.u===currentUser).length;document.getElementById('cPost').textContent=myP;document.getElementById('cReel').textContent=myR;document.getElementById('cSell').textContent=myS;let tP=myP*0.5,tR=myR*1.2,tS=myS*2;document.getElementById('tPost').textContent='K'+tP.toFixed(2);document.getElementById('tReel').textContent='K'+tR.toFixed(2);document.getElementById('tSell').textContent='K'+tS.toFixed(2);document.getElementById('totalBal').textContent='K'+(tP+tR+tS).toFixed(2)}
-updateWho();
+let currentUser=localStorage.getItem('yokelUser')||'';let profData=localStorage.getItem('yokelProf')||'';let posts=JSON.parse(localStorage.getItem('yokelPosts')||'[]');
+function toggleEye(){let p=document.getElementById('userPass');p.type=p.type==='password'?'text':'password'}
+function previewProf(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){profData=r.result;document.getElementById('profPrev').src=profData;document.getElementById('profPrev').style.display='block';localStorage.setItem('yokelProf',profData)};r.readAsDataURL(f)}
+function login(){let n=document.getElementById('userName').value.trim();if(!n)n='Yokel';currentUser=n;localStorage.setItem('yokelUser',n);enterApp()}
+function forceEnter(){let n=document.getElementById('userName').value.trim()||'Yokel';currentUser=n;localStorage.setItem('yokelUser',n);enterApp();alert('Forced enter! Welcome '+n)}
+function clearStorage(){localStorage.clear();location.reload()}
+function enterApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('loginScreen').classList.add('hidden');document.getElementById('mainApp').classList.remove('hidden');document.getElementById('welcomeName').textContent=currentUser;document.getElementById('menuName').textContent=currentUser;if(profData)document.getElementById('topProf').src=profData;render()}
+function logout(){localStorage.removeItem('yokelUser');currentUser='';document.getElementById('loginScreen').style.display='flex';document.getElementById('loginScreen').classList.remove('hidden');document.getElementById('mainApp').classList.add('hidden')}
+function showPage(id){['feedPage','tokboxPage','reelsPage','sellsPage','earnPage','menuPage'].forEach(p=>document.getElementById(p).classList.add('hidden'));document.getElementById(id).classList.remove('hidden')}
+function makePost(){let t=document.getElementById('postText').value;if(!t)return;posts.unshift({user:currentUser,text:t,time:Date.now(),prof:profData});localStorage.setItem('yokelPosts',JSON.stringify(posts));document.getElementById('postText').value='';render()}
+function sendTok(){}
+function render(){let h='';posts.forEach(p=>{h+=`<div class="card"><b>${p.user}</b>: ${p.text}</div>`});document.getElementById('feed').innerHTML=h}
+window.onload=function(){if(currentUser){enterApp()}document.getElementById('who').textContent=currentUser?'Saved user: '+currentUser+' - Tap FORCE ENTER':'No saved user';}
 </script>
 </body>
 </html>
