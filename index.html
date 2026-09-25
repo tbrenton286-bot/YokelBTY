@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>YokelBTY V16.1 FULL COMPLETE MULTI 50MB</title>
+<title>YokelBTY V16.3 PNG FLAG EDITION</title>
 <style>
-:root{--p:#1877F2;--bg:#f0f2f5}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica;background:var(--bg);color:#050505}
+:root{--p:#CE1126;--black:#000;--gold:#FFD700;--bg:#f0f2f5}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica;background:var(--bg);color:#050505}
 .hidden{display:none!important}.card{background:#fff;border-radius:12px;padding:12px;margin:8px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.btn{background:var(--p);color:#fff;border:0;padding:11px 16px;border-radius:8px;font-weight:700;cursor:pointer;width:100%;margin-top:8px}
-.btn:disabled{background:#ccd0d5}.btn-gold{background:#ffb400;color:#000}
+.btn{background:linear-gradient(135deg,#000,#CE1126);color:#fff;border:0;padding:11px 16px;border-radius:8px;font-weight:700;cursor:pointer;width:100%;margin-top:8px;border:2px solid #000}
+.btn-green{background:#000;color:#FFD700;border:2px solid #FFD700}
 .small{font-size:12px;color:#65676b}.flex{display:flex;gap:8px;align-items:center}
 .upload-icons{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
 .upload-icon{display:flex;align-items:center;gap:6px;background:#f0f2f5;padding:8px 12px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600}
-.upload-icon.multi{background:#e7f3ff;border:2px solid var(--p);color:var(--p)}
+.upload-icon.multi{background:#ffe7e7;border:2px solid #CE1126;color:#CE1126}
 .preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 0}
 .preview-grid img{width:100%;height:110px;object-fit:cover;border-radius:8px;border:1px solid #ddd}
 .post-grid-1 img{width:100%;max-height:500px;object-fit:contain;border-radius:10px}
@@ -18,263 +18,90 @@
 .post-grid-4{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px}.post-grid-4 img{height:180px;object-fit:cover;width:100%}
 .post-grid-many{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}.post-grid-many img{height:150px;object-fit:cover;width:100%}
 .reaction-bar{display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;margin:8px 0}
-.reaction-bar span{cursor:pointer;padding:6px 10px;border-radius:6px}.reaction-bar span:hover{background:#f0f2f5}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #ddd;z-index:100}
-.nav span{font-size:22px;cursor:pointer;padding:6px 8px;border-radius:8px;text-align:center;line-height:1.1}.nav span.active{background:#e7f3ff}
-.nav small{display:block;font-size:9px}
-#loginScreen{max-width:420px;margin:30px auto;padding:16px}
+.reaction-bar span{cursor:pointer;padding:6px 10px;border-radius:6px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:6px 0;border-top:3px solid #CE1126;z-index:100;overflow-x:auto}
+.nav span{font-size:20px;cursor:pointer;padding:5px 7px;border-radius:8px;text-align:center;line-height:1.1;min-width:50px}.nav span.active{background:#ffe7e7;border-bottom:2px solid #CE1126}
+.nav small{display:block;font-size:8px}
+#loginScreen{max-width:420px;margin:20px auto;padding:16px}
 textarea,input,select{width:100%;padding:11px;border:1px solid #ddd;border-radius:8px;margin:6px 0;font-size:14px}
-.badge{background:red;color:#fff;padding:2px 6px;border-radius:10px;font-size:11px}
 .video-ok{background:#d4edda;color:#155724;padding:8px;border-radius:8px;margin:6px 0;font-weight:600}
 .video-bad{background:#f8d7da;color:#721c24;padding:8px;border-radius:8px;margin:6px 0;font-weight:600}
+.pass-wrap{position:relative}.pass-wrap input{padding-right:45px}
+.eye-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;font-size:20px;cursor:pointer;padding:6px}
+.link{color:#CE1126;cursor:pointer;font-weight:700;font-size:13px;text-decoration:none}
+.divider{display:flex;align-items:center;gap:8px;margin:14px 0;color:#65676b;font-size:12px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:#ddd}
+.founder-card{background:linear-gradient(135deg,#000 0%, #CE1126 60%, #000 100%);color:#fff;border-radius:16px;padding:18px;margin:8px;border:2px solid #FFD700}
+.png-header{background:linear-gradient(90deg,#000 33%, #CE1126 33%, #CE1126 66%, #FFD700 66%);height:6px;border-radius:10px;margin-bottom:10px}
 </style></head><body>
-
-<div id="loginScreen"><div class="card" style="text-align:center"><h1 style="color:var(--p);font-size:32px">YokelBTY</h1>
-<p><b>V16.1 FULL COMPLETE</b><br><span class="small">MULTI 50MB + Earnings + Banks + All Features</span></p>
-<input id="uName" placeholder="Username (e.g. Yokel)">
-<input id="uPass" type="password" placeholder="Password">
-<button class="btn" onclick="login()">Login / Register</button>
-<p class="small" style="margin-top:12px">PNG Social Media - Made for PNG 🇵🇬<br>50MB Video Limit • 10 Photos ONE POST like Facebook</p>
-</div></div>
-
+<div id="loginScreen"><div class="card" style="text-align:center"><div class="png-header"></div>
+<h1 style="color:#000">Yokel<span style="color:#CE1126">BTY</span> 🇵🇬</h1>
+<p><b style="color:#CE1126">V16.3 PNG FLAG EDITION</b><br><span class="small">MULTI 50MB + PNG Colours</span></p>
+<input id="uName" placeholder="Username" style="margin-top:14px">
+<div class="pass-wrap"><input id="uPass" type="password" placeholder="Password"><button class="eye-btn" onclick="toggleEye('uPass',this)">👁️</button></div>
+<div style="display:flex;justify-content:space-between;margin:6px 2px"><span class="link" onclick="forgotPass()">Forgot Password?</span><span class="link" onclick="showCreate()">Create Account</span></div>
+<button class="btn" onclick="login()">Login 🇵🇬</button><div class="divider">OR</div>
+<button class="btn" style="background:#000;color:#FFD700;border:2px solid #FFD700" onclick="showCreate()">Create New Account ⭐</button>
+<div id="createBox" class="hidden" style="text-align:left;margin-top:16px;border-top:1px solid #eee;padding-top:12px">
+<h3>Create Account 🇵🇬</h3><input id="cName" placeholder="Full Name"><input id="cUser" placeholder="Username">
+<div class="pass-wrap"><input id="cPass" type="password" placeholder="New Password"><button class="eye-btn" onclick="toggleEye('cPass',this)">👁️</button></div>
+<div class="pass-wrap"><input id="cPass2" type="password" placeholder="Confirm Password"><button class="eye-btn" onclick="toggleEye('cPass2',this)">👁️</button></div>
+<button class="btn" style="background:#000;color:#FFD700" onclick="createAccount()">Sign Up 🇵🇬</button><span class="link" onclick="hideCreate()">Already have account? Login</span></div>
+<p class="small" style="margin-top:14px">PNG Social Media 🇵🇬<br><span style="color:#CE1126;font-weight:bold">RED • BLACK • GOLD</span></p></div></div>
 <div id="mainApp" class="hidden">
-<div id="feedPage"><div class="card">
-<div class="flex"><div style="width:40px;height:40px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold" id="myAvatar">Y</div>
-<div><b id="myNameTop">User</b><br><span class="small">Public • Now</span></div></div>
-<textarea id="postText" placeholder="What's on your mind, Yokel? Share 10 photos in ONE post!"></textarea>
+<div id="feedPage"><div class="card"><div class="png-header"></div>
+<div class="flex"><div style="width:40px;height:40px;background:linear-gradient(135deg,#000,#CE1126);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#FFD700;font-weight:bold;border:2px solid #FFD700" id="myAvatar">Y</div><div><b id="myNameTop">User</b><br><span class="small">Public • Now 🇵🇬</span></div></div>
+<textarea id="postText" placeholder="What's on your mind? 10 photos ONE POST!"></textarea>
 <div class="upload-icons">
-<label class="upload-icon multi"><span>📸📸📸</span> MULTI (10) <input type="file" id="multiInput" accept="image/*" multiple hidden onchange="handleMulti(this)"></label>
+<label class="upload-icon multi">📸📸📸 MULTI (10) <input type="file" id="multiInput" accept="image/*" multiple hidden onchange="handleMulti(this)"></label>
 <label class="upload-icon">📷 Single <input type="file" id="singleInput" accept="image/*" hidden onchange="handleSingle(this)"></label>
 <label class="upload-icon">🎥 Video 50MB <input type="file" id="videoInput" accept="video/*" hidden onchange="handleVideo(this)"></label>
 <label class="upload-icon">📖 Story <input type="file" id="storyInput" accept="image/*,video/*" hidden onchange="handleStory(this)"></label>
 </div>
 <div id="multiPreview" class="preview-grid"></div>
 <img id="singlePreview" style="display:none;width:100%;border-radius:12px;max-height:400px;object-fit:contain;border:1px solid #ddd">
-<div id="videoPreviewInfo" style="display:none"></div>
-<div id="uploadStatus" class="small" style="color:green;font-weight:600"></div>
-<button onclick="makePost()" class="btn">Post to YokelBTY 🚀</button>
-<div class="small" style="margin-top:6px">✅ Facebook style: Select 10 photos → ONE post with grid! • Video max 50MB shows real MB!</div>
-</div><div id="feed"></div></div>
-
-<div id="reelsPage" class="hidden"><div class="card"><h3>🎬 Reels - 50MB MAX</h3>
-<input type="file" id="reelInput" accept="video/*" onchange="handleReelVideo(this)">
-<div id="reelInfo" class="small"></div>
-<textarea id="reelCaption" placeholder="Reel caption... PNG vibes"></textarea>
-<button class="btn" onclick="postReel()">Post Reel 🎬</button>
-<div class="small">Video limit 50MB - shows MB, blocks if >50MB</div></div><div id="reelsFeed"></div></div>
-
-<div id="sellsPage" class="hidden"><div class="card"><h3>🛒 Marketplace - MULTI PHOTOS IN ONE SALE</h3>
-<input id="sellTitle" placeholder="What are you selling? e.g. iPhone 13">
-<input id="sellPrice" type="number" placeholder="Price in Kina K">
-<input id="sellLocation" placeholder="Location e.g. Port Moresby">
-<label class="upload-icon multi" style="margin-top:8px">📦📦 MULTI PRODUCT PHOTOS (10 max) <input type="file" id="sellMulti" accept="image/*" multiple hidden onchange="handleSellMulti(this)"></label>
-<div id="sellMultiPreview" class="preview-grid"></div>
-<textarea id="sellDesc" placeholder="Description..."></textarea>
-<button class="btn" onclick="postSell()">Post for Sale 🛒</button>
-</div><div id="sellsFeed"></div></div>
-
-<div id="inboxPage" class="hidden"><div class="card"><h3>📥 Inbox & Messages</h3>
-<div id="inboxList"></div>
-<hr style="margin:10px 0">
-<input id="inboxTo" placeholder="To: username">
-<input id="inboxMsg" placeholder="Type message...">
-<button class="btn" onclick="sendInbox()">Send Message ✉️</button>
-</div></div>
-
-<div id="tokboxPage" class="hidden"><div class="card"><h3>📦 TokBox - Short Videos PNG</h3><div class="small">PNG TokBox like TikTok - 50MB max</div>
-<input type="file" id="tokInput" accept="video/*" onchange="handleTokVideo(this)"><div id="tokInfo" class="small"></div>
-<textarea id="tokCaption" placeholder="TokBox caption..."></textarea><button class="btn" onclick="postTok()">Post to TokBox</button>
-</div><div id="tokList"></div></div>
-
-<div id="earnPage" class="hidden"><div class="card"><h3>💰 Earnings</h3>
-<div style="background:linear-gradient(135deg,#1877F2,#00c6ff);color:#fff;padding:16px;border-radius:12px">
-<div class="small" style="color:#fff">Total Balance</div><h2 id="earnBalance">K 0.00</h2>
-<div class="small" style="color:#fff">From posts, likes, reels, sells - PNG style</div></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
-<div class="card" style="margin:0;text-align:center"><b id="earnPosts">0</b><br><span class="small">Posts</span></div>
-<div class="card" style="margin:0;text-align:center"><b id="earnLikes">0</b><br><span class="small">Likes Earned</span></div>
-</div>
-<button class="btn btn-gold" onclick="showPage('bankPage')">Withdraw to Bank 🏦</button>
-<div id="earnHistory" style="margin-top:10px"></div>
-</div></div>
-
-<div id="bankPage" class="hidden"><div class="card"><h3>🏦 Bank Withdraw - PNG Banks</h3>
-<select id="bankName"><option value="">Select Bank</option><option>BSP - Bank South Pacific</option><option>Kina Bank</option><option>Nationwide Microbank</option><option>Westpac PNG</option><option>ANZ PNG</option></select>
-<input id="bankAcc" placeholder="Account Number">
-<input id="bankAccName" placeholder="Account Name">
-<input id="withdrawAmt" type="number" placeholder="Amount K to withdraw">
-<button class="btn btn-gold" onclick="withdraw()">Request Withdraw</button>
-<div id="withdrawHistory" class="small" style="margin-top:10px"></div>
-<div class="small" style="margin-top:12px">Min K20 withdraw. 24h processing PNG time. Fee K2.</div>
-</div></div>
-
-<div id="profilePage" class="hidden"><div class="card" style="text-align:center"><div style="width:80px;height:80px;background:var(--p);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-size:36px;font-weight:bold" id="profileAvatar">Y</div>
-<h3 id="profileName">User</h3><p class="small">YokelBTY Member 🇵🇬</p>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px"><div><b id="pPostCount">0</b><br><span class="small">Posts</span></div><div><b id="pFollower">128</b><br><span class="small">Followers</span></div><div><b id="pFollowing">96</b><br><span class="small">Following</span></div></div>
-<button class="btn" onclick="logout()" style="background:#e4e6eb;color:#050505;margin-top:16px">Logout</button>
-</div></div>
-
-<div style="height:80px"></div>
-<div class="nav">
-<span onclick="showPage('feedPage')" id="nFeed" class="active">🏠<small>Feed</small></span>
-<span onclick="showPage('reelsPage')">🎬<small>Reels</small></span>
-<span onclick="showPage('sellsPage')">🛒<small>Sells</small></span>
-<span onclick="showPage('tokboxPage')">📦<small>TokBox</small></span>
-<span onclick="showPage('inboxPage')">📥<small>Inbox</small></span>
-<span onclick="showPage('earnPage')">💰<small>Earn</small></span>
-<span onclick="showPage('bankPage')">🏦<small>Bank</small></span>
-<span onclick="showPage('profilePage')">👤<small>You</small></span>
-</div>
-</div>
-
+<div id="videoPreviewInfo" style="display:none"></div><div id="uploadStatus" class="small" style="color:green;font-weight:600"></div>
+<button onclick="makePost()" class="btn">Post to YokelBTY 🚀 🇵🇬</button></div><div id="feed"></div></div>
+<div id="reelsPage" class="hidden"><div class="card"><h3>🎬 Reels 50MB 🇵🇬</h3><input type="file" id="reelInput" accept="video/*" onchange="handleReelVideo(this)"><div id="reelInfo" class="small"></div><textarea id="reelCaption" placeholder="Caption..."></textarea><button class="btn" onclick="postReel()">Post Reel</button></div><div id="reelsFeed"></div></div>
+<div id="sellsPage" class="hidden"><div class="card"><h3>🛒 Marketplace MULTI 🇵🇬</h3><input id="sellTitle" placeholder="Product"><input id="sellPrice" type="number" placeholder="Price K"><input id="sellLocation" placeholder="Location"><label class="upload-icon multi">📦📦 MULTI (10) <input type="file" id="sellMulti" accept="image/*" multiple hidden onchange="handleSellMulti(this)"></label><div id="sellMultiPreview" class="preview-grid"></div><textarea id="sellDesc" placeholder="Desc..."></textarea><button class="btn" onclick="postSell()">Post for Sale</button></div><div id="sellsFeed"></div></div>
+<div id="inboxPage" class="hidden"><div class="card"><h3>📥 Inbox 🇵🇬</h3><div id="inboxList"></div><hr><input id="inboxTo" placeholder="To"><input id="inboxMsg" placeholder="Message..."><button class="btn" onclick="sendInbox()">Send</button></div></div>
+<div id="tokboxPage" class="hidden"><div class="card"><h3>📦 TokBox 50MB 🇵🇬</h3><input type="file" id="tokInput" accept="video/*" onchange="handleTokVideo(this)"><div id="tokInfo" class="small"></div><textarea id="tokCaption" placeholder="Caption..."></textarea><button class="btn" onclick="postTok()">Post TokBox</button></div><div id="tokList"></div></div>
+<div id="earnPage" class="hidden"><div class="card"><h3>💰 Earnings 🇵🇬</h3><div style="background:linear-gradient(135deg,#000,#CE1126);color:#FFD700;padding:16px;border-radius:12px;border:2px solid #FFD700"><div class="small" style="color:#fff">Balance</div><h2 id="earnBalance" style="color:#FFD700">K 0.00</h2></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div class="card" style="margin:0;text-align:center"><b id="earnPosts">0</b><br><span class="small">Posts</span></div><div class="card" style="margin:0;text-align:center"><b id="earnLikes">0</b><br><span class="small">Likes</span></div></div><button class="btn" onclick="showPage('bankPage')">Withdraw 🏦</button></div></div>
+<div id="bankPage" class="hidden"><div class="card"><h3>🏦 Bank PNG 🇵🇬</h3><select id="bankName"><option>Select Bank</option><option>BSP</option><option>Kina Bank</option><option>Westpac PNG</option><option>ANZ PNG</option></select><input id="bankAcc" placeholder="Account"><input id="bankAccName" placeholder="Name"><input id="withdrawAmt" type="number" placeholder="Amount K"><button class="btn" onclick="withdraw()">Withdraw 🇵🇬</button><div id="withdrawHistory" class="small"></div></div></div>
+<div id="profilePage" class="hidden"><div class="card" style="text-align:center"><div style="width:80px;height:80px;background:linear-gradient(135deg,#000,#CE1126);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#FFD700;font-size:36px;font-weight:bold;border:3px solid #FFD700" id="profileAvatar">Y</div><h3 id="profileName">User</h3><p class="small">YokelBTY Member 🇵🇬</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px"><div><b id="pPostCount">0</b><br><span class="small">Posts</span></div><div><b>128</b><br><span class="small">Followers</span></div><div><b>96</b><br><span class="small">Following</span></div></div><button class="btn" onclick="showPage('aboutPage')" style="background:#fff;color:#CE1126;border:2px solid #CE1126;margin-top:12px">👑 Founder & History 🇵🇬</button><button class="btn" style="background:#e4e6eb;color:#050505" onclick="logout()">Logout</button></div></div>
+<div id="aboutPage" class="hidden"><div class="founder-card"><h2>👑 Founder Details 🇵🇬</h2><div style="display:flex;gap:12px;margin-top:12px"><div style="width:70px;height:70px;background:#FFD700;color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold">T</div><div><h3>Brenton T. ⭐</h3><p style="font-size:13px">Founder - YokelBTY<br>GitHub: tbrenton286-bot<br>Port Moresby, PNG 🇵🇬</p></div></div><p style="margin-top:12px;font-size:13px">PNG's own social media. PNG Flag Colours RED BLACK GOLD! 50MB video, MULTI 10 photos ONE POST.</p></div><div class="card"><h3>📜 History 🇵🇬</h3><div style="background:#ffe7e7;border-left:4px solid #CE1126;padding:12px;border-radius:8px;margin:8px"><b>2024 - Idea Born 🇵🇬</b><br><span class="small">Need PNG-owned social media.</span></div><div style="background:#f0f0f0;border-left:4px solid #000;padding:12px;border-radius:8px;margin:8px"><b>2025 - V1 to V15</b><br><span class="small">Feed, Reels, Sells, TokBox, Inbox, Earnings, Banks.</span></div><div style="background:linear-gradient(135deg,#000,#CE1126);color:#fff;padding:12px;border-radius:8px;margin:8px;border:2px solid #FFD700"><b>Sept 2026 - V16.3 PNG FLAG 🇵🇬</b><br><span class="small" style="color:#fff">✅ PNG FLAG RED BLACK GOLD<br>✅ MULTI 10 photos ONE POST<br>✅ 50MB MB display<br>✅ Eye icon 👁️ + Forgot + Create outside<br>✅ Founder & History inside</span></div><button class="btn" onclick="showPage('feedPage')">Back to Feed 🏠</button></div></div>
+<div style="height:85px"></div><div class="nav"><span onclick="showPage('feedPage')" id="nFeed" class="active">🏠<small>Feed</small></span><span onclick="showPage('reelsPage')">🎬<small>Reels</small></span><span onclick="showPage('sellsPage')">🛒<small>Sells</small></span><span onclick="showPage('tokboxPage')">📦<small>TokBox</small></span><span onclick="showPage('inboxPage')">📥<small>Inbox</small></span><span onclick="showPage('earnPage')">💰<small>Earn</small></span><span onclick="showPage('bankPage')">🏦<small>Bank</small></span><span onclick="showPage('aboutPage')">👑<small>About</small></span><span onclick="showPage('profilePage')">👤<small>You</small></span></div></div>
 <script>
-let posts=JSON.parse(localStorage.getItem('yokel_posts')||'[]');
-let reels=JSON.parse(localStorage.getItem('yokel_reels')||'[]');
-let sells=JSON.parse(localStorage.getItem('yokel_sells')||'[]');
-let inbox=JSON.parse(localStorage.getItem('yokel_inbox')||'[]');
-let toks=JSON.parse(localStorage.getItem('yokel_toks')||'[]');
-let earnings=parseFloat(localStorage.getItem('yokel_earn')||'0');
-let currentUser=localStorage.getItem('yokel_user')||'';
-let multiFiles=[], singleFile=null, videoFile=null, videoSizeMB=0, sellMultiFiles=[], reelFile=null, tokFile=null;
-
-function login(){
- let u=document.getElementById('uName').value.trim();
- if(!u) return alert('Enter username');
- currentUser=u; localStorage.setItem('yokel_user',u);
- document.getElementById('myNameTop').innerText=u;
- document.getElementById('myAvatar').innerText=u[0].toUpperCase();
- document.getElementById('profileName').innerText=u;
- document.getElementById('profileAvatar').innerText=u[0].toUpperCase();
- document.getElementById('loginScreen').classList.add('hidden');
- document.getElementById('mainApp').classList.remove('hidden');
- renderAll();
-}
+let posts=JSON.parse(localStorage.getItem('yokel_posts')||'[]');let reels=JSON.parse(localStorage.getItem('yokel_reels')||'[]');let sells=JSON.parse(localStorage.getItem('yokel_sells')||'[]');let inbox=JSON.parse(localStorage.getItem('yokel_inbox')||'[]');let toks=JSON.parse(localStorage.getItem('yokel_toks')||'[]');let earnings=parseFloat(localStorage.getItem('yokel_earn')||'0');let currentUser=localStorage.getItem('yokel_user')||'';let multiFiles=[], singleFile=null, videoFile=null, videoSizeMB=0, sellMultiFiles=[], reelFile=null, tokFile=null;
+function toggleEye(id,btn){let inp=document.getElementById(id); if(inp.type==='password'){inp.type='text'; btn.innerText='🙈';} else {inp.type='password'; btn.innerText='👁️';}}
+function showCreate(){document.getElementById('createBox').classList.remove('hidden');}function hideCreate(){document.getElementById('createBox').classList.add('hidden');}
+function createAccount(){let name=document.getElementById('cName').value.trim(); let user=document.getElementById('cUser').value.trim(); let p1=document.getElementById('cPass').value; let p2=document.getElementById('cPass2').value; if(!name||!user||!p1) return alert('Fill all'); if(p1!==p2) return alert('Passwords not match!'); let users=JSON.parse(localStorage.getItem('yokel_users')||'{}'); users[user]={name,pass:p1}; localStorage.setItem('yokel_users',JSON.stringify(users)); alert('Account created! Login with: '+user); hideCreate(); document.getElementById('uName').value=user;}
+function forgotPass(){let user=prompt('Enter your username:'); if(!user) return; let users=JSON.parse(localStorage.getItem('yokel_users')||'{}'); if(!users[user]){let newPass=prompt('Not found. Enter new password to set for '+user+':'); if(!newPass) return; users[user]={name:user,pass:newPass}; localStorage.setItem('yokel_users',JSON.stringify(users)); alert('Password set! Login: '+user+' / '+newPass); return;} let newPass=prompt('Enter new password for '+user+':'); if(!newPass) return; users[user].pass=newPass; localStorage.setItem('yokel_users',JSON.stringify(users)); alert('Password reset! Now login!');}
+function login(){let u=document.getElementById('uName').value.trim(); let p=document.getElementById('uPass').value; if(!u||!p) return alert('Enter username and password'); let users=JSON.parse(localStorage.getItem('yokel_users')||'{}'); if(users[u] && users[u].pass!==p) return alert('Wrong password! Use Forgot Password?'); if(!users[u]){users[u]={name:u,pass:p}; localStorage.setItem('yokel_users',JSON.stringify(users));} currentUser=u; localStorage.setItem('yokel_user',u); document.getElementById('myNameTop').innerText=u; document.getElementById('myAvatar').innerText=u[0].toUpperCase(); document.getElementById('profileName').innerText=u; document.getElementById('profileAvatar').innerText=u[0].toUpperCase(); document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('mainApp').classList.remove('hidden'); renderAll();}
 function logout(){localStorage.removeItem('yokel_user');location.reload();}
 if(currentUser){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('mainApp').classList.remove('hidden');document.getElementById('myNameTop').innerText=currentUser;document.getElementById('myAvatar').innerText=currentUser[0].toUpperCase();document.getElementById('profileName').innerText=currentUser;document.getElementById('profileAvatar').innerText=currentUser[0].toUpperCase();}
-
-function showPage(id){
- document.querySelectorAll('#mainApp>div').forEach(d=>{if(d.id.endsWith('Page')) d.classList.add('hidden')});
- document.getElementById(id).classList.remove('hidden');
- document.querySelectorAll('.nav span').forEach(s=>s.classList.remove('active'));
- let map={feedPage:'nFeed'}; if(map[id]) document.getElementById(map[id]).classList.add('active');
- if(id==='feedPage') renderFeed(); if(id==='reelsPage') renderReels(); if(id==='sellsPage') renderSells(); if(id==='inboxPage') renderInbox(); if(id==='tokboxPage') renderToks(); if(id==='earnPage') renderEarn(); if(id==='profilePage') renderProfile();
-}
-
-function handleMulti(input){
- multiFiles=[]; document.getElementById('multiPreview').innerHTML='';
- let files=[...input.files].slice(0,10);
- if(input.files.length>10) alert('Max 10 photos! Taking first 10 only.');
- if(!files.length) return;
- singleFile=null; videoFile=null; document.getElementById('singlePreview').style.display='none'; document.getElementById('videoPreviewInfo').style.display='none';
- files.forEach(f=>{
-  let r=new FileReader(); r.onload=e=>{
-   multiFiles.push(e.target.result);
-   let img=document.createElement('img'); img.src=e.target.result;
-   document.getElementById('multiPreview').appendChild(img);
-   document.getElementById('uploadStatus').innerText=`${multiFiles.length}/10 photos ready - ONE POST like Facebook!`;
-  }; r.readAsDataURL(f);
- });
-}
-function handleSingle(input){
- let f=input.files[0]; if(!f) return;
- multiFiles=[]; document.getElementById('multiPreview').innerHTML='';
- let r=new FileReader(); r.onload=e=>{singleFile=e.target.result; videoFile=null; document.getElementById('singlePreview').src=e.target.result; document.getElementById('singlePreview').style.display='block'; document.getElementById('uploadStatus').innerText='Single photo ready';}; r.readAsDataURL(f);
-}
-function handleVideo(input){
- let f=input.files[0]; if(!f) return;
- let mb=(f.size/1024/1024).toFixed(2); videoSizeMB=mb;
- if(f.size>50*1024*1024){alert(`❌ TOO BIG! ${mb}MB > 50MB LIMIT! YokelBTY limit is 50MB only.`); input.value=''; document.getElementById('videoPreviewInfo').innerHTML=`<div class="video-bad">❌ ${mb}MB > 50MB - REJECTED!</div>`; document.getElementById('videoPreviewInfo').style.display='block'; return;}
- multiFiles=[]; singleFile=null; document.getElementById('multiPreview').innerHTML=''; document.getElementById('singlePreview').style.display='none';
- let r=new FileReader(); r.onload=e=>{videoFile=e.target.result; document.getElementById('videoPreviewInfo').innerHTML=`<div class="video-ok">✅ Video OK: ${mb}MB / 50MB LIMIT - Ready!</div>`; document.getElementById('videoPreviewInfo').style.display='block'; document.getElementById('uploadStatus').innerText=`Video ${mb}MB / 50MB OK`;}; r.readAsDataURL(f);
-}
-function handleStory(input){ let f=input.files[0]; if(!f) return; alert('📖 Story uploaded! (Demo) - Will disappear in 24h like Facebook'); }
-function handleReelVideo(input){
- let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2);
- if(f.size>50*1024*1024){alert(`Reel too big! ${mb}MB > 50MB`); input.value=''; document.getElementById('reelInfo').innerHTML=`<div class="video-bad">❌ ${mb}MB > 50MB</div>`; return;}
- reelFile=f; document.getElementById('reelInfo').innerHTML=`<div class="video-ok">✅ Reel: ${mb}MB / 50MB OK</div>`;
-}
-function handleTokVideo(input){
- let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2);
- if(f.size>50*1024*1024){alert(`TokBox too big! ${mb}MB > 50MB`); input.value=''; return;}
- tokFile=f; document.getElementById('tokInfo').innerHTML=`✅ TokBox: ${mb}MB / 50MB`;
-}
-function handleSellMulti(input){
- sellMultiFiles=[]; document.getElementById('sellMultiPreview').innerHTML='';
- let files=[...input.files].slice(0,10); if(input.files.length>10) alert('Max 10 product photos - taking first 10');
- files.forEach(f=>{let r=new FileReader(); r.onload=e=>{sellMultiFiles.push(e.target.result); let img=document.createElement('img'); img.src=e.target.result; document.getElementById('sellMultiPreview').appendChild(img);}; r.readAsDataURL(f);});
-}
-
-function makePost(){
- let text=document.getElementById('postText').value.trim();
- if(!text && multiFiles.length==0 &&!singleFile &&!videoFile) return alert('Add text, photo or video!');
- let newPost={id:Date.now(),user:currentUser,text,multi:multiFiles.slice(),single:singleFile,video:videoFile,videoMB:videoSizeMB,time:new Date().toLocaleString(),likes:0,likesList:[],comments:[],react:{like:0,love:0,haha:0,wow:0,sad:0}};
- posts.unshift(newPost); localStorage.setItem('yokel_posts',JSON.stringify(posts));
- earnings+=0.05; localStorage.setItem('yokel_earn',earnings);
- document.getElementById('postText').value=''; multiFiles=[]; singleFile=null; videoFile=null; document.getElementById('multiPreview').innerHTML=''; document.getElementById('singlePreview').style.display='none'; document.getElementById('videoPreviewInfo').style.display='none'; document.getElementById('uploadStatus').innerText='✅ Posted! K0.05 earned!';
- renderFeed(); alert(`Posted! ${newPost.multi.length?newPost.multi.length+' photos in ONE post':''} ✅`);
-}
-function renderFeed(){
- let feed=document.getElementById('feed'); feed.innerHTML='';
- posts.forEach(p=>{
-  let multiHtml=''; if(p.multi && p.multi.length){
-   let cls='post-grid-1'; if(p.multi.length==2) cls='post-grid-2'; else if(p.multi.length==3) cls='post-grid-3'; else if(p.multi.length==4) cls='post-grid-4'; else cls='post-grid-many';
-   multiHtml=`<div class="${cls}" style="margin-top:8px">`; p.multi.forEach(src=> multiHtml+=`<img src="${src}" style="width:100%;border-radius:8px">`); multiHtml+=`</div><div class="small">${p.multi.length} photos in ONE post • Facebook style grid</div>`;
-  }
-  let singleHtml=p.single?`<img src="${p.single}" style="width:100%;border-radius:12px;margin-top:8px;max-height:500px;object-fit:contain">`:'';
-  let videoHtml=p.video?`<video src="${p.video}" controls style="width:100%;border-radius:12px;margin-top:8px"></video><div class="small">Video ${p.videoMB||''}MB / 50MB</div>`:'';
-  let commentsHtml=(p.comments||[]).map(c=>`<div class="small" style="background:#f0f2f5;padding:6px 8px;border-radius:10px;margin:4px 0"><b>${c.user}</b> ${c.text}</div>`).join('');
-  let html=`<div class="card"><div class="flex"><div style="width:36px;height:36px;background:var(--p);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold">${p.user[0].toUpperCase()}</div><div><b>${p.user}</b><br><span class="small">${p.time}</span></div></div><p style="margin:8px 0">${p.text||''}</p>${multiHtml}${singleHtml}${videoHtml}
-  <div class="reaction-bar"><span onclick="reactPost(${p.id},'like')">👍 Like ${p.react?.like||p.likes||0}</span><span onclick="reactPost(${p.id},'love')">❤️ Love ${p.react?.love||0}</span><span onclick="reactPost(${p.id},'haha')">😂 Haha ${p.react?.haha||0}</span><span onclick="commentPost(${p.id})">💬 ${p.comments?.length||0}</span><span onclick="sharePost(${p.id})">↗️ Share</span></div>
-  <div id="cmt-${p.id}">${commentsHtml}</div>
-  <div class="flex" style="margin-top:6px"><input id="cInput-${p.id}" placeholder="Write a comment..." style="margin:0"><button class="btn" style="width:80px;margin:0" onclick="doComment(${p.id})">Post</button></div></div>`;
-  feed.innerHTML+=html;
- });
- document.getElementById('pPostCount').innerText=posts.filter(p=>p.user==currentUser).length;
-}
-function reactPost(id,type){
- let p=posts.find(x=>x.id==id); if(!p) return; if(!p.react) p.react={like:0,love:0,haha:0,wow:0,sad:0};
- p.react[type]=(p.react[type]||0)+1; if(type=='like') p.likes=(p.likes||0)+1;
- localStorage.setItem('yokel_posts',JSON.stringify(posts)); if(p.user==currentUser){earnings+=0.01; localStorage.setItem('yokel_earn',earnings);} renderFeed();
-}
-function doComment(id){
- let inp=document.getElementById('cInput-'+id); let txt=inp.value.trim(); if(!txt) return;
- let p=posts.find(x=>x.id==id); p.comments=p.comments||[]; p.comments.push({user:currentUser,text:txt,time:Date.now()});
- localStorage.setItem('yokel_posts',JSON.stringify(posts)); inp.value=''; renderFeed();
-}
+function showPage(id){document.querySelectorAll('#mainApp>div').forEach(d=>{if(d.id.endsWith('Page')) d.classList.add('hidden')}); document.getElementById(id).classList.remove('hidden'); if(id==='feedPage') renderFeed(); if(id==='reelsPage') renderReels(); if(id==='sellsPage') renderSells(); if(id==='inboxPage') renderInbox(); if(id==='tokboxPage') renderToks(); if(id==='earnPage') renderEarn();}
+function handleMulti(input){multiFiles=[]; document.getElementById('multiPreview').innerHTML=''; let files=[...input.files].slice(0,10); if(input.files.length>10) alert('Max 10!'); if(!files.length) return; singleFile=null; videoFile=null; document.getElementById('singlePreview').style.display='none'; document.getElementById('videoPreviewInfo').style.display='none'; files.forEach(f=>{let r=new FileReader(); r.onload=e=>{multiFiles.push(e.target.result); let img=document.createElement('img'); img.src=e.target.result; document.getElementById('multiPreview').appendChild(img); document.getElementById('uploadStatus').innerText=`${multiFiles.length}/10 photos ONE POST!`;}; r.readAsDataURL(f);});}
+function handleSingle(input){let f=input.files[0]; if(!f) return; multiFiles=[]; document.getElementById('multiPreview').innerHTML=''; let r=new FileReader(); r.onload=e=>{singleFile=e.target.result; videoFile=null; document.getElementById('singlePreview').src=e.target.result; document.getElementById('singlePreview').style.display='block'; document.getElementById('uploadStatus').innerText='Single photo ready';}; r.readAsDataURL(f);}
+function handleVideo(input){let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2); videoSizeMB=mb; if(f.size>50*1024*1024){alert(`❌ TOO BIG! ${mb}MB > 50MB!`); input.value=''; document.getElementById('videoPreviewInfo').innerHTML=`<div class="video-bad">❌ ${mb}MB > 50MB REJECTED!</div>`; document.getElementById('videoPreviewInfo').style.display='block'; return;} multiFiles=[]; singleFile=null; document.getElementById('multiPreview').innerHTML=''; document.getElementById('singlePreview').style.display='none'; let r=new FileReader(); r.onload=e=>{videoFile=e.target.result; document.getElementById('videoPreviewInfo').innerHTML=`<div class="video-ok">✅ Video OK: ${mb}MB / 50MB Ready!</div>`; document.getElementById('videoPreviewInfo').style.display='block'; document.getElementById('uploadStatus').innerText=`Video ${mb}MB OK`;}; r.readAsDataURL(f);}
+function handleStory(input){alert('Story uploaded Demo');}
+function handleReelVideo(input){let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2); if(f.size>50*1024*1024){alert(`${mb}MB >50MB`); input.value=''; return;} reelFile=f; document.getElementById('reelInfo').innerHTML=`<div class="video-ok">✅ Reel: ${mb}MB OK</div>`;}
+function handleTokVideo(input){let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2); if(f.size>50*1024*1024){alert(`${mb}MB >50MB`); input.value=''; return;} tokFile=f; document.getElementById('tokInfo').innerHTML=`✅ TokBox: ${mb}MB`;}
+function handleSellMulti(input){sellMultiFiles=[]; document.getElementById('sellMultiPreview').innerHTML=''; let files=[...input.files].slice(0,10); files.forEach(f=>{let r=new FileReader(); r.onload=e=>{sellMultiFiles.push(e.target.result); let img=document.createElement('img'); img.src=e.target.result; document.getElementById('sellMultiPreview').appendChild(img);}; r.readAsDataURL(f);});}
+function makePost(){let text=document.getElementById('postText').value.trim(); if(!text && multiFiles.length==0 &&!singleFile &&!videoFile) return alert('Add something!'); let newPost={id:Date.now(),user:currentUser,text,multi:multiFiles.slice(),single:singleFile,video:videoFile,videoMB:videoSizeMB,time:new Date().toLocaleString(),likes:0,comments:[],react:{like:0,love:0,haha:0}}; posts.unshift(newPost); localStorage.setItem('yokel_posts',JSON.stringify(posts)); earnings+=0.05; localStorage.setItem('yokel_earn',earnings); document.getElementById('postText').value=''; multiFiles=[]; singleFile=null; videoFile=null; document.getElementById('multiPreview').innerHTML=''; document.getElementById('singlePreview').style.display='none'; document.getElementById('videoPreviewInfo').style.display='none'; document.getElementById('uploadStatus').innerText='✅ Posted K0.05!'; renderFeed(); alert('Posted!');}
+function renderFeed(){let feed=document.getElementById('feed'); feed.innerHTML=''; posts.forEach(p=>{let multiHtml=''; if(p.multi && p.multi.length){let cls='post-grid-1'; if(p.multi.length==2) cls='post-grid-2'; else if(p.multi.length==3) cls='post-grid-3'; else if(p.multi.length==4) cls='post-grid-4'; else cls='post-grid-many'; multiHtml=`<div class="${cls}" style="margin-top:8px">`; p.multi.forEach(src=> multiHtml+=`<img src="${src}" style="width:100%;border-radius:8px">`); multiHtml+=`</div><div class="small">${p.multi.length} photos ONE POST</div>`;} let singleHtml=p.single?`<img src="${p.single}" style="width:100%;border-radius:12px;margin-top:8px">`:''; let videoHtml=p.video?`<video src="${p.video}" controls style="width:100%;border-radius:12px;margin-top:8px"></video><div class="small">Video ${p.videoMB}MB / 50MB</div>`:''; let commentsHtml=(p.comments||[]).map(c=>`<div class="small" style="background:#f0f2f5;padding:6px 8px;border-radius:10px;margin:4px 0"><b>${c.user}</b> ${c.text}</div>`).join(''); let html=`<div class="card"><div class="flex"><div style="width:36px;height:36px;background:linear-gradient(135deg,#000,#CE1126);color:#FFD700;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;border:2px solid #FFD700">${p.user[0].toUpperCase()}</div><div><b>${p.user}</b><br><span class="small">${p.time}</span></div></div><p style="margin:8px 0">${p.text||''}</p>${multiHtml}${singleHtml}${videoHtml}<div class="reaction-bar"><span onclick="reactPost(${p.id},'like')">👍 ${p.react?.like||p.likes||0}</span><span onclick="reactPost(${p.id},'love')">❤️ ${p.react?.love||0}</span><span onclick="reactPost(${p.id},'haha')">😂 ${p.react?.haha||0}</span><span onclick="commentPost(${p.id})">💬 ${p.comments?.length||0}</span></div><div>${commentsHtml}</div><div class="flex" style="margin-top:6px"><input id="cInput-${p.id}" placeholder="Comment..." style="margin:0"><button class="btn" style="width:80px;margin:0" onclick="doComment(${p.id})">Post</button></div></div>`; feed.innerHTML+=html;}); document.getElementById('pPostCount').innerText=posts.filter(p=>p.user==currentUser).length;}
+function reactPost(id,type){let p=posts.find(x=>x.id==id); if(!p) return; if(!p.react) p.react={like:0,love:0,haha:0}; p.react[type]=(p.react[type]||0)+1; if(type=='like') p.likes=(p.likes||0)+1; localStorage.setItem('yokel_posts',JSON.stringify(posts)); if(p.user==currentUser){earnings+=0.01; localStorage.setItem('yokel_earn',earnings);} renderFeed();}
+function doComment(id){let inp=document.getElementById('cInput-'+id); let txt=inp.value.trim(); if(!txt) return; let p=posts.find(x=>x.id==id); p.comments=p.comments||[]; p.comments.push({user:currentUser,text:txt}); localStorage.setItem('yokel_posts',JSON.stringify(posts)); inp.value=''; renderFeed();}
 function commentPost(id){document.getElementById('cInput-'+id).focus();}
-function sharePost(id){alert('🔗 Link copied! Share to WhatsApp, Facebook - K0.02 earned!'); earnings+=0.02; localStorage.setItem('yokel_earn',earnings);}
-
 function renderAll(){renderFeed();renderReels();renderSells();renderInbox();renderToks();renderEarn();}
 function renderReels(){let f=document.getElementById('reelsFeed'); f.innerHTML=''; reels.forEach(r=>{f.innerHTML+=`<div class="card"><b>${r.user}</b><p>${r.caption}</p><div class="small">${r.info}</div></div>`;});}
-function postReel(){
- let cap=document.getElementById('reelCaption').value; if(!reelFile &&!cap) return alert('Add video or caption');
- let mb=reelFile?(reelFile.size/1024/1024).toFixed(2):0;
- reels.unshift({user:currentUser,caption:cap,info:`Reel ${mb}MB / 50MB`,time:Date.now()}); localStorage.setItem('yokel_reels',JSON.stringify(reels));
- earnings+=0.10; localStorage.setItem('yokel_earn',earnings); alert('Reel posted! K0.10 earned!'); renderReels();
-}
-function renderSells(){let f=document.getElementById('sellsFeed'); f.innerHTML=''; sells.forEach(s=>{let imgs=s.multi.map(m=>`<img src="${m}" style="width:100%;height:100px;object-fit:cover;border-radius:8px">`).join(''); f.innerHTML+=`<div class="card"><b>${s.title} - K${s.price}</b><p class="small">${s.location}</p><div class="preview-grid">${imgs}</div><p>${s.desc}</p><div class="small">${s.multi.length} photos in ONE sale • by ${s.user}</div><button class="btn" onclick="alert('Contact seller: ${s.user} - Inbox him!')">Inbox Seller 📥</button></div>`;});}
-function postSell(){
- let title=document.getElementById('sellTitle').value, price=document.getElementById('sellPrice').value, loc=document.getElementById('sellLocation').value, desc=document.getElementById('sellDesc').value;
- if(!title || sellMultiFiles.length==0) return alert('Add title + product photos (multi)');
- sells.unshift({user:currentUser,title,price,location:loc,desc,multi:sellMultiFiles.slice(),time:Date.now()}); localStorage.setItem('yokel_sells',JSON.stringify(sells));
- earnings+=0.05; localStorage.setItem('yokel_earn',earnings); alert(`Sale posted! ${sellMultiFiles.length} photos in ONE sale!`); renderSells();
-}
-function renderInbox(){let l=document.getElementById('inboxList'); l.innerHTML=''; inbox.forEach(m=>{l.innerHTML+=`<div style="padding:8px;border-bottom:1px solid #eee"><b>${m.from} → ${m.to}</b><br>${m.text}<br><span class="small">${new Date(m.time).toLocaleString()}</span></div>`;});}
-function sendInbox(){
- let to=document.getElementById('inboxTo').value.trim(), txt=document.getElementById('inboxMsg').value.trim(); if(!to||!txt) return alert('Add to + message');
- inbox.unshift({from:currentUser,to,text:txt,time:Date.now()}); localStorage.setItem('yokel_inbox',JSON.stringify(inbox)); document.getElementById('inboxMsg').value=''; renderInbox(); alert('Message sent! 📥');
-}
+function postReel(){let cap=document.getElementById('reelCaption').value; if(!reelFile &&!cap) return alert('Add video'); let mb=reelFile?(reelFile.size/1024/1024).toFixed(2):0; reels.unshift({user:currentUser,caption:cap,info:`Reel ${mb}MB / 50MB`}); localStorage.setItem('yokel_reels',JSON.stringify(reels)); earnings+=0.10; localStorage.setItem('yokel_earn',earnings); alert('Reel posted K0.10'); renderReels();}
+function renderSells(){let f=document.getElementById('sellsFeed'); f.innerHTML=''; sells.forEach(s=>{let imgs=s.multi.map(m=>`<img src="${m}" style="width:100%;height:100px;object-fit:cover;border-radius:8px">`).join(''); f.innerHTML+=`<div class="card"><b>${s.title} - K${s.price}</b><div class="preview-grid">${imgs}</div><p>${s.desc}</p><div class="small">${s.multi.length} photos ONE sale</div></div>`;});}
+function postSell(){let title=document.getElementById('sellTitle').value, price=document.getElementById('sellPrice').value, loc=document.getElementById('sellLocation').value, desc=document.getElementById('sellDesc').value; if(!title || sellMultiFiles.length==0) return alert('Add title + photos'); sells.unshift({user:currentUser,title,price,location:loc,desc,multi:sellMultiFiles.slice()}); localStorage.setItem('yokel_sells',JSON.stringify(sells)); earnings+=0.05; localStorage.setItem('yokel_earn',earnings); alert(`${sellMultiFiles.length} photos ONE sale posted!`); renderSells();}
+function renderInbox(){let l=document.getElementById('inboxList'); l.innerHTML=''; inbox.forEach(m=>{l.innerHTML+=`<div style="padding:8px;border-bottom:1px solid #eee"><b>${m.from} → ${m.to}</b><br>${m.text}</div>`;});}
+function sendInbox(){let to=document.getElementById('inboxTo').value.trim(), txt=document.getElementById('inboxMsg').value.trim(); if(!to||!txt) return alert('Fill'); inbox.unshift({from:currentUser,to,text:txt,time:Date.now()}); localStorage.setItem('yokel_inbox',JSON.stringify(inbox)); document.getElementById('inboxMsg').value=''; renderInbox();}
 function renderToks(){let l=document.getElementById('tokList'); l.innerHTML=''; toks.forEach(t=>{l.innerHTML+=`<div class="card"><b>${t.user}</b><p>${t.caption}</p><div class="small">${t.info}</div></div>`;});}
-function postTok(){
- let cap=document.getElementById('tokCaption').value; let mb=tokFile?(tokFile.size/1024/1024).toFixed(2):0;
- toks.unshift({user:currentUser,caption:cap,info:`TokBox ${mb}MB / 50MB`,time:Date.now()}); localStorage.setItem('yokel_toks',JSON.stringify(toks));
- earnings+=0.08; localStorage.setItem('yokel_earn',earnings); alert('TokBox posted!'); renderToks();
-}
-function renderEarn(){document.getElementById('earnBalance').innerText=`K ${earnings.toFixed(2)}`; document.getElementById('earnPosts').innerText=posts.filter(p=>p.user==currentUser).length; document.getElementById('earnLikes').innerText=posts.filter(p=>p.user==currentUser).reduce((a,b)=>a+(b.likes||0),0); document.getElementById('earnHistory').innerHTML=`<div class="small">Earn K0.05 per post (multi photos = same post), K0.01 per like, K0.10 per reel (50MB), K0.08 TokBox, K0.02 share</div>`;}
-function renderProfile(){document.getElementById('pPostCount').innerText=posts.filter(p=>p.user==currentUser).length;}
-function withdraw(){
- let bank=document.getElementById('bankName').value, acc=document.getElementById('bankAcc').value, name=document.getElementById('bankAccName').value, amt=parseFloat(document.getElementById('withdrawAmt').value);
- if(!bank||!acc||!name||!amt) return alert('Fill all bank fields'); if(amt<20) return alert('Min K20'); if(amt>earnings) return alert('Not enough balance');
- earnings-=amt; localStorage.setItem('yokel_earn',earnings); let hist=document.getElementById('withdrawHistory'); hist.innerHTML=`<div style="background:#d4edda;padding:8px;border-radius:8px;margin-top:6px">✅ Withdraw K${amt} to ${bank} - ${acc} (${name}) - Processing 24h. Fee K2 deducted.</div>`+hist.innerHTML; renderEarn(); alert(`Withdraw request K${amt} to ${bank} sent!`);
-}
+function postTok(){let cap=document.getElementById('tokCaption').value; let mb=tokFile?(tokFile.size/1024/1024).toFixed(2):0; toks.unshift({user:currentUser,caption:cap,info:`TokBox ${mb}MB / 50MB`}); localStorage.setItem('yokel_toks',JSON.stringify(toks)); earnings+=0.08; localStorage.setItem('yokel_earn',earnings); alert('TokBox posted'); renderToks();}
+function renderEarn(){document.getElementById('earnBalance').innerText=`K ${earnings.toFixed(2)}`; document.getElementById('earnPosts').innerText=posts.filter(p=>p.user==currentUser).length; document.getElementById('earnLikes').innerText=posts.filter(p=>p.user==currentUser).reduce((a,b)=>a+(b.likes||0),0);}
+function withdraw(){let bank=document.getElementById('bankName').value, acc=document.getElementById('bankAcc').value, name=document.getElementById('bankAccName').value, amt=parseFloat(document.getElementById('withdrawAmt').value); if(!bank||!acc||!name||!amt) return alert('Fill all'); if(amt<20) return alert('Min K20'); if(amt>earnings) return alert('No balance'); earnings-=amt; localStorage.setItem('yokel_earn',earnings); document.getElementById('withdrawHistory').innerHTML=`<div style="background:#d4edda;padding:8px;border-radius:8px">✅ Withdraw K${amt} to ${bank} ${acc} - Processing 24h Fee K2</div>`; renderEarn();}
 </script></body></html>
