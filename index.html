@@ -2,7 +2,7 @@
 <html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>YokelBTY V16.5 PNG - All Icons Fixed</title>
+<title>YokelBTY V16.6 PNG - 500KB Photo Fix</title>
 <style>
 :root{--p:#CE1126;--gold:#FFD700;--bg:#f0f2f5}
 *{box-sizing:border-box;margin:0;padding:0;max-width:100%}
@@ -36,7 +36,7 @@ textarea,input,select{width:100%;padding:11px;border:1px solid #ddd;border-radiu
 <div class="card" style="text-align:center">
 <div class="png-header"></div>
 <h1>Yokel<span style="color:#CE1126">BTY</span> 🇵🇬</h1>
-<p><b style="color:#CE1126">V16.5 ALL ICONS INSIDE FIXED ✅</b></p>
+<p><b style="color:#CE1126">V16.6 500KB AUTO COMPRESS ✅</b></p>
 <input id="uName" placeholder="Username">
 <div class="pass-wrap"><input id="uPass" type="password" placeholder="Password"><button class="eye-btn" onclick="toggleEye('uPass',this)">👁️</button></div>
 <div style="display:flex;justify-content:space-between;margin:6px 2px">
@@ -56,29 +56,29 @@ textarea,input,select{width:100%;padding:11px;border:1px solid #ddd;border-radiu
 </div></div></div><div id="mainApp" class="hidden">
 <div id="feedPage">
 <div class="card"><div class="png-header"></div>
-<div class="flex"><div style="width:40px;height:40px;background:linear-gradient(135deg,#000,#CE1126);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#FFD700;font-weight:bold;border:2px solid #FFD700" id="myAvatar">Y</div><div><b id="myNameTop">User</b><br><span class="small">Public • Now 🇵🇬</span></div></div>
-<textarea id="postText" placeholder="What's on your mind? 10 photos ONE POST!"></textarea>
+<div class="flex"><div style="width:40px;height:40px;background:linear-gradient(135deg,#000,#CE1126);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#FFD700;font-weight:bold;border:2px solid #FFD700" id="myAvatar">Y</div><div><b id="myNameTop">User</b><br><span class="small">Public • Now 🇵🇬 V16.6 500KB</span></div></div>
+<textarea id="postText" placeholder="Garden boy? 10 photos auto 500KB ONE POST!"></textarea>
 <div class="upload-icons">
-<label class="upload-icon multi">📸 MULTI (10) <input type="file" id="multiInput" accept="image/*" multiple hidden onchange="handleMulti(this)"></label>
-<label class="upload-icon">📷 Single <input type="file" id="singleInput" accept="image/*" hidden onchange="handleSingle(this)"></label>
+<label class="upload-icon multi">📸 MULTI (10) 500KB <input type="file" id="multiInput" accept="image/*" multiple hidden onchange="handleMulti(this)"></label>
+<label class="upload-icon">📷 Single 500KB <input type="file" id="singleInput" accept="image/*" hidden onchange="handleSingle(this)"></label>
 <label class="upload-icon">🎥 Video 50MB <input type="file" id="videoInput" accept="video/*" hidden onchange="handleVideo(this)"></label>
 </div>
 <div id="multiPreview" class="preview-grid"></div>
 <img id="singlePreview" style="display:none;width:100%;border-radius:12px;max-height:400px;object-fit:contain;border:2px solid #FFD700">
 <div id="videoPreviewInfo" style="display:none"></div>
 <div id="uploadStatus" class="small" style="color:green;font-weight:700;margin:6px 0"></div>
-<button id="postBtn" onclick="makePost()" class="btn" style="font-size:16px">Post to YokelBTY 🚀 🇵🇬</button>
+<button id="postBtn" onclick="makePost()" class="btn" style="font-size:16px">Post to YokelBTY 500KB 🚀 🇵🇬</button>
 </div><div id="feed"></div>
 </div>
 
 <div id="reelsPage" class="hidden"><div class="card"><h3>🎬 Reels 50MB 🇵🇬</h3><input type="file" id="reelInput" accept="video/*" onchange="handleReelVideo(this)"><div id="reelInfo" class="small"></div><textarea id="reelCaption" placeholder="Caption..."></textarea><button class="btn" onclick="postReel()">Post Reel</button></div><div id="reelsFeed"></div></div>
-<div id="sellsPage" class="hidden"><div class="card"><h3>🛒 Marketplace MULTI 🇵🇬</h3><input id="sellTitle" placeholder="Product"><input id="sellPrice" type="number" placeholder="Price K"><input id="sellLocation" placeholder="Location"><label class="upload-icon multi">📦 MULTI (10) <input type="file" id="sellMulti" accept="image/*" multiple hidden onchange="handleSellMulti(this)"></label><div id="sellMultiPreview" class="preview-grid"></div><textarea id="sellDesc" placeholder="Desc..."></textarea><button class="btn" onclick="postSell()">Post for Sale</button></div><div id="sellsFeed"></div></div>
+<div id="sellsPage" class="hidden"><div class="card"><h3>🛒 Marketplace MULTI 500KB 🇵🇬</h3><input id="sellTitle" placeholder="Product"><input id="sellPrice" type="number" placeholder="Price K"><input id="sellLocation" placeholder="Location"><label class="upload-icon multi">📦 MULTI (10) 500KB <input type="file" id="sellMulti" accept="image/*" multiple hidden onchange="handleSellMulti(this)"></label><div id="sellMultiPreview" class="preview-grid"></div><textarea id="sellDesc" placeholder="Desc..."></textarea><button class="btn" onclick="postSell()">Post for Sale</button></div><div id="sellsFeed"></div></div>
 <div id="inboxPage" class="hidden"><div class="card"><h3>📥 Inbox 🇵🇬</h3><div id="inboxList"></div><hr><input id="inboxTo" placeholder="To"><input id="inboxMsg" placeholder="Message..."><button class="btn" onclick="sendInbox()">Send</button></div></div>
 <div id="tokboxPage" class="hidden"><div class="card"><h3>📦 TokBox 50MB 🇵🇬</h3><input type="file" id="tokInput" accept="video/*" onchange="handleTokVideo(this)"><div id="tokInfo" class="small"></div><textarea id="tokCaption" placeholder="Caption..."></textarea><button class="btn" onclick="postTok()">Post TokBox</button></div><div id="tokList"></div></div>
 <div id="earnPage" class="hidden"><div class="card"><h3>💰 Earnings 🇵🇬</h3><div style="background:linear-gradient(135deg,#000,#CE1126);color:#FFD700;padding:16px;border-radius:12px;border:2px solid #FFD700"><div class="small" style="color:#fff">Balance</div><h2 id="earnBalance" style="color:#FFD700">K 0.00</h2></div><button class="btn" onclick="showPage('bankPage')">Withdraw 🏦</button></div></div>
 <div id="bankPage" class="hidden"><div class="card"><h3>🏦 Bank PNG 🇵🇬</h3><select id="bankName"><option>Select Bank</option><option>BSP</option><option>Kina Bank</option><option>Westpac PNG</option><option>ANZ PNG</option></select><input id="bankAcc" placeholder="Account"><input id="bankAccName" placeholder="Name"><input id="withdrawAmt" type="number" placeholder="Amount K"><button class="btn" onclick="withdraw()">Withdraw 🇵🇬</button><div id="withdrawHistory" class="small"></div></div></div>
-<div id="profilePage" class="hidden"><div class="card" style="text-align:center"><div style="width:80px;height:80px;background:linear-gradient(135deg,#000,#CE1126);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#FFD700;font-size:36px;font-weight:bold;border:3px solid #FFD700" id="profileAvatar">Y</div><h3 id="profileName">User</h3><p class="small">YokelBTY Member 🇵🇬</p><button class="btn" onclick="showPage('aboutPage')" style="background:#fff;color:#CE1126;border:2px solid #CE1126;margin-top:12px">👑 Founder & History 🇵🇬</button><button class="btn" style="background:#e4e6eb;color:#050505" onclick="logout()">Logout</button></div></div>
-<div id="aboutPage" class="hidden"><div class="founder-card"><h2>👑 Founder 🇵🇬</h2><p><b>Brenton T. ⭐</b><br>Founder - YokelBTY<br>GitHub: tbrenton286-bot<br>Port Moresby, PNG 🇵🇬</p></div><div class="card"><h3>📜 History 🇵🇬</h3><p><b>V16.5 FIXED:</b> All icons INSIDE app, no overflow! ✅</p><button class="btn" onclick="showPage('feedPage')">Back to Feed 🏠</button></div></div>
+<div id="profilePage" class="hidden"><div class="card" style="text-align:center"><div style="width:80px;height:80px;background:linear-gradient(135deg,#000,#CE1126);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#FFD700;font-size:36px;font-weight:bold;border:3px solid #FFD700" id="profileAvatar">Y</div><h3 id="profileName">User</h3><p class="small">YokelBTY V16.6 500KB Member 🇵🇬</p><button class="btn" onclick="showPage('aboutPage')" style="background:#fff;color:#CE1126;border:2px solid #CE1126;margin-top:12px">👑 Founder & History 🇵🇬</button><button class="btn" style="background:#e4e6eb;color:#050505" onclick="logout()">Logout</button></div></div>
+<div id="aboutPage" class="hidden"><div class="founder-card"><h2>👑 Founder 🇵🇬</h2><p><b>Brenton T. ⭐</b><br>Founder - YokelBTY V16.6<br>500KB Auto Compress - Like Facebook!<br>Port Moresby, PNG 🇵🇬</p></div><div class="card"><h3>📜 History 🇵🇬</h3><p><b>V16.6 FIXED:</b> All photos auto compress to 500KB! Garden boy will post! ✅</p><button class="btn" onclick="showPage('feedPage')">Back to Feed 🏠</button></div></div>
 
 <div style="height:80px"></div>
 <div class="nav">
@@ -111,14 +111,80 @@ function login(){let u=document.getElementById('uName').value.trim(); let p=docu
 function logout(){localStorage.removeItem('yokel_user');location.reload();}
 if(currentUser){document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('mainApp').classList.remove('hidden'); document.getElementById('myNameTop').innerText=currentUser; document.getElementById('myAvatar').innerText=currentUser[0].toUpperCase(); document.getElementById('profileName').innerText=currentUser; document.getElementById('profileAvatar').innerText=currentUser[0].toUpperCase(); renderAll();}
 function showPage(id){document.querySelectorAll('#mainApp>div').forEach(d=>{if(d.id.endsWith('Page')) d.classList.add('hidden')}); document.getElementById(id).classList.remove('hidden'); document.querySelectorAll('.nav span').forEach(n=>n.classList.remove('active')); if(id==='feedPage') document.getElementById('nFeed').classList.add('active'); if(id==='feedPage') renderFeed(); if(id==='reelsPage') renderReels(); if(id==='sellsPage') renderSells(); if(id==='inboxPage') renderInbox(); if(id==='tokboxPage') renderToks(); if(id==='earnPage') renderEarn(); window.scrollTo(0,0);}
-function handleMulti(input){try{multiFiles=[]; document.getElementById('multiPreview').innerHTML=''; let files=[...input.files].slice(0,10); if(input.files.length>10) alert('Max 10!'); if(!files.length) return; singleFile=null; videoFile=null; document.getElementById('singlePreview').style.display='none'; document.getElementById('videoPreviewInfo').style.display='none'; let loaded=0; files.forEach(f=>{let r=new FileReader(); r.onload=e=>{multiFiles.push(e.target.result); let img=document.createElement('img'); img.src=e.target.result; document.getElementById('multiPreview').appendChild(img); loaded++; document.getElementById('uploadStatus').innerText=loaded+'/10 ONE POST Ready ✅'; document.getElementById('postBtn').innerText='Post ('+loaded+' photos) 🇵🇬';}; r.readAsDataURL(f);});}catch(e){alert('Multi error: '+e.message)}}
-function handleSingle(input){let f=input.files[0]; if(!f) return; multiFiles=[]; document.getElementById('multiPreview').innerHTML=''; let r=new FileReader(); r.onload=e=>{singleFile=e.target.result; videoFile=null; document.getElementById('singlePreview').src=e.target.result; document.getElementById('singlePreview').style.display='block'; document.getElementById('uploadStatus').innerText='Single ready ✅';}; r.readAsDataURL(f);}
+
+// V16.6 NEW 500KB COMPRESSOR - LIKE FACEBOOK!
+function compressImage(file, maxKB, maxWidth, callback){
+  let reader=new FileReader();
+  reader.onload=e=>{
+    let img=new Image();
+    img.onload=()=>{
+      let canvas=document.createElement('canvas');
+      let ratio=Math.min(maxWidth/img.width, maxWidth/img.height);
+      if(ratio<1){canvas.width=img.width*ratio; canvas.height=img.height*ratio;}
+      else {canvas.width=img.width; canvas.height=img.height;}
+      let ctx=canvas.getContext('2d');
+      ctx.drawImage(img,0,0,canvas.width,canvas.height);
+      let quality=0.8;
+      let dataUrl=canvas.toDataURL('image/jpeg',quality);
+      while(dataUrl.length*0.75/1024>maxKB && quality>0.1){
+        quality-=0.1;
+        dataUrl=canvas.toDataURL('image/jpeg',quality);
+      }
+      callback(dataUrl);
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function handleMulti(input){
+  multiFiles=[]; document.getElementById('multiPreview').innerHTML='';
+  let files=[...input.files].slice(0,10);
+  if(input.files.length>10) alert('Max 10!');
+  if(!files.length) return;
+  singleFile=null; videoFile=null;
+  document.getElementById('singlePreview').style.display='none';
+  document.getElementById('videoPreviewInfo').style.display='none';
+  document.getElementById('uploadStatus').innerText='Compressing to 500KB... ⏳';
+  let loaded=0;
+  files.forEach(f=>{
+    compressImage(f,500,1024,(compressed)=>{
+      multiFiles.push(compressed);
+      let img=document.createElement('img'); img.src=compressed;
+      document.getElementById('multiPreview').appendChild(img);
+      loaded++;
+      document.getElementById('uploadStatus').innerText=loaded+'/10 compressed to ~500KB ✅ ONE POST Ready!';
+      document.getElementById('postBtn').innerText='Post ('+loaded+' photos 500KB) 🇵🇬';
+    });
+  });
+}
+function handleSingle(input){
+  let f=input.files[0]; if(!f) return;
+  multiFiles=[]; document.getElementById('multiPreview').innerHTML='';
+  document.getElementById('uploadStatus').innerText='Compressing to 500KB... ⏳';
+  compressImage(f,500,1280,(compressed)=>{
+    singleFile=compressed; videoFile=null;
+    document.getElementById('singlePreview').src=compressed;
+    document.getElementById('singlePreview').style.display='block';
+    document.getElementById('uploadStatus').innerText='Single compressed 500KB ready ✅';
+  });
+}
+function handleSellMulti(input){
+  sellMultiFiles=[]; document.getElementById('sellMultiPreview').innerHTML='';
+  let files=[...input.files].slice(0,10);
+  files.forEach(f=>{
+    compressImage(f,500,1024,(compressed)=>{
+      sellMultiFiles.push(compressed);
+      let img=document.createElement('img'); img.src=compressed;
+      document.getElementById('sellMultiPreview').appendChild(img);
+    });
+  });
+}
+
 function handleVideo(input){let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2); videoSizeMB=mb; if(f.size>50*1024*1024){alert(mb+'MB >50MB!'); input.value=''; return;} multiFiles=[]; singleFile=null; document.getElementById('multiPreview').innerHTML=''; document.getElementById('singlePreview').style.display='none'; let r=new FileReader(); r.onload=e=>{videoFile=e.target.result; document.getElementById('videoPreviewInfo').innerHTML='<div style="background:#d4edda;padding:8px;border-radius:8px">✅ Video '+mb+'MB OK</div>'; document.getElementById('videoPreviewInfo').style.display='block'; document.getElementById('uploadStatus').innerText='Video '+mb+'MB OK ✅';}; r.readAsDataURL(f);}
 function handleReelVideo(input){let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2); if(f.size>50*1024*1024){alert(mb+'MB >50MB'); input.value=''; return;} reelFile=f; document.getElementById('reelInfo').innerHTML='<div style="background:#d4edda;padding:8px;border-radius:8px">✅ Reel '+mb+'MB</div>';}
 function handleTokVideo(input){let f=input.files[0]; if(!f) return; let mb=(f.size/1024/1024).toFixed(2); if(f.size>50*1024*1024){alert(mb+'MB >50MB'); input.value=''; return;} tokFile=f; document.getElementById('tokInfo').innerHTML='✅ TokBox '+mb+'MB';}
-function handleSellMulti(input){sellMultiFiles=[]; document.getElementById('sellMultiPreview').innerHTML=''; let files=[...input.files].slice(0,10); files.forEach(f=>{let r=new FileReader(); r.onload=e=>{sellMultiFiles.push(e.target.result); let img=document.createElement('img'); img.src=e.target.result; document.getElementById('sellMultiPreview').appendChild(img);}; r.readAsDataURL(f);});}
-function makePost(){try{let text=document.getElementById('postText').value.trim(); if(!text && multiFiles.length==0 &&!singleFile &&!videoFile){alert('Add text or photo first!');return;} let newPost={id:Date.now(),user:currentUser||'Yokel',text,multi:multiFiles.slice(),single:singleFile,video:videoFile,videoMB:videoSizeMB,time:new Date().toLocaleString(),likes:0,comments:[],react:{like:0,love:0,haha:0}}; posts.unshift(newPost); try{localStorage.setItem('yokel_posts',JSON.stringify(posts));} catch(e){posts=posts.slice(0,5); localStorage.removeItem('yokel_posts'); try{localStorage.setItem('yokel_posts',JSON.stringify([newPost])); posts=[newPost]; alert('Storage full! Old cleared, new saved!');} catch(e2){alert('Photo too big! Use smaller!'); return;}} earnings+=0.05; localStorage.setItem('yokel_earn',earnings); document.getElementById('postText').value=''; multiFiles=[]; singleFile=null; videoFile=null; document.getElementById('multiPreview').innerHTML=''; document.getElementById('singlePreview').style.display='none'; document.getElementById('videoPreviewInfo').style.display='none'; document.getElementById('uploadStatus').innerText='✅ Posted! Scroll down!'; renderFeed(); alert('✅ Posted!'); window.scrollTo(0,300);}catch(err){alert('Error: '+err.message);}}
-function renderFeed(){let feed=document.getElementById('feed'); feed.innerHTML=''; if(posts.length==0){feed.innerHTML='<div class="card" style="text-align:center"><p>No posts yet - be first! 🇵🇬</p></div>'; return;} posts.forEach(p=>{let multiHtml=''; if(p.multi && p.multi.length){let cls='post-grid-1'; if(p.multi.length==2) cls='post-grid-2'; else if(p.multi.length==3) cls='post-grid-3'; else if(p.multi.length==4) cls='post-grid-4'; else cls='post-grid-many'; multiHtml='<div class="'+cls+'" style="margin-top:8px">'; p.multi.forEach(src=> multiHtml+='<img src="'+src+'" style="border-radius:8px;width:100%;height:180px;object-fit:cover">'); multiHtml+='</div><div class="small">'+p.multi.length+' photos ONE POST</div>';} let singleHtml=p.single?'<img src="'+p.single+'" style="width:100%;border-radius:12px;margin-top:8px;border:1px solid #ddd">':''; let videoHtml=p.video?'<video src="'+p.video+'" controls style="width:100%;border-radius:12px;margin-top:8px"></video><div class="small">Video '+p.videoMB+'MB</div>':''; let commentsHtml=(p.comments||[]).map(c=>'<div class="small" style="background:#f0f2f5;padding:6px 8px;border-radius:10px;margin:4px 0"><b>'+c.user+'</b> '+c.text+'</div>').join(''); let html='<div class="card"><div class="flex"><div style="width:36px;height:36px;background:linear-gradient(135deg,#000,#CE1126);color:#FFD700;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;border:2px solid #FFD700">'+p.user[0].toUpperCase()+'</div><div><b>'+p.user+'</b><br><span class="small">'+p.time+'</span></div></div><p style="margin:8px 0">'+(p.text||'')+'</p>'+multiHtml+singleHtml+videoHtml+'<div style="display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;margin:8px 0"><span onclick="reactPost('+p.id+',\'like\')">👍 '+(p.react?.like||p.likes||0)+'</span><span onclick="reactPost('+p.id+',\'love\')">❤️ '+(p.react?.love||0)+'</span><span onclick="reactPost('+p.id+',\'haha\')">😂 '+(p.react?.haha||0)+'</span><span onclick="commentPost('+p.id+')">💬 '+(p.comments?.length||0)+'</span></div><div>'+commentsHtml+'</div><div class="flex" style="margin-top:6px"><input id="cInput-'+p.id+'" placeholder="Comment..." style="margin:0"><button class="btn" style="width:80px;margin:0" onclick="doComment('+p.id+')">Post</button></div></div>'; feed.innerHTML+=html;});}
+function makePost(){try{let text=document.getElementById('postText').value.trim(); if(!text && multiFiles.length==0 &&!singleFile &&!videoFile){alert('Add text or photo first!');return;} let newPost={id:Date.now(),user:currentUser||'Yokel',text,multi:multiFiles.slice(),single:singleFile,video:videoFile,videoMB:videoSizeMB,time:new Date().toLocaleString(),likes:0,comments:[],react:{like:0,love:0,haha:0}}; posts.unshift(newPost); try{localStorage.setItem('yokel_posts',JSON.stringify(posts));} catch(e){posts=posts.slice(0,10); try{localStorage.setItem('yokel_posts',JSON.stringify([newPost])); posts=[newPost]; alert('Storage full! Old cleared, new saved 500KB!');} catch(e2){alert('Still full! Clear browser cache!'); return;}} earnings+=0.05; localStorage.setItem('yokel_earn',earnings); document.getElementById('postText').value=''; multiFiles=[]; singleFile=null; videoFile=null; document.getElementById('multiPreview').innerHTML=''; document.getElementById('singlePreview').style.display='none'; document.getElementById('videoPreviewInfo').style.display='none'; document.getElementById('uploadStatus').innerText='✅ Posted 500KB! Scroll down!'; renderFeed(); alert('✅ Posted 500KB!'); window.scrollTo(0,300);}catch(err){alert('Error: '+err.message);}}
+function renderFeed(){let feed=document.getElementById('feed'); feed.innerHTML=''; if(posts.length==0){feed.innerHTML='<div class="card" style="text-align:center"><p>No posts yet - be first! V16.6 500KB 🇵🇬</p></div>'; return;} posts.forEach(p=>{let multiHtml=''; if(p.multi && p.multi.length){multiHtml='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-top:8px">'; p.multi.forEach(src=> multiHtml+='<img src="'+src+'" style="border-radius:8px;width:100%;height:160px;object-fit:cover">'); multiHtml+='</div><div class="small">'+p.multi.length+' photos 500KB ONE POST</div>';} let singleHtml=p.single?'<img src="'+p.single+'" style="width:100%;border-radius:12px;margin-top:8px;border:1px solid #ddd">':''; let videoHtml=p.video?'<video src="'+p.video+'" controls style="width:100%;border-radius:12px;margin-top:8px"></video><div class="small">Video '+p.videoMB+'MB</div>':''; let commentsHtml=(p.comments||[]).map(c=>'<div class="small" style="background:#f0f2f5;padding:6px 8px;border-radius:10px;margin:4px 0"><b>'+c.user+'</b> '+c.text+'</div>').join(''); let html='<div class="card"><div class="flex"><div style="width:36px;height:36px;background:linear-gradient(135deg,#000,#CE1126);color:#FFD700;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;border:2px solid #FFD700">'+p.user[0].toUpperCase()+'</div><div><b>'+p.user+'</b><br><span class="small">'+p.time+'</span></div></div><p style="margin:8px 0">'+(p.text||'')+'</p>'+multiHtml+singleHtml+videoHtml+'<div style="display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;margin:8px 0"><span onclick="reactPost('+p.id+',\'like\')">👍 '+(p.react?.like||p.likes||0)+'</span><span onclick="reactPost('+p.id+',\'love\')">❤️ '+(p.react?.love||0)+'</span><span onclick="reactPost('+p.id+',\'haha\')">😂 '+(p.react?.haha||0)+'</span><span onclick="commentPost('+p.id+')">💬 '+(p.comments?.length||0)+'</span></div><div>'+commentsHtml+'</div><div class="flex" style="margin-top:6px"><input id="cInput-'+p.id+'" placeholder="Comment..." style="margin:0"><button class="btn" style="width:80px;margin:0" onclick="doComment('+p.id+')">Post</button></div></div>'; feed.innerHTML+=html;});}
 function reactPost(id,type){let p=posts.find(x=>x.id==id); if(!p) return; if(!p.react) p.react={like:0,love:0,haha:0}; p.react[type]=(p.react[type]||0)+1; if(type=='like') p.likes=(p.likes||0)+1; localStorage.setItem('yokel_posts',JSON.stringify(posts)); if(p.user==currentUser){earnings+=0.01; localStorage.setItem('yokel_earn',earnings);} renderFeed();}
 function doComment(id){let inp=document.getElementById('cInput-'+id); let txt=inp.value.trim(); if(!txt) return; let p=posts.find(x=>x.id==id); p.comments=p.comments||[]; p.comments.push({user:currentUser,text:txt}); localStorage.setItem('yokel_posts',JSON.stringify(posts)); inp.value=''; renderFeed();}
 function commentPost(id){document.getElementById('cInput-'+id).focus();}
@@ -126,7 +192,7 @@ function renderAll(){renderFeed();renderReels();renderSells();renderInbox();rend
 function renderReels(){let f=document.getElementById('reelsFeed'); f.innerHTML=''; reels.forEach(r=>{f.innerHTML+='<div class="card"><b>'+r.user+'</b><p>'+r.caption+'</p><div class="small">'+r.info+'</div></div>';});}
 function postReel(){let cap=document.getElementById('reelCaption').value; if(!reelFile &&!cap) return alert('Add video'); let mb=reelFile?(reelFile.size/1024/1024).toFixed(2):0; reels.unshift({user:currentUser,caption:cap,info:'Reel '+mb+'MB'}); localStorage.setItem('yokel_reels',JSON.stringify(reels)); earnings+=0.10; localStorage.setItem('yokel_earn',earnings); alert('Reel posted K0.10'); renderReels();}
 function renderSells(){let f=document.getElementById('sellsFeed'); f.innerHTML=''; sells.forEach(s=>{let imgs=s.multi.map(m=>'<img src="'+m+'" style="width:100%;height:100px;object-fit:cover;border-radius:8px">').join(''); f.innerHTML+='<div class="card"><b>'+s.title+' - K'+s.price+'</b><div class="preview-grid">'+imgs+'</div><p>'+s.desc+'</p></div>';});}
-function postSell(){let title=document.getElementById('sellTitle').value, price=document.getElementById('sellPrice').value, desc=document.getElementById('sellDesc').value; if(!title || sellMultiFiles.length==0) return alert('Add title + photos'); sells.unshift({user:currentUser,title,price,desc,multi:sellMultiFiles.slice()}); localStorage.setItem('yokel_sells',JSON.stringify(sells)); earnings+=0.05; localStorage.setItem('yokel_earn',earnings); alert('Sale posted!'); renderSells();}
+function postSell(){let title=document.getElementById('sellTitle').value, price=document.getElementById('sellPrice').value, desc=document.getElementById('sellDesc').value; if(!title || sellMultiFiles.length==0) return alert('Add title + photos'); sells.unshift({user:currentUser,title,price,desc,multi:sellMultiFiles.slice()}); localStorage.setItem('yokel_sells',JSON.stringify(sells)); earnings+=0.05; localStorage.setItem('yokel_earn',earnings); alert('Sale posted 500KB!'); renderSells();}
 function renderInbox(){let l=document.getElementById('inboxList'); l.innerHTML=''; inbox.forEach(m=>{l.innerHTML+='<div style="padding:8px;border-bottom:1px solid #eee"><b>'+m.from+' → '+m.to+'</b><br>'+m.text+'</div>';});}
 function sendInbox(){let to=document.getElementById('inboxTo').value.trim(), txt=document.getElementById('inboxMsg').value.trim(); if(!to||!txt) return alert('Fill'); inbox.unshift({from:currentUser,to,text:txt}); localStorage.setItem('yokel_inbox',JSON.stringify(inbox)); document.getElementById('inboxMsg').value=''; renderInbox();}
 function renderToks(){let l=document.getElementById('tokList'); l.innerHTML=''; toks.forEach(t=>{l.innerHTML+='<div class="card"><b>'+t.user+'</b><p>'+t.caption+'</p><div class="small">'+t.info+'</div></div>';});}
