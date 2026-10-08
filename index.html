@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Yokel BTY V21 ULTIMATE - PNG Global</title>
+<title>Yokel BTY V22 ULTIMATE - Eye Fixed</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <style>
@@ -25,10 +25,13 @@ video{width:100%;border-radius:12px;background:#000;max-height:70vh}
 .logo{font-size:48px}
 .link{color:#1877f2;font-size:13px;text-decoration:none;cursor:pointer;display:inline-block;margin:8px 4px}
 .divider{border-top:1px solid #ddd;margin:12px 0}
+/* EYE ICON FIX */
+.pw-wrap{position:relative;width:100%}
+.pw-wrap input{padding-right:45px}
+.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:20px;cursor:pointer;padding:4px}
 </style>
 </head><body>
 
-<!-- LOGIN OUTSIDE - NO TABS HERE -->
 <div id=loginPage>
 <div class=card style="width:100%;max-width:380px;text-align:center">
 <div class=logo>🇵🇬</div>
@@ -36,7 +39,11 @@ video{width:100%;border-radius:12px;background:#000;max-height:70vh}
 <p class=small style="margin:6px 0 12px">Made for Popondetta - Fast on slow internet.<br>From village to <b>GLOBAL</b> 🌍</p>
 
 <input id=u placeholder="Nem bilong yu / Email">
+
+<div class=pw-wrap>
 <input id=p type=password placeholder="Password">
+<button class=eye id=eyeIcon onclick="toggleEye()" type=button>👁️</button>
+</div>
 
 <button class=btn-bty style="width:100%;margin-top:10px;padding:14px;font-size:16px" onclick="login()">Log In / Join Global 🚀</button>
 
@@ -45,35 +52,29 @@ video{width:100%;border-radius:12px;background:#000;max-height:70vh}
 
 <button class=btn-gold style="width:70%;padding:12px;font-size:15px" onclick="createAcc()">Create New Account</button>
 
-<p class=small style="margin-top:12px">BSP: 3127021932525 - Brenton Ta'ani<br><span class=live>● LIVE</span> <span class=badge>V21 ULTIMATE</span></p>
+<p class=small style="margin-top:12px">BSP: 3127021932525 - Brenton Ta'ani<br><span class=live>● LIVE</span> <span class=badge>V22 EYE FIX</span></p>
 </div>
 </div>
 
-<!-- MAIN APP INSIDE - TABS ONLY AFTER LOGIN -->
 <div id=mainApp style="display:none">
-<div class=header><span>YOKEL BTY 🇵🇬 <span class=badge>V21 ULTIMATE</span> <span class=live>● LIVE</span></span><span id=online class=small style="color:#fff;opacity:1">PNG</span></div>
+<div class=header><span>YOKEL BTY 🇵🇬 <span class=badge>V22 EYE FIX</span> <span class=live>● LIVE</span></span><span id=online class=small style="color:#fff;opacity:1">PNG</span></div>
 <div style="max-width:640px;margin:auto;padding:10px;padding-bottom:90px">
-
 <div id=pageFeed class="page active">
 <div class=card style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:10px;align-items:center"><img id=myAv class=avatar><b id=hello></b></div><div><input type=file id=avInput accept="image/*" style="display:none"><button class=btn-gray onclick="document.getElementById('avInput').click()">📸</button><button class=btn-gray onclick="logout()">Out</button></div></div>
 <div class=card><textarea id=txt placeholder="Wanem niupela, BTY?"></textarea><input type=file id=postFile accept="image/*" multiple><img id=preview style="display:none;width:100%;border-radius:12px;margin-top:8px"><div id=status class=small style="color:green"></div><div style="display:flex;gap:8px;margin-top:8px"><button class=btn-bty style="flex:1" onclick="makePost()">Postim to WORLD 🚀</button><button class=btn-gray onclick="clearPreview()">Clear</button></div></div>
 <div id=feed></div>
 </div>
-
 <div id=pageReels class=page>
 <div class=card><b>🎬 Reels 50MB 🇵🇬 - FIXED</b><input type=file id=reelFile accept="video/*"><div id=reelInfo class=small style="color:green;margin:6px 0"></div><video id=reelPreview controls style="display:none" playsinline></video><textarea id=reelTxt placeholder="Caption..."></textarea><button class=btn-bty onclick="postReel()" style="width:100%">Post Reel ▶️</button><p class=small>Under 15MB GLOBAL, 15-50MB LOCAL - 5.79MB plays!</p></div><div id=reelsFeed></div>
 </div>
-
 <div id=pageSells class=page>
 <div class=card><b>🛒 Sells - Market PNG</b><textarea id=sellTxt placeholder="What you selling? Price? Location?"></textarea><input type=file id=sellFile accept="image/*" multiple><div style="display:flex;gap:8px"><button class=btn-bty style="flex:1" onclick="makeSell()">Post Item</button><button class=btn-gold onclick="requestPin()">📌 Pin K10</button></div><p class=small>BSP: 3127021932525</p></div><div id=sellsFeed></div>
 </div>
-
 <div id=pageTokBox class=page><div class=card><b>📦 TokBox</b><div id=tokList></div><div style="display:flex;gap:6px;margin-top:10px"><input id=tokInput placeholder="Raitim tok..."><button class=btn-bty style="background:#1877f2" onclick="sendTok()">Send</button></div></div></div>
 <div id=pageInbox class=page><div class=card><b>📥 Inbox</b><div id=inboxList class=small>No messages yet</div></div></div>
 <div id=pageEarn class=page><div class=card><b>💰 Earn</b><div id=earnInfo>2 pins = K20 = 1 week data<br>BSP: 3127021932525</div></div></div>
 <div id=pageBank class=page><div class=card><b>🏦 Bank BSP</b><br><br><b>Account: 3127021932525</b><br>Name: Brenton Ta'ani</div></div>
 </div>
-
 <div class=tabbar>
 <div class=tab active onclick="showPage('Feed',this)">🏠<br>Feed</div>
 <div class=tab onclick="showPage('Reels',this)">🎬<br>Reels</div>
@@ -87,6 +88,7 @@ video{width:100%;border-radius:12px;background:#000;max-height:70vh}
 
 <script>
 let user=localStorage.getItem('yb_user')||'', avatars=JSON.parse(localStorage.getItem('yb_av')||'{}'), postImgs=[], reelData=null;
+function toggleEye(){let i=document.getElementById('p');let e=document.getElementById('eyeIcon');if(i.type==='password'){i.type='text';e.innerText='🙈';}else{i.type='password';e.innerText='👁️';}}
 function login(){let v=document.getElementById('u').value.trim();let pw=document.getElementById('p').value.trim();if(!v)return alert('Putim nem');if(!pw)return alert('Putim password');localStorage.setItem('yb_user',v);location.reload();}
 function createAcc(){let v=document.getElementById('u').value.trim();if(!v)v=prompt('New account name:');if(!v)return;let pw=prompt('Set password:');if(!pw)return;localStorage.setItem('yb_user',v);alert('Account created for '+v+' ✅');location.reload();}
 function forgot(){let v=prompt('Enter your name/email to reset password:');if(v)alert('Reset link sent to '+v+' (demo) - Use any password to login for now');}
