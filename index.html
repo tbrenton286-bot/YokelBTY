@@ -1,92 +1,208 @@
 <!DOCTYPE html>
 <html><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Yokel BTY V23 POST FIX</title>
+<title>Yokel BTY V26 CLOUD GLOBAL</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <style>
 :root{--p:#CE1126;--gold:#FFD700;--bg:#f0f2f5}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial;background:var(--bg)}
-.header{background:linear-gradient(90deg,#000 0%,#CE1126 45%,#FFD700 100%);color:#fff;padding:12px;font-weight:900;position:sticky;top:0;z-index:99;display:flex;justify-content:space-between}
+.header{background:linear-gradient(90deg,#000,#CE1126 45%,#FFD700 100%);color:#fff;padding:12px;font-weight:900;position:sticky;top:0;z-index:99;display:flex;justify-content:space-between}
 .card{background:#fff;border-radius:16px;padding:12px;margin:10px 0;box-shadow:0 3px 10px rgba(0,0,0,.15)}
 input,textarea{width:100%;padding:13px;border:1px solid #ccc;border-radius:12px;margin:6px 0;font-size:15px}
 button{border:none;border-radius:12px;padding:12px 14px;font-weight:bold;cursor:pointer}
 .btn-bty{background:linear-gradient(90deg,#000,#CE1126);color:#fff}.btn-gray{background:#e4e6eb}.btn-gold{background:linear-gradient(90deg,#FFD700,#ff9800);color:#000}
-.avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);background:#ddd}
+.avatar{width:42px;height:42px;border-radius:50%;background:#ddd;border:2px solid var(--gold);object-fit:cover}
 .post-img{width:100%;border-radius:12px;margin-top:6px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .small{font-size:11px;opacity:.7}.live{background:#000;color:#0f0;padding:3px 8px;border-radius:20px;font-size:10px}.badge{background:var(--gold);color:#000;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:900}
 .tabbar{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:2px solid var(--gold);z-index:100}
 .tab{flex:1;text-align:center;padding:6px 2px;font-size:11px;cursor:pointer}.tab.active{color:#CE1126;font-weight:900;background:#fff8e1}
-video{width:100%;border-radius:12px;background:#000;max-height:70vh}
-.page{display:none}.page.active{display:block}
+video{width:100%;border-radius:12px;background:#000;max-height:70vh}.page{display:none}.page.active{display:block}
 #loginPage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(180deg,#f0f2f5,#fff)}
 .logo{font-size:48px}.link{color:#1877f2;font-size:13px;cursor:pointer;display:inline-block;margin:8px 4px}.divider{border-top:1px solid #ddd;margin:12px 0}
-.pw-wrap{position:relative;width:100%}.pw-wrap input{padding-right:45px}.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:20px;cursor:pointer;padding:4px}
+.pw-wrap{position:relative}.pw-wrap input{padding-right:45px}.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:20px;cursor:pointer}
 </style>
 </head><body>
 
 <div id=loginPage>
 <div class=card style="width:100%;max-width:380px;text-align:center">
-<div class=logo>🇵🇬</div>
-<h1 style="font-weight:900;margin-top:4px">YOKEL BTY</h1>
-<p class=small style="margin:6px 0 12px">Made for Popondetta - Fast on slow internet.<br>From village to <b>GLOBAL</b> 🌍</p>
+<div class=logo>🇵🇬</div><h1 style="font-weight:900">YOKEL BTY</h1>
+<p class=small style="margin:6px 0 12px">GLOBAL CLOUD - yokelbook-global ☁️<br>NOT phone storage!</p>
 <input id=u placeholder="Nem bilong yu / Email">
 <div class=pw-wrap><input id=p type=password placeholder="Password"><button class=eye id=eyeIcon onclick="toggleEye()" type=button>👁️</button></div>
 <button class=btn-bty style="width:100%;margin-top:10px;padding:14px;font-size:16px" onclick="login()">Log In / Join Global 🚀</button>
-<a class=link onclick="forgot()">Forgotten password?</a><div class=divider></div>
-<button class=btn-gold style="width:70%;padding:12px;font-size:15px" onclick="createAcc()">Create New Account</button>
-<p class=small style="margin-top:12px">BSP: 3127021932525 - Brenton Ta'ani<br><span class=live>● LIVE</span> <span class=badge>V23 POST FIX</span></p>
+<a class=link onclick="alert('Demo - use any password')">Forgotten password?</a><div class=divider></div>
+<button class=btn-gold style="width:70%;padding:12px" onclick="createAcc()">Create New Account</button>
+<p class=small style="margin-top:12px"><span class=live>● CLOUD LIVE</span> <span class=badge>V26 GLOBAL</span><br>BSP: 3127021932525</p>
 </div>
 </div>
 
 <div id=mainApp style="display:none">
-<div class=header><span>YOKEL BTY 🇵🇬 <span class=badge>V23 POST FIX</span> <span class=live>● LIVE</span></span><span id=online class=small style="color:#fff;opacity:1">PNG</span></div>
+<div class=header><span>YOKEL BTY 🇵🇬 <span class=badge>V26 CLOUD</span> <span class=live>● LIVE</span></span><span class=small style="color:#fff">☁️ yokelbook-global</span></div>
 <div style="max-width:640px;margin:auto;padding:10px;padding-bottom:90px">
+
 <div id=pageFeed class="page active">
-<div class=card style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:10px;align-items:center"><img id=myAv class=avatar><b id=hello></b></div><div><input type=file id=avInput accept="image/*" style="display:none"><button class=btn-gray onclick="document.getElementById('avInput').click()">📸</button><button class=btn-gray onclick="logout()">Out</button><button class=btn-gray onclick="clearAll()">🗑️ Clear</button></div></div>
-<div class=card><textarea id=txt placeholder="Wanem niupela, BTY?"></textarea><input type=file id=postFile accept="image/*" multiple><img id=preview style="display:none;width:100%;border-radius:12px;margin-top:8px"><div id=status class=small style="color:green"></div><div style="display:flex;gap:8px;margin-top:8px"><button class=btn-bty style="flex:1" onclick="makePost()">Postim to WORLD 🚀</button><button class=btn-gray onclick="clearPreview()">Clear</button></div></div>
+<div class=card style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:10px;align-items:center"><img id=myAv class=avatar><b id=hello></b></div><div><input type=file id=avInput accept="image/*" style="display:none"><button class=btn-gray onclick="document.getElementById('avInput').click()">📸</button><button class=btn-gray onclick="logout()">Out</button></div></div>
+<div class=card>
+<textarea id=txt placeholder="Wanem niupela, BTY? This goes to WORLD cloud!"></textarea>
+<input type=file id=postFile accept="image/*">
+<img id=preview style="display:none;width:100%;border-radius:12px;margin-top:8px">
+<div id=status class=small style="color:green"></div>
+<div style="display:flex;gap:8px;margin-top:8px"><button class=btn-bty style="flex:1" onclick="makePost()">Postim to WORLD CLOUD ☁️🚀</button><button class=btn-gray onclick="clearPreview()">Clear</button></div>
+<p class=small id=cloudStatus>Connecting to yokelbook-global...</p>
+</div>
 <div id=feed></div>
 </div>
-<div id=pageReels class=page>
-<div class=card><b>🎬 Reels 50MB 🇵🇬 - FIXED</b><input type=file id=reelFile accept="video/*"><div id=reelInfo class=small style="color:green;margin:6px 0"></div><video id=reelPreview controls style="display:none" playsinline></video><textarea id=reelTxt placeholder="Caption..."></textarea><button class=btn-bty onclick="postReel()" style="width:100%">Post Reel ▶️</button><p class=small>Tip: If storage full, tap 🗑️ Clear to delete old reels - then post works again!</p></div><div id=reelsFeed></div>
+
+<div id=pageReels class=page><div class=card><b>🎬 Reels CLOUD</b><input type=file id=reelFile accept="video/*"><div id=reelInfo class=small style="color:green"></div><video id=reelPreview controls style="display:none" playsinline></video><textarea id=reelTxt placeholder="Caption..."></textarea><button class=btn-bty onclick="postReel()" style="width:100%">Post Reel to Cloud ☁️</button></div><div id=reelsFeed></div></div>
+<div id=pageSells class=page><div class=card><b>🛒 Sells CLOUD</b><textarea id=sellTxt placeholder="What you selling? Price?"></textarea><input type=file id=sellFile accept="image/*"><button class=btn-bty style="width:100%" onclick="makeSell()">Post to Cloud</button></div><div id=sellsFeed></div></div>
+<div id=pageTokBox class=page><div class=card><b>📦 TokBox CLOUD</b><div id=tokList></div><div style="display:flex;gap:6px;margin-top:10px"><input id=tokInput placeholder="Raitim tok..."><button class=btn-bty style="background:#1877f2" onclick="sendTok()">Send to Cloud</button></div></div></div>
+<div id=pageInbox class=page><div class=card><b>📥 Inbox CLOUD</b><div id=inboxList>Live cloud</div></div></div>
+<div id=pageEarn class=page><div class=card><b>💰 Earn</b><p>BSP: 3127021932525 - Brenton Ta'ani</p></div></div>
+<div id=pageBank class=page><div class=card><b>🏦 BSP 3127021932525 - Brenton Ta'ani</b></div></div>
 </div>
-<div id=pageSells class=page>
-<div class=card><b>🛒 Sells</b><textarea id=sellTxt placeholder="What you selling?"></textarea><input type=file id=sellFile accept="image/*" multiple><div style="display:flex;gap:8px"><button class=btn-bty style="flex:1" onclick="makeSell()">Post Item</button><button class=btn-gold onclick="requestPin()">📌 Pin K10</button></div></div><div id=sellsFeed></div>
-</div>
-<div id=pageTokBox class=page><div class=card><b>📦 TokBox</b><div id=tokList></div><div style="display:flex;gap:6px;margin-top:10px"><input id=tokInput placeholder="Raitim tok..."><button class=btn-bty style="background:#1877f2" onclick="sendTok()">Send</button></div></div></div>
-<div id=pageInbox class=page><div class=card><b>📥 Inbox</b><div id=inboxList class=small>No messages yet</div></div></div>
-<div id=pageEarn class=page><div class=card><b>💰 Earn</b><div>BSP: 3127021932525</div></div></div>
-<div id=pageBank class=page><div class=card><b>🏦 Bank BSP 3127021932525 - Brenton Ta'ani</b></div></div>
-</div>
+
 <div class=tabbar>
 <div class=tab active onclick="showPage('Feed',this)">🏠<br>Feed</div><div class=tab onclick="showPage('Reels',this)">🎬<br>Reels</div><div class=tab onclick="showPage('Sells',this)">🛒<br>Sells</div><div class=tab onclick="showPage('TokBox',this)">📦<br>TokBox</div><div class=tab onclick="showPage('Inbox',this)">📥<br>Inbox</div><div class=tab onclick="showPage('Earn',this)">💰<br>Earn</div><div class=tab onclick="showPage('Bank',this)">🏦<br>Bank</div>
 </div>
 </div>
 
 <script>
-let user=localStorage.getItem('yb_user')||'', avatars=JSON.parse(localStorage.getItem('yb_av')||'{}'), postImgs=[], reelData=null;
+const firebaseConfig = {
+  apiKey: "AIzaSyA7JJpeSfV-pY-XCtsdXLvITFQmAvZ8pKo",
+  authDomain: "yokelbook-global.firebaseapp.com",
+  databaseURL: "https://yokelbook-global-default-rtdb.firebaseio.com",
+  projectId: "yokelbook-global",
+  storageBucket: "yokelbook-global.firebasestorage.app",
+  messagingSenderId: "1048288092483",
+  appId: "1:1048288092483:web:0f6eb6073dfc94b0d3cff6",
+  measurementId: "G-PWSQK0RMRK"
+};
+firebase.initializeApp(firebaseConfig);
+let db = firebase.database();
+let user = localStorage.getItem('yb_user')||'', avatars=JSON.parse(localStorage.getItem('yb_av')||'{}'), postImg=null, reelData=null;
+
 function toggleEye(){let i=document.getElementById('p');let e=document.getElementById('eyeIcon');if(i.type==='password'){i.type='text';e.innerText='🙈';}else{i.type='password';e.innerText='👁️';}}
 function login(){let v=document.getElementById('u').value.trim();let pw=document.getElementById('p').value.trim();if(!v)return alert('Putim nem');if(!pw)return alert('Putim password');localStorage.setItem('yb_user',v);location.reload();}
-function createAcc(){let v=document.getElementById('u').value.trim()||prompt('New name:');if(!v)return;let pw=prompt('Set password:');if(!pw)return;localStorage.setItem('yb_user',v);alert('Created '+v);location.reload();}
-function forgot(){let v=prompt('Enter name/email:');if(v)alert('Reset demo for '+v);}
+function createAcc(){let v=document.getElementById('u').value.trim()||prompt('New name:');if(!v)return;localStorage.setItem('yb_user',v);location.reload();}
 function logout(){localStorage.removeItem('yb_user');location.reload();}
-function clearAll(){if(confirm('Clear ALL posts & reels to free space?')){localStorage.removeItem('yb_posts');localStorage.removeItem('yb_reels');localStorage.removeItem('yb_sells');localStorage.removeItem('yb_tok');alert('Cleared! Now Post works ✅');location.reload();}}
-function showPage(n,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page'+n).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');if(n=='Reels')renderReels();if(n=='Sells')renderSells();}
-function safeSave(key,data){try{localStorage.setItem(key,JSON.stringify(data));return true;}catch(e){alert('⚠️ Storage Full! Phone memory full (5MB). Tap 🗑️ Clear button top right to delete old videos, then try post again. Error: '+e.message);return false;}}
-document.getElementById('avInput')?.addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{avatars[user]=r.result;safeSave('yb_av',avatars);document.getElementById('myAv').src=r.result;};r.readAsDataURL(f);});
-function compress(file,kb){return new Promise(res=>{let r=new FileReader();r.onload=e=>{let img=new Image();img.onload=()=>{let c=document.createElement('canvas');let maxW=800;let ratio=img.width>maxW?maxW/img.width:1;c.width=img.width*ratio;c.height=img.height*ratio;c.getContext('2d').drawImage(img,0,0,c.width,c.height);let q=0.7;let data=c.toDataURL('image/jpeg',q);while(data.length/1024>kb&&q>0.1){q-=0.1;data=c.toDataURL('image/jpeg',q);}res(data);};img.src=e.target.result;};r.readAsDataURL(file);});}
-document.getElementById('postFile')?.addEventListener('change',async e=>{let files=[...e.target.files].slice(0,10);postImgs=[];document.getElementById('status').innerText='Compressing...';for(let f of files){postImgs.push(await compress(f,500));}document.getElementById('preview').src=postImgs[0];document.getElementById('preview').style.display='block';document.getElementById('status').innerText=postImgs.length+' ready ✅';});
-function clearPreview(){postImgs=[];let p=document.getElementById('preview');if(p)p.style.display='none';let pf=document.getElementById('postFile');if(pf)pf.value='';let s=document.getElementById('status');if(s)s.innerText='';}
-function makePost(){console.log('POST CLICKED');let t=document.getElementById('txt').value.trim();if(!t&&!postImgs.length){alert('Raitim samting first!');return;}let s=document.getElementById('status');s.innerText='Posting...';let post={user,txt:t,imgs:postImgs,avatar:avatars[user]||'',time:Date.now(),timeStr:new Date().toLocaleString()};let arr=JSON.parse(localStorage.getItem('yb_posts')||'[]');arr.unshift({id:Date.now().toString(),...post});if(safeSave('yb_posts',arr)){document.getElementById('txt').value='';clearPreview();renderFeed();s.innerText='✅ Posted!';}else{s.innerText='❌ Storage full - Clear old reels';}}
-async function makeSell(){let t=document.getElementById('sellTxt').value.trim();let files=document.getElementById('sellFile').files;let imgs=[];for(let f of [...files].slice(0,5)){imgs.push(await compress(f,500));}let post={user,txt:t,imgs:imgs.length?imgs:postImgs,avatar:avatars[user]||'',time:Date.now(),timeStr:new Date().toLocaleString()};let arr=JSON.parse(localStorage.getItem('yb_sells')||'[]');arr.unshift({id:Date.now().toString(),...post});if(safeSave('yb_sells',arr)){document.getElementById('sellTxt').value='';alert('Item posted!');renderSells();}}
-document.getElementById('reelFile')?.addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let mb=(f.size/1024/1024).toFixed(2);let info=document.getElementById('reelInfo');if(f.size>50*1024*1024){info.innerText='❌ >50MB';return;}info.innerText=f.name+' '+mb+'MB - reading...';let url=URL.createObjectURL(f);let v=document.getElementById('reelPreview');v.src=url;v.style.display='block';let r=new FileReader();r.onload=ev=>{reelData=ev.target.result;info.innerText=f.name+' '+mb+'MB Ready ✅';};r.readAsDataURL(f);});
-function postReel(){let txt=document.getElementById('reelTxt').value.trim();if(!reelData){alert('Choose video first');return;}let post={id:Date.now().toString(),user,txt,video:reelData,size:(reelData.length/1024/1024).toFixed(2),time:Date.now(),timeStr:new Date().toLocaleString()};let arr=JSON.parse(localStorage.getItem('yb_reels')||'[]');arr.unshift(post);if(safeSave('yb_reels',arr)){document.getElementById('reelTxt').value='';document.getElementById('reelFile').value='';reelData=null;document.getElementById('reelPreview').style.display='none';document.getElementById('reelInfo').innerText='✅ Posted!';renderReels();}}
-function renderFeed(){let arr=JSON.parse(localStorage.getItem('yb_posts')||'[]');document.getElementById('feed').innerHTML=arr.map(p=>`<div class=card><div style="display:flex;gap:8px;align-items:center"><img class=avatar src="${p.avatar||''}"><b>${p.user}</b><span class=small>${p.timeStr||''}</span></div>${p.txt?`<p style="margin:8px 0">${p.txt}</p>`:''}${p.imgs&&p.imgs.length?`<div class=${p.imgs.length>1?'grid':''}>${p.imgs.map(i=>`<img class=post-img src="${i}">`).join('')}</div>`:''}</div>`).join('')||'<div class=card small>No posts yet - be first!</div>';}
-function renderReels(){let arr=JSON.parse(localStorage.getItem('yb_reels')||'[]');document.getElementById('reelsFeed').innerHTML=arr.map(p=>`<div class=card><div style="display:flex;gap:8px"><b>${p.user}</b><span class=small>${p.timeStr} • ${p.size}MB</span></div>${p.txt?`<p style="margin:8px 0">${p.txt}</p>`:''}<video src="${p.video}" controls playsinline></video></div>`).join('')||'<div class=card small>No reels</div>';}
-function renderSells(){let arr=JSON.parse(localStorage.getItem('yb_sells')||'[]');document.getElementById('sellsFeed').innerHTML=arr.map(p=>`<div class=card><div style="display:flex;gap:8px"><img class=avatar src="${p.avatar||''}"><b>${p.user}</b></div><p>${p.txt}</p>${p.imgs?`<div class=grid>${p.imgs.map(i=>`<img class=post-img src="${i}">`).join('')}</div>`:''}</div>`).join('')||'<div class=card small>No items</div>';}
-function requestPin(){let ref=prompt('Enter BSP ref K10 to 3127021932525:');if(!ref)return;alert('✅ Pinned!');}
-function sendTok(){let v=document.getElementById('tokInput').value.trim();if(!v)return;let arr=JSON.parse(localStorage.getItem('yb_tok')||'[]');arr.push({user,txt:v,time:new Date().toLocaleTimeString()});safeSave('yb_tok',arr);document.getElementById('tokInput').value='';renderTok();}
-function renderTok(){let arr=JSON.parse(localStorage.getItem('yb_tok')||'[]');document.getElementById('tokList').innerHTML=arr.slice(-20).map(m=>`<div class=small><b>${m.user}:</b> ${m.txt}</div>`).join('');}
-if(user){document.getElementById('loginPage').style.display='none';document.getElementById('mainApp').style.display='block';document.getElementById('hello').innerText=user;if(avatars[user])document.getElementById('myAv').src=avatars[user];renderFeed();renderReels();renderSells();renderTok();}
+function showPage(n,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page'+n).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');}
+
+document.getElementById('avInput')?.addEventListener('change',e=>{
+  let f=e.target.files[0];if(!f)return;
+  let r=new FileReader();r.onload=()=>{avatars[user]=r.result;localStorage.setItem('yb_av',JSON.stringify(avatars));document.getElementById('myAv').src=r.result;};r.readAsDataURL(f);
+});
+
+function compress(file,kb){
+  return new Promise(res=>{
+    let r=new FileReader();r.onload=e=>{
+      let img=new Image();img.onload=()=>{
+        let c=document.createElement('canvas');
+        let maxW=800;let ratio=img.width>maxW?maxW/img.width:1;
+        c.width=img.width*ratio;c.height=img.height*ratio;
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        let q=0.6;let data=c.toDataURL('image/jpeg',q);
+        while(data.length/1024>kb&&q>0.15){q-=0.1;data=c.toDataURL('image/jpeg',q);}
+        res(data);
+      };img.src=e.target.result;
+    };r.readAsDataURL(file);
+  });
+}
+
+document.getElementById('postFile')?.addEventListener('change',async e=>{
+  let f=e.target.files[0];if(!f)return;
+  document.getElementById('status').innerText='Compressing for cloud... NOT gallery!';
+  postImg=await compress(f,250);
+  document.getElementById('preview').src=postImg;
+  document.getElementById('preview').style.display='block';
+  document.getElementById('status').innerText='✅ Ready for CLOUD (250KB, no phone save!)';
+});
+function clearPreview(){postImg=null;document.getElementById('preview').style.display='none';document.getElementById('postFile').value='';document.getElementById('status').innerText='';}
+
+function makePost(){
+  let t=document.getElementById('txt').value.trim();
+  if(!t&&!postImg)return alert('Raitim samting!');
+  document.getElementById('status').innerText='Uploading to yokelbook-global CLOUD ☁️...';
+  db.ref('posts').push({
+    user:user,
+    txt:t,
+    img:postImg||'',
+    avatar:avatars[user]||'',
+    time:Date.now(),
+    timeStr:new Date().toLocaleString()
+  }).then(()=>{
+    document.getElementById('txt').value='';
+    clearPreview();
+    document.getElementById('status').innerText='✅ SAVED TO CLOUD! Everyone can see! NOT phone!';
+  }).catch(err=>{alert('Cloud error: '+err.message+' - Check Rules Publish!');});
+}
+
+function listenFeed(){
+  db.ref('posts').limitToLast(50).on('value',snap=>{
+    let data=snap.val();if(!data){document.getElementById('feed').innerHTML='<div class=card small>No posts yet - be first!</div>';return;}
+    let arr=Object.values(data).reverse();
+    document.getElementById('feed').innerHTML=arr.map(p=>`
+      <div class=card>
+        <div style="display:flex;gap:8px;align-items:center"><img class=avatar src="${p.avatar||''}"><b>${p.user}</b><span class=small>${p.timeStr||''} ☁️ CLOUD</span></div>
+        ${p.txt?`<p style="margin:8px 0">${p.txt}</p>`:''}
+        ${p.img?`<img class=post-img src="${p.img}">`:''}
+      </div>`).join('');
+    document.getElementById('cloudStatus').innerText='✅ Connected to CLOUD - '+arr.length+' posts!';
+  });
+}
+
+document.getElementById('reelFile')?.addEventListener('change',e=>{
+  let f=e.target.files[0];if(!f)return;
+  let mb=(f.size/1024/1024).toFixed(2);
+  document.getElementById('reelInfo').innerText=f.name+' '+mb+'MB';
+  let url=URL.createObjectURL(f);
+  document.getElementById('reelPreview').src=url;
+  document.getElementById('reelPreview').style.display='block';
+  let r=new FileReader();r.onload=ev=>{reelData=ev.target.result;};r.readAsDataURL(f);
+});
+function postReel(){
+  let t=document.getElementById('reelTxt').value.trim();
+  if(!reelData)return alert('Choose video');
+  db.ref('reels').push({user,txt:t,video:reelData,time:Date.now(),timeStr:new Date().toLocaleString()}).then(()=>{document.getElementById('reelTxt').value='';reelData=null;document.getElementById('reelInfo').innerText='✅ Reel to CLOUD!';});
+}
+function listenReels(){
+  db.ref('reels').limitToLast(20).on('value',snap=>{
+    let data=snap.val();if(!data)return;
+    let arr=Object.values(data).reverse();
+    document.getElementById('reelsFeed').innerHTML=arr.map(p=>`<div class=card><b>${p.user}</b> <span class=small>${p.timeStr} ☁️</span><p>${p.txt||''}</p><video src="${p.video}" controls playsinline></video></div>`).join('');
+  });
+}
+function makeSell(){
+  let t=document.getElementById('sellTxt').value.trim();if(!t)return alert('Type');
+  db.ref('sells').push({user,txt:t,time:Date.now(),timeStr:new Date().toLocaleString()}).then(()=>{document.getElementById('sellTxt').value='';});
+}
+function listenSells(){
+  db.ref('sells').limitToLast(30).on('value',snap=>{
+    let data=snap.val();if(!data)return;
+    let arr=Object.values(data).reverse();
+    document.getElementById('sellsFeed').innerHTML=arr.map(p=>`<div class=card><b>${p.user}</b><p>${p.txt}</p><span class=small>${p.timeStr}</span></div>`).join('');
+  });
+}
+function sendTok(){
+  let v=document.getElementById('tokInput').value.trim();if(!v)return;
+  db.ref('tokbox').push({user,txt:v,time:Date.now()});
+  document.getElementById('tokInput').value='';
+}
+function listenTok(){
+  db.ref('tokbox').limitToLast(30).on('value',snap=>{
+    let data=snap.val();if(!data)return;
+    let arr=Object.values(data);
+    document.getElementById('tokList').innerHTML=arr.slice(-20).map(m=>`<div class=small><b>${m.user}:</b> ${m.txt}</div>`).join('');
+  });
+}
+
+if(user){
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('mainApp').style.display='block';
+  document.getElementById('hello').innerText=user;
+  if(avatars[user])document.getElementById('myAv').src=avatars[user];
+  listenFeed();listenReels();listenSells();listenTok();
+}
 </script>
 </body></html>
