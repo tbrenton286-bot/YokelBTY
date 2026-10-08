@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Yokel BTY V26.2 FULL</title>
+<title>Yokel BTY V26.3 WITHDRAW FIX</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <style>
@@ -20,27 +20,28 @@ button{border:none;border-radius:12px;padding:12px 14px;font-weight:bold;cursor:
 .tab{flex:1;text-align:center;padding:6px 2px;font-size:11px;cursor:pointer;position:relative}.tab.active{color:#CE1126;font-weight:900;background:#fff8e1}
 video{width:100%;border-radius:12px;background:#000;max-height:70vh}.page{display:none}.page.active{display:block}
 #loginPage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(180deg,#f0f2f5,#fff)}
-.logo{font-size:48px}.link{color:#1877f2;font-size:13px;cursor:pointer;display:inline-block;margin:8px 4px}.divider{border-top:1px solid #ddd;margin:12px 0}
+.logo{font-size:48px}.divider{border-top:1px solid #ddd;margin:12px 0}
 .pw-wrap{position:relative}.pw-wrap input{padding-right:45px}.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:20px;cursor:pointer}
 .notifDot{position:absolute;top:2px;right:10px;background:red;color:#fff;font-size:9px;padding:2px 5px;border-radius:10px;font-weight:900}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:center;justify-content:center;padding:16px}.modal.active{display:flex}
 </style>
 </head><body>
 
 <div id=loginPage>
 <div class=card style="width:100%;max-width:380px;text-align:center">
 <div class=logo>🇵🇬</div><h1 style="font-weight:900">YOKEL BTY</h1>
-<p class=small style="margin:6px 0 12px">V26.2 FULL EARN+BANK ☁️💰<br>yokelbook-global - NOT phone storage!</p>
+<p class=small style="margin:6px 0 12px">V26.3 WITHDRAW FIX 💸<br>yokelbook-global - CLOUD</p>
 <input id=u placeholder="Nem bilong yu">
-<div class=pw-wrap><input id=p type=password placeholder="Password"><button class=eye id=eyeIcon onclick="toggleEye()" type=button>👁️</button></div>
+<div class=pw-wrap><input id=p type=password placeholder="Password"><button class=eye onclick="toggleEye()" type=button>👁️</button></div>
 <button class=btn-bty style="width:100%;margin-top:10px;padding:14px" onclick="login()">Log In / Join Global 🚀</button>
-<a class=link>Forgotten password?</a><div class=divider></div>
+<div class=divider></div>
 <button class=btn-gold style="width:70%" onclick="createAcc()">Create New Account</button>
-<p class=small style="margin-top:12px"><span class=live>● CLOUD LIVE</span> <span class=badge>V26.2 FULL</span><br>BSP: 3127021932525</p>
+<p class=small style="margin-top:12px"><span class=live>● CLOUD LIVE</span> <span class=badge>V26.3 WITHDRAW</span><br>BSP: 3127021932525</p>
 </div>
 </div>
 
 <div id=mainApp style="display:none">
-<div class=header><span>YOKEL BTY 🇵🇬 <span class=badge>V26.2</span> <span class=live>● LIVE</span></span><span class=small style="color:#fff">☁️ CLOUD</span></div>
+<div class=header><span>YOKEL BTY 🇵🇬 <span class=badge>V26.3</span> <span class=live>● LIVE</span></span><span class=small style="color:#fff">☁️</span></div>
 <div style="max-width:640px;margin:auto;padding:10px;padding-bottom:90px">
 
 <div id=pageFeed class="page active">
@@ -56,31 +57,30 @@ video{width:100%;border-radius:12px;background:#000;max-height:70vh}.page{displa
 <div id=feed></div>
 </div>
 
-<div id=pageReels class=page><div class=card><b>🎬 Reels CLOUD</b><input type=file id=reelFile accept="video/*"><div id=reelInfo class=small></div><video id=reelPreview controls style="display:none" playsinline></video><textarea id=reelTxt placeholder="Caption"></textarea><button class=btn-bty onclick="postReel()" style="width:100%">Post Reel ☁️</button></div><div id=reelsFeed></div></div>
-<div id=pageSells class=page><div class=card><b>🛒 Sells CLOUD</b><textarea id=sellTxt placeholder="What you selling? Price?"></textarea><button class=btn-bty style="width:100%" onclick="makeSell()">Post to Cloud</button></div><div id=sellsFeed></div></div>
-<div id=pageTokBox class=page><div class=card><b>📦 TokBox GLOBAL - Use @name for Inbox</b><div id=tokList></div><div style="display:flex;gap:6px;margin-top:10px"><input id=tokInput placeholder="Raitim tok... @name hello"><button class=btn-bty style="background:#1877f2" onclick="sendTok()">Send</button></div></div></div>
-
+<div id=pageReels class=page><div class=card><b>🎬 Reels CLOUD</b><input type=file id=reelFile accept="video/*"><video id=reelPreview controls style="display:none" playsinline></video><textarea id=reelTxt placeholder="Caption"></textarea><button class=btn-bty onclick="postReel()" style="width:100%">Post Reel ☁️</button></div><div id=reelsFeed></div></div>
+<div id=pageSells class=page><div class=card><b>🛒 Sells CLOUD</b><textarea id=sellTxt placeholder="What you selling?"></textarea><button class=btn-bty style="width:100%" onclick="makeSell()">Post to Cloud</button></div><div id=sellsFeed></div></div>
+<div id=pageTokBox class=page><div class=card><b>📦 TokBox GLOBAL</b><div id=tokList></div><div style="display:flex;gap:6px;margin-top:10px"><input id=tokInput placeholder="Raitim tok..."><button class=btn-bty style="background:#1877f2" onclick="sendTok()">Send</button></div></div></div>
 <div id=pageInbox class=page>
-<div class=card style="background:linear-gradient(90deg,#fff8e1,#fff)"><b>📥 INBOX - Your Notifications</b><p class=small>New WORLD posts + @mentions from TokBox show here!</p><div style="display:flex;gap:6px;margin-top:8px"><button class=btn-gray onclick="clearInbox()">Clear View</button><span id=inboxCount class=badge>0 new</span></div></div>
-<div id=inboxList><div class=card small>Loading inbox from cloud...</div></div>
+<div class=card style="background:linear-gradient(90deg,#fff8e1,#fff)"><b>📥 INBOX</b><p class=small>WORLD posts + @mentions</p><div style="display:flex;gap:6px;margin-top:8px"><button class=btn-gray onclick="clearInbox()">Clear View</button><span id=inboxCount class=badge>0 new</span></div></div>
+<div id=inboxList></div>
 </div>
 
 <div id=pageEarn class=page>
-<div class=card><b>💰 Earn Money - Yokel BTY PNG</b><p class=small>Share Yokel BTY, earn K5 per friend who joins!</p>
+<div class=card><b>💰 Earn Money - PNG</b><p class=small>Share Yokel BTY, earn K5 per friend!</p>
 <div style="background:#fff8e1;padding:10px;border-radius:12px;margin:10px 0">
 <p><b>Your Referral Link:</b></p>
 <p style="background:#fff;padding:8px;border-radius:8px;font-size:12px;word-break:break-all" id=refLink>https://tbrenton286-bot.github.io/YokelBTY/</p>
-<button class=btn-gold style="width:100%" onclick="navigator.clipboard.writeText(document.getElementById('refLink').innerText);alert('Link Copied! Share to friends!')">📋 Copy Link</button>
+<button class=btn-gold style="width:100%" onclick="navigator.clipboard.writeText(document.getElementById('refLink').innerText);alert('Copied!')">📋 Copy Link</button>
 </div>
 <div style="display:flex;gap:8px">
 <div class=card style="flex:1;text-align:center"><b>K5.00</b><br><span class=small>Per Invite</span></div>
 <div class=card style="flex:1;text-align:center"><b id=earnCount>0</b><br><span class=small>Invites</span></div>
 <div class=card style="flex:1;text-align:center"><b id=earnBal>K0.00</b><br><span class=small>Balance</span></div>
 </div>
-<button class=btn-bty style="width:100%;margin-top:10px" onclick="alert('Withdrawal to BSP 3127021932525 - Brenton Ta\\'ani - Contact admin!')">💸 Withdraw to BSP</button>
+<button class=btn-bty style="width:100%;margin-top:10px;padding:16px;font-size:16px" onclick="openWithdraw()">💸 Withdraw to BSP - CLICK HERE</button>
+<div id=withdrawHistory style="margin-top:10px"></div>
 </div>
-<div class=card><b>🏆 Top Earners This Week</b><div class=small style="margin-top:6px">🥇 Brenton - K120 - 24 invites<br>🥈 John Oro - K80 - 16 invites<br>🥉 Maria - K50 - 10 invites<br>4. Peter - K35<br>5. Lucy - K25</div></div>
-<div class=card><b>📢 How to Earn:</b><div class=small>1. Copy your referral link<br>2. Share to WhatsApp / FB<br>3. When friend joins with your link = K5<br>4. Withdraw to your BSP!</div></div>
+<div class=card><b>🏆 Top Earners</b><div class=small>🥇 Brenton - K120<br>🥈 John - K80<br>🥉 Maria - K50</div></div>
 </div>
 
 <div id=pageBank class=page>
@@ -88,17 +88,12 @@ video{width:100%;border-radius:12px;background:#000;max-height:70vh}.page{displa
 <div style="font-size:48px">🏦</div>
 <b style="font-size:18px">BSP - Bank South Pacific</b><br>
 <p style="font-size:22px;font-weight:900;margin:10px 0;background:#fff8e1;padding:10px;border-radius:12px">3127021932525</p>
-<p><b style="font-size:16px">Brenton Ta'ani</b><br><span class=small>Popondetta / Port Moresby, PNG</span><br><span class=badge>V26.2 OFFICIAL</span></p>
+<p><b>Brenton Ta'ani</b><br><span class=small>Popondetta / Port Moresby</span><br><span class=badge>V26.3 OFFICIAL</span></p>
 <div style="display:flex;gap:8px;margin:12px 0">
-<button class=btn-bty style="flex:1" onclick="navigator.clipboard.writeText('3127021932525');alert('BSP Number Copied: 3127021932525')">📋 Copy BSP Number</button>
-<button class=btn-gray style="flex:1" onclick="navigator.clipboard.writeText('Brenton Ta\\'ani');alert('Name Copied!')">Copy Name</button>
+<button class=btn-bty style="flex:1" onclick="navigator.clipboard.writeText('3127021932525');alert('Copied BSP!')">📋 Copy Number</button>
+<button class=btn-gray style="flex:1" onclick="navigator.clipboard.writeText('Brenton Ta\'ani');alert('Copied Name!')">Copy Name</button>
 </div>
-<div style="background:#f0f2f5;padding:12px;border-radius:12px;text-align:left;margin-top:10px">
-<p><b>💳 For Payments:</b></p>
-<p class=small>• In-app purchases on Yokel BTY<br>• Advertisement payments<br>• Premium subscription K10/month<br>• Donations to support Yokel BTY<br>• Business verification</p>
-</div>
-<button class=btn-gold style="width:100%;margin-top:12px;padding:14px" onclick="alert('BSP 3127021932525 - Brenton Ta\\'ani - Thank you for supporting Yokel BTY PNG! 🇵🇬')">🙏 Support Yokel BTY - Send to BSP</button>
-<p class=small style="margin-top:10px">Official Yokel BTY Bank - Verified ✅<br>All transactions secure via BSP PNG</p>
+<button class=btn-gold style="width:100%;padding:14px" onclick="openWithdraw()">💸 Request Withdraw</button>
 </div>
 </div>
 
@@ -106,6 +101,22 @@ video{width:100%;border-radius:12px;background:#000;max-height:70vh}.page{displa
 
 <div class=tabbar>
 <div class=tab active onclick="showPage('Feed',this)">🏠<br>Feed</div><div class=tab onclick="showPage('Reels',this)">🎬<br>Reels</div><div class=tab onclick="showPage('Sells',this)">🛒<br>Sells</div><div class=tab onclick="showPage('TokBox',this)">📦<br>TokBox</div><div class=tab onclick="showPage('Inbox',this)" id=tabInbox>📥<br>Inbox<span id=notifDot class=notifDot style="display:none">0</span></div><div class=tab onclick="showPage('Earn',this)">💰<br>Earn</div><div class=tab onclick="showPage('Bank',this)">🏦<br>Bank</div>
+</div>
+</div>
+
+<div id=withdrawModal class=modal>
+<div class=card style="width:100%;max-width:380px">
+<b>💸 Withdraw to BSP</b><p class=small>Money will go to your BSP - Admin pays in 24hrs</p>
+<input id=wAmount type=number placeholder="Amount K e.g. 50" style="margin-top:10px">
+<input id=wBsp placeholder="Your BSP Account Number">
+<input id=wName placeholder="Your BSP Account Name">
+<input id=wPhone placeholder="Your Phone / Digicel">
+<div style="display:flex;gap:8px;margin-top:10px">
+<button class=btn-bty style="flex:1" onclick="submitWithdraw()">✅ Submit Withdraw</button>
+<button class=btn-gray style="flex:1" onclick="closeWithdraw()">Cancel</button>
+</div>
+<p class=small style="margin-top:8px">Main BSP: 3127021932525 - Brenton Ta'ani will send</p>
+<div id=wStatus class=small style="color:green;margin-top:8px"></div>
 </div>
 </div>
 
@@ -124,11 +135,44 @@ firebase.initializeApp(firebaseConfig);
 let db = firebase.database();
 let user = localStorage.getItem('yb_user')||'', avatars=JSON.parse(localStorage.getItem('yb_av')||'{}'), postImg=null, reelData=null;
 
-function toggleEye(){let i=document.getElementById('p');let e=document.getElementById('eyeIcon');if(i.type==='password'){i.type='text';e.innerText='🙈';}else{i.type='password';e.innerText='👁️';}}
+function toggleEye(){let i=document.getElementById('p');if(i.type==='password'){i.type='text';}else{i.type='password';}}
 function login(){let v=document.getElementById('u').value.trim();let pw=document.getElementById('p').value.trim();if(!v)return alert('Putim nem');if(!pw)return alert('Putim password');localStorage.setItem('yb_user',v);location.reload();}
 function createAcc(){let v=document.getElementById('u').value.trim()||prompt('New name:');if(!v)return;localStorage.setItem('yb_user',v);location.reload();}
 function logout(){localStorage.removeItem('yb_user');location.reload();}
 function showPage(n,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page'+n).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');if(n==='Inbox'){document.getElementById('notifDot').style.display='none';}}
+
+function openWithdraw(){document.getElementById('withdrawModal').classList.add('active');}
+function closeWithdraw(){document.getElementById('withdrawModal').classList.remove('active');}
+function submitWithdraw(){
+  let amt=document.getElementById('wAmount').value.trim();
+  let bsp=document.getElementById('wBsp').value.trim();
+  let name=document.getElementById('wName').value.trim();
+  let phone=document.getElementById('wPhone').value.trim();
+  if(!amt||!bsp||!name)return alert('Fill all! Amount + BSP Number + Name');
+  if(parseFloat(amt)<10)return alert('Minimum K10');
+  document.getElementById('wStatus').innerText='Submitting to cloud...';
+  db.ref('withdrawals').push({
+    user:user,
+    amount:amt,
+    bspAccount:bsp,
+    bspName:name,
+    phone:phone,
+    mainBSP:'3127021932525',
+    status:'PENDING',
+    time:Date.now(),
+    timeStr:new Date().toLocaleString()
+  }).then(()=>{
+    document.getElementById('wStatus').innerText='✅ SAVED! Admin will send to '+bsp+' in 24hrs!';
+    setTimeout(()=>{closeWithdraw();},2000);
+  }).catch(e=>{document.getElementById('wStatus').innerText='Error: '+e.message;});
+}
+function listenWithdraws(){
+  db.ref('withdrawals').orderByChild('user').equalTo(user).on('value',snap=>{
+    let data=snap.val();if(!data){document.getElementById('withdrawHistory').innerHTML='<div class=card small>No withdraws yet - first one K10 min</div>';return;}
+    let arr=Object.values(data).reverse();
+    document.getElementById('withdrawHistory').innerHTML='<div class=card><b>📜 Your Withdraw History (CLOUD)</b>'+arr.map(w=>`<div style="border-bottom:1px solid #eee;padding:6px 0"><b>K${w.amount}</b> to ${w.bspAccount} (${w.bspName})<br><span class=small>${w.timeStr} - <span style="color:orange;font-weight:900">${w.status}</span></span></div>`).join('')+'</div>';
+  });
+}
 
 document.getElementById('avInput')?.addEventListener('change',e=>{
   let f=e.target.files[0];if(!f)return;
@@ -155,7 +199,7 @@ document.getElementById('postFile')?.addEventListener('change',async e=>{
   postImg=await compress(f,250);
   document.getElementById('preview').src=postImg;
   document.getElementById('preview').style.display='block';
-  document.getElementById('status').innerText='✅ Ready for CLOUD (no phone save)';
+  document.getElementById('status').innerText='✅ Ready for CLOUD';
 });
 function clearPreview(){postImg=null;document.getElementById('preview').style.display='none';document.getElementById('postFile').value='';document.getElementById('status').innerText='';}
 function makePost(){
@@ -164,7 +208,7 @@ function makePost(){
   document.getElementById('status').innerText='Uploading to CLOUD ☁️...';
   db.ref('posts').push({user,txt:t,img:postImg||'',avatar:avatars[user]||'',time:Date.now(),timeStr:new Date().toLocaleString()}).then(()=>{
     document.getElementById('txt').value='';clearPreview();
-    document.getElementById('status').innerText='✅ SAVED TO CLOUD! NOT phone!';
+    document.getElementById('status').innerText='✅ SAVED TO CLOUD!';
   });
 }
 function listenFeed(){
@@ -190,32 +234,15 @@ function sendTok(){let v=document.getElementById('tokInput').value.trim();if(!v)
 function listenTok(){db.ref('tokbox').limitToLast(30).on('value',snap=>{let data=snap.val();if(!data)return;let arr=Object.values(data);document.getElementById('tokList').innerHTML=arr.slice(-20).map(m=>`<div class=small><b>${m.user}:</b> ${m.txt}</div>`).join('');});}
 function listenInbox(){
   db.ref('posts').limitToLast(30).on('value',snap=>{
-    let data=snap.val();if(!data){document.getElementById('inboxList').innerHTML='<div class=card small>No inbox yet - WORLD posts will show here</div>';return;}
-    let arr=Object.values(data).reverse();
-    let others = arr.filter(p=>p.user!==user);
-    let count = others.length;
-    document.getElementById('inboxCount').innerText=count+' new';
-    if(count>0){let dot=document.getElementById('notifDot');dot.innerText=count;dot.style.display='block';}
-    document.getElementById('inboxList').innerHTML = others.slice(0,20).map(p=>`
-      <div class=card>
-        <div style="display:flex;gap:8px;align-items:center"><img class=avatar src="${p.avatar||''}"><b>${p.user}</b><span class=small>${p.timeStr} ☁️</span><span class=badge>NEW POST</span></div>
-        <p style="margin:8px 0">${p.txt||'(image)'}</p>
-        ${p.img?`<img style="width:80px;border-radius:8px" src="${p.img}">`:''}
-        <div style="display:flex;gap:6px;margin-top:8px"><button class=btn-bty onclick="showPage('Feed',null);window.scrollTo(0,0)">View</button><button class=btn-gray onclick="showPage('TokBox',document.getElementById('tabInbox'));document.getElementById('tokInput').value='@${p.user} '">Reply @${p.user}</button></div>
-      </div>
-    `).join('');
-  });
-  db.ref('tokbox').limitToLast(40).on('value',snap=>{
     let data=snap.val();if(!data)return;
     let arr=Object.values(data).reverse();
-    let mentions = arr.filter(m=>m.txt.toLowerCase().includes('@'+user.toLowerCase()));
-    if(mentions.length>0){
-      let extra = mentions.map(m=>`<div class=card style="border-left:4px solid #1877f2"><b style="color:#1877f2">📩 ${m.user} mentioned you:</b><p style="margin:6px 0;background:#e8f0fe;padding:8px;border-radius:8px">${m.txt}</p><span class=small>${m.timeStr||''}</span></div>`).join('');
-      document.getElementById('inboxList').innerHTML = extra + document.getElementById('inboxList').innerHTML;
-    }
+    let others = arr.filter(p=>p.user!==user);
+    document.getElementById('inboxCount').innerText=others.length+' new';
+    if(others.length>0){let dot=document.getElementById('notifDot');dot.innerText=others.length;dot.style.display='block';}
+    document.getElementById('inboxList').innerHTML = others.slice(0,20).map(p=>`<div class=card><b>${p.user}</b> - ${p.txt||'(image)'}<br><span class=small>${p.timeStr}</span></div>`).join('');
   });
 }
-function clearInbox(){document.getElementById('inboxList').innerHTML='<div class=card small>Inbox cleared view - cloud still has data</div>';document.getElementById('notifDot').style.display='none';}
+function clearInbox(){document.getElementById('inboxList').innerHTML='<div class=card small>Cleared view</div>';document.getElementById('notifDot').style.display='none';}
 
 if(user){
   document.getElementById('loginPage').style.display='none';
@@ -223,7 +250,7 @@ if(user){
   document.getElementById('hello').innerText=user;
   if(avatars[user])document.getElementById('myAv').src=avatars[user];
   document.getElementById('refLink').innerText='https://tbrenton286-bot.github.io/YokelBTY/?ref='+encodeURIComponent(user);
-  listenFeed();listenReels();listenSells();listenTok();listenInbox();
+  listenFeed();listenReels();listenSells();listenTok();listenInbox();listenWithdraws();
 }
 </script>
 </body></html>
