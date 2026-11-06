@@ -46,6 +46,20 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 .eye{position:absolute;right:10px;top:9px;background:#444;border:none;font-size:20px;padding:4px 8px;border-radius:10px;cursor:pointer}
 .linkBtn{background:none;border:none;color:#ffcc00;font-weight:900;text-decoration:underline;font-size:15px;margin-top:10px;width:100%;padding:10px}
 .divider{text-align:center;color:#888;margin:12px 0;font-size:13px}
+.msgMe{background:#d80000;padding:10px 14px;border-radius:16px 16px 4px 16px;margin:6px 0 6px auto;max-width:85%;width:fit-content;margin-left:auto}
+.msgThem{background:#2a2a2a;padding:10px 14px;border-radius:16px 16px 16px 4px;margin:6px 0;max-width:85%;width:fit-content}
+.chatPerson{cursor:pointer}
+.callOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
+.callOverlay.show{display:flex}
+.callAvatar{width:110px;height:110px;border-radius:50%;background:#ffcc00;color:#000;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:900;border:4px solid #d80000}
+.callBtn{width:60px;height:60px;border-radius:50%;border:none;font-size:24px;margin:8px}
+.callBtn.red{background:#d80000;color:#fff}
+.callBtn.green{background:#00c853;color:#fff}
+.callBtn.grey{background:#333;color:#fff}
+.chatToolBtn{background:#333;color:#fff;border:none;width:44px;height:44px;border-radius:50%;font-size:20px;flex-shrink:0}
+.chatToolBtn.rec{background:#d80000;animation:pulse 1s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
+video{width:100%;border-radius:16px;background:#111;max-height:320px}
 </style>
 </head>
 <body>
@@ -92,7 +106,7 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 <div id="feedList"></div>
 </div>
 
-<div id="friends" class="page"><div class="card"><h3>People You May Know - PNG 🇵🇬</h3></div><div id="friendList"></div></div>
+<div id="friends" class="page"><div class="card"><h3>People You May Know - PNG 🇵🇬</h3><p style="color:#aaa;font-size:13px">Tap Message to chat directly!</p></div><div id="friendList"></div></div>
 <div id="market" class="page"><div class="card"><h3>Yokel Marketplace 🛒</h3><p style="color:#aaa;font-size:13px">Buy & Sell in PNG</p><br><input id="mName" placeholder="What are you selling? e.g Fresh Fish"><input id="mPrice" type="number" placeholder="Price K"><button class="btnGold" onclick="addMarket()">+ LIST MY ITEM</button></div><div id="marketList"></div></div>
 
 <div id="mune" class="page">
@@ -101,7 +115,60 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 <div class="card"><h3>Recent Money Activity</h3><div id="muneList" style="margin-top:10px"></div></div>
 </div>
 
-<div id="chat" class="page"><div class="card"><h3>Messages 💬</h3></div><div id="chatList"></div><div class="card"><input id="chatInput" placeholder="Type message..."><button class="btn" onclick="sendChat()">SEND</button></div></div>
+<div id="chat" class="page">
+<div class="card"><h3>Messages 💬</h3><p style="color:#aaa;font-size:13px">Choose a person to message directly</p><br><input id="chatSearch" placeholder="🔍 Search person..." oninput="renderChat()"></div>
+<div id="chatList"></div>
+</div>
+
+<!-- DM -->
+<div id="dm" class="page">
+<div class="card" style="display:flex;align-items:center;gap:8px">
+<button onclick="show('chat')" style="background:#333;color:#fff;border:none;padding:8px 10px;border-radius:20px;font-weight:900">←</button>
+<div class="avatar" id="dmAvatar">M</div>
+<div style="flex:1"><b id="dmName">Mary Kila</b><br><small style="color:#00e676">● Online • PNG</small></div>
+<button class="btnGreen" style="width:44px;padding:8px" onclick="startVoiceCall()">📞</button>
+<button class="btnGold" style="width:44px;padding:8px" onclick="startVideoCall()">📹</button>
+</div>
+<div id="dmMessages" style="padding:0 16px;padding-bottom:120px"></div>
+<div class="card" style="position:fixed;bottom:90px;left:0;right:0;margin:0;border-radius:16px 16px 0 0">
+<div style="display:flex;gap:6px;align-items:center">
+<label class="chatToolBtn" style="display:flex;align-items:center;justify-content:center;cursor:pointer">📸<input type="file" accept="image/*" onchange="sendPhoto(event)" style="display:none"></label>
+<button class="chatToolBtn" id="micBtn" onclick="toggleVoiceNote()">🎤</button>
+<input id="dmInput" placeholder="Type message..." style="margin:0">
+<button class="btnGreen" style="width:70px;margin:0" onclick="sendDM()">SEND</button>
+</div>
+<div id="recStatus" style="display:none;text-align:center;color:#ff5252;font-size:13px;margin-top:6px">🔴 Recording voice note... Tap 🎤 again to stop & send</div>
+</div>
+</div>
+
+<!-- VOICE CALL OVERLAY -->
+<div id="voiceCall" class="callOverlay">
+<div class="callAvatar" id="voiceAvatar">M</div>
+<h2 id="voiceName" style="margin-top:16px">Mary Kila</h2>
+<p id="voiceStatus" style="color:#aaa;margin:8px">Calling...</p>
+<p id="voiceTimer" style="font-size:22px;font-weight:900">00:00</p>
+<div style="display:flex;gap:10px;margin-top:30px">
+<button class="callBtn grey" onclick="toggleMute(this)">🔇</button>
+<button class="callBtn grey" onclick="alert('Speaker ON')">🔊</button>
+<button class="callBtn red" onclick="endCall()">📞</button>
+</div>
+<p style="color:#888;font-size:12px;margin-top:16px">YokelBTY Voice Call • PNG 🇵🇬</p>
+</div>
+
+<!-- VIDEO CALL OVERLAY -->
+<div id="videoCall" class="callOverlay">
+<h3 id="videoName">Mary Kila</h3>
+<p id="videoStatus" style="color:#aaa">Video Call • Connecting...</p>
+<video id="myVideo" autoplay playsinline muted style="margin:12px 0"></video>
+<div style="background:#222;width:100%;border-radius:16px;padding:30px 0;margin-bottom:12px"><div style="font-size:50px">👤</div><p id="videoThem">Mary Kila</p><p style="color:#00e676;font-size:12px">● Connected</p></div>
+<p id="videoTimer" style="font-weight:900">00:00</p>
+<div style="display:flex;gap:10px;margin-top:16px">
+<button class="callBtn grey" onclick="toggleMute(this)">🔇</button>
+<button class="callBtn grey" onclick="toggleVideo()">📹</button>
+<button class="callBtn green" onclick="switchCam()">🔄</button>
+<button class="callBtn red" onclick="endCall()">📹</button>
+</div>
+</div>
 
 <div id="profile" class="page">
 <div class="cover"><span>🦅</span></div>
@@ -130,7 +197,14 @@ let posts=[
 ];
 let friends=[{name:"Mary Kila",place:"Kokopo",follow:false},{name:"Paul Rabaul",place:"Rabaul",follow:false},{name:"Ruth Gazelle",place:"Gazelle",follow:true},{name:"John Lae",place:"Lae",follow:false},{name:"Maria Madang",place:"Madang",follow:false}];
 let markets=[{name:"Fresh Fish - 1kg",price:35,seller:"Paul",place:"Kokopo"},{name:"Coconut - 5pcs",price:15,seller:"Ruth",place:"Rabaul"},{name:"Kaukau - 2kg",price:18,seller:"Maria",place:"Gazelle"},{name:"Betel Nut - Bag",price:25,seller:"John",place:"Lae"}];
-let chats=[{name:"Mary Kila",msg:"Hi! Is fish still available?"},{name:"Paul Rabaul",msg:"Bro, check my new post!"}];
+let dmChats={
+"Mary Kila":[{from:"them",text:"Hi! Is fish still available?"},{from:"me",text:"Yes! Come to market tomorrow"}],
+"Paul Rabaul":[{from:"them",text:"Bro, check my new post!"}],
+"Ruth Gazelle":[{from:"them",text:"Hello Brenton!"}],
+"John Lae":[{from:"them",text:"Yo bro, how is YokelBTY?"}],
+"Maria Madang":[{from:"them",text:"Madang is beautiful today!"}]
+};
+let currentChat="Mary Kila";
 let muneHist=[{t:"Received from Mary",a:"+K 200.00",c:"green"},{t:"Market - Fresh Fish",a:"-K 45.00",c:"red"},{t:"Digicel Top Up",a:"-K 20.00",c:"red"}];
 function toggleEye(id,btn){let el=document.getElementById(id); if(el.type=="password"){el.type="text";btn.innerText="🙈";}else{el.type="password";btn.innerText="👁️";}}
 function showOutside(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('topBar').style.display='none';document.getElementById('bottomNav').style.display='none';window.scrollTo(0,0);}
@@ -148,12 +222,119 @@ function likePost(i){posts[i].likes++;posts[i].reacts.thumb++;renderFeed();}
 function focusComment(i){document.getElementById('ci'+i).focus();}
 function addComment(i){let v=document.getElementById('ci'+i).value.trim();if(!v)return;posts[i].comments.push(myName+": "+v);renderFeed();}
 function sharePost(n){alert("Shared post by "+n+" to your YokelBTY! ↗️");}
-function renderFriends(){document.getElementById('friendList').innerHTML=friends.map((f,i)=>`<div class="itemBox flex"><div class="avatar">${f.name.charAt(0)}</div><div style="flex:1"><b>${f.name}</b><br><small style="color:#aaa">${f.place} • PNG</small></div><button class="${f.follow?'btnGrey':'btnGreen'}" onclick="toggleFollow(${i})">${f.follow?'✓ Following':' + Follow'}</button></div>`).join('');}
+function renderFriends(){document.getElementById('friendList').innerHTML=friends.map((f,i)=>`<div class="itemBox flex"><div class="avatar">${f.name.charAt(0)}</div><div style="flex:1"><b>${f.name}</b><br><small style="color:#aaa">${f.place} • PNG</small></div><button class="btnGreen" style="padding:8px 10px" onclick="openDM('${f.name}')">💬 Message</button><button class="${f.follow?'btnGrey':'btnGreen'}" onclick="toggleFollow(${i})">${f.follow?'✓ Following':' + Follow'}</button></div>`).join('');}
 function toggleFollow(i){friends[i].follow=!friends[i].follow;renderFriends();}
 function renderMarket(){document.getElementById('marketList').innerHTML=markets.map(m=>`<div class="itemBox flex"><div style="font-size:32px">🛒</div><div style="flex:1"><b>${m.name}</b><br><small style="color:#aaa">${m.place} • Seller: ${m.seller}</small></div><b style="color:#ffcc00">K ${m.price}</b></div><button class="btnGold" style="margin:0 16px 12px" onclick="alert('Order sent to ${m.seller}!')">BUY NOW</button>`).join('');}
 function addMarket(){let n=document.getElementById('mName').value.trim();let p=document.getElementById('mPrice').value;if(!n||!p)return alert("Enter item and price");markets.unshift({name:n,price:p,seller:myName,place:"PNG"});renderMarket();alert("Listed! 🇵🇬");}
-function renderChat(){document.getElementById('chatList').innerHTML=chats.map(c=>`<div class="itemBox flex"><div class="avatar">${c.name.charAt(0)}</div><div><b>${c.name}</b><br><small>${c.msg}</small></div></div>`).join('');}
-function sendChat(){let v=document.getElementById('chatInput').value.trim();if(!v)return;chats.push({name:myName,msg:v});document.getElementById('chatInput').value="";renderChat();}
+// DM
+function renderChat(){
+let q=(document.getElementById('chatSearch')?document.getElementById('chatSearch').value.toLowerCase():"");
+let names=Object.keys(dmChats);
+document.getElementById('chatList').innerHTML=names.filter(n=>n.toLowerCase().includes(q)).map(name=>{
+let last=dmChats[name][dmChats[name].length-1];
+let lastText=last? (last.type=="photo"?"📸 Photo": last.type=="voice"?"🎤 Voice Note": last.text) : "Say hi!";
+let place=friends.find(f=>f.name==name)?.place||"PNG";
+return `<div class="itemBox flex chatPerson" onclick="openDM('${name}')"><div class="avatar">${name.charAt(0)}</div><div style="flex:1"><b>${name}</b><br><small style="color:#aaa">${lastText}</small><br><small style="color:#00e676">● Online • ${place}</small></div><div style="font-size:20px">➡️</div></div>`;
+}).join('');
+}
+function openDM(name){
+currentChat=name;
+if(!dmChats[name]) dmChats[name]=[];
+document.getElementById('dmName').innerText=name;
+document.getElementById('dmAvatar').innerText=name.charAt(0);
+document.getElementById('dmInput').placeholder="Type message to "+name+"...";
+show('dm');
+renderDM();
+}
+function renderDM(){
+let msgs=dmChats[currentChat]||[];
+document.getElementById('dmMessages').innerHTML=msgs.map(m=>{
+let cls=m.from=="me"?"msgMe":"msgThem";
+let inner="";
+if(m.type=="photo") inner=`<img src="${m.img}" style="width:200px;max-width:100%;border-radius:12px"><br><small>📸 Photo</small>`;
+else if(m.type=="voice") inner=`🎤 Voice Note<br><audio controls src="${m.audio}" style="width:180px"></audio>`;
+else inner=m.from=="me"?m.text:`<b>${currentChat}:</b> ${m.text}`;
+return `<div class="${cls}">${inner}</div>`;
+}).join('') || `<div class="center" style="color:#aaa">No messages yet. Say hi to ${currentChat}! 👋</div>`;
+window.scrollTo(0,document.body.scrollHeight);
+}
+function sendDM(){
+let inp=document.getElementById('dmInput');
+let v=inp.value.trim(); if(!v) return;
+dmChats[currentChat].push({from:"me",text:v});
+inp.value=""; renderDM(); renderChat();
+setTimeout(()=>{dmChats[currentChat].push({from:"them",text:"Got it bro! Thanks for messaging on YokelBTY 🇵🇬"}); if(document.getElementById('dm').classList.contains('active')) renderDM(); renderChat();},1200);
+}
+// PHOTO SEND
+function sendPhoto(e){
+let f=e.target.files[0]; if(!f) return;
+let r=new FileReader(); r.onload=function(){
+dmChats[currentChat].push({from:"me",type:"photo",img:r.result});
+renderDM(); renderChat();
+setTimeout(()=>{dmChats[currentChat].push({from:"them",text:"Nice photo! 😍"}); if(document.getElementById('dm').classList.contains('active')) renderDM(); renderChat();},1000);
+}; r.readAsDataURL(f);
+}
+// VOICE NOTE
+let mediaRecorder=null, audioChunks=[], isRecording=false, recStream=null;
+async function toggleVoiceNote(){
+let btn=document.getElementById('micBtn');
+if(!isRecording){
+try{
+recStream=await navigator.mediaDevices.getUserMedia({audio:true});
+mediaRecorder=new MediaRecorder(recStream); audioChunks=[];
+mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
+mediaRecorder.onstop=()=>{
+let blob=new Blob(audioChunks,{type:"audio/webm"});
+let url=URL.createObjectURL(blob);
+dmChats[currentChat].push({from:"me",type:"voice",audio:url});
+renderDM(); renderChat();
+if(recStream) recStream.getTracks().forEach(t=>t.stop());
+};
+mediaRecorder.start(); isRecording=true; btn.classList.add('rec'); btn.innerText="⏹️";
+document.getElementById('recStatus').style.display='block';
+}catch(err){alert("Allow microphone to send voice note bro! 🎤");}
+}else{
+mediaRecorder.stop(); isRecording=false; btn.classList.remove('rec'); btn.innerText="🎤";
+document.getElementById('recStatus').style.display='none';
+}
+}
+// CALLS
+let callTimer=null, callSeconds=0, videoStream=null;
+function fmt(s){let m=Math.floor(s/60), ss=s%60; return (m<10?"0"+m:m)+":"+(ss<10?"0"+ss:ss);}
+function startVoiceCall(){
+document.getElementById('voiceName').innerText=currentChat;
+document.getElementById('voiceAvatar').innerText=currentChat.charAt(0);
+document.getElementById('voiceStatus').innerText="Calling...";
+document.getElementById('voiceCall').classList.add('show');
+callSeconds=0; document.getElementById('voiceTimer').innerText="00:00";
+clearInterval(callTimer);
+callTimer=setInterval(()=>{callSeconds++; document.getElementById('voiceTimer').innerText=fmt(callSeconds); if(callSeconds==3) document.getElementById('voiceStatus').innerText="● Connected - YokelBTY Voice";},1000);
+}
+async function startVideoCall(){
+document.getElementById('videoName').innerText=currentChat+" - Video Call";
+document.getElementById('videoThem').innerText=currentChat;
+document.getElementById('videoStatus').innerText="Connecting...";
+document.getElementById('videoCall').classList.add('show');
+callSeconds=0; document.getElementById('videoTimer').innerText="00:00";
+clearInterval(callTimer);
+callTimer=setInterval(()=>{callSeconds++; document.getElementById('videoTimer').innerText=fmt(callSeconds); if(callSeconds==3) document.getElementById('videoStatus').innerText="● Connected - YokelBTY Video";},1000);
+try{
+videoStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+document.getElementById('myVideo').srcObject=videoStream;
+}catch(e){document.getElementById('videoStatus').innerText="Camera not allowed - Showing demo video"; }
+}
+function toggleMute(btn){ if(btn.innerText=="🔇"){btn.innerText="🎤";}else{btn.innerText="🔇";} }
+function toggleVideo(){ let v=document.getElementById('myVideo'); v.style.display = v.style.display=="none" ? "block":"none"; }
+function switchCam(){ alert("Camera switched! 🔄"); }
+function endCall(){
+clearInterval(callTimer);
+document.getElementById('voiceCall').classList.remove('show');
+document.getElementById('videoCall').classList.remove('show');
+if(videoStream) videoStream.getTracks().forEach(t=>t.stop());
+let dur=fmt(callSeconds);
+dmChats[currentChat].push({from:"me",text:"📞 Call ended - "+dur});
+renderDM(); renderChat();
+}
 function renderMune(){document.getElementById('bal').innerText=balance.toFixed(2);document.getElementById('muneList').innerHTML=muneHist.map(m=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #333"><span>${m.t}</span><b style="color:${m.c=='green'?'#00e676':'#ff5252'}">${m.a}</b></div>`).join('');}
 function topup(){let a=Number(prompt("Top up amount K? e.g 100"));if(!a)return;balance+=a;muneHist.unshift({t:"Top Up - Money",a:"+K "+a.toFixed(2),c:"green"});renderMune();alert("Top up K "+a+" success!");}
 function sendMoney(){let to=document.getElementById('sendTo').value.trim();let amt=Number(document.getElementById('sendAmt').value);if(!to||!amt)return alert("Enter name and amount");if(amt>balance)return alert("Not enough Money");balance-=amt;muneHist.unshift({t:"Sent to "+to,a:"-K "+amt.toFixed(2),c:"red"});renderMune();alert("Sent K "+amt+" to "+to+"!");}
