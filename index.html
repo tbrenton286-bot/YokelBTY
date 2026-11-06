@@ -7,6 +7,11 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#0a0a0a;color:#fff;padding-bottom:90px}
+body.light{background:#f2f2f2;color:#111}
+body.light .card,body.light .card2,body.light .itemBox{background:#fff;color:#111;border-color:#ddd}
+body.light input,body.light textarea{ background:#eee;color:#111}
+body.light .msgThem{background:#eee;color:#111}
+body.light .top,body.light .nav{background:#fff;color:#111}
 .top{background:#000;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;border-bottom:3px solid #d80000}
 .logo{font-size:24px;font-weight:900}.logo span{color:#ffcc00}
 .topbtn{background:#d80000;color:#fff;border:none;padding:8px 12px;border-radius:20px;font-weight:800}
@@ -60,10 +65,17 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 .chatToolBtn.rec{background:#d80000;animation:pulse 1s infinite}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
 video{width:100%;border-radius:16px;background:#111;max-height:320px}
+.storyRow{display:flex;gap:12px;overflow-x:auto;padding:10px 16px}
+.story{flex-shrink:0;text-align:center;width:68px;cursor:pointer}
+.storyCircle{width:62px;height:62px;border-radius:50%;border:3px solid #ffcc00;display:flex;align-items:center;justify-content:center;font-size:24px;background:#222;overflow:hidden}
+.storyCircle img{width:100%;height:100%;object-fit:cover}
+.story small{font-size:11px}
+.storyViewer{position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.storyViewer.show{display:flex}
 </style>
 </head>
 <body>
-<div class="top" id="topBar" style="display:none"><div class="logo">Yokel<span>BTY</span> 🇵🇬</div><button class="topbtn" onclick="show('chat')">💬 Chat <span style="background:#ffcc00;color:#000;padding:1px 6px;border-radius:10px">2</span></button></div>
+<div class="top" id="topBar" style="display:none"><div class="logo">Yokel<span>BTY</span> 🇵🇬</div><div style="display:flex;gap:6px"><button class="topbtn" onclick="toggleTheme()">🌙 / ☀️</button><button class="topbtn" onclick="show('chat')">💬 Chat <span style="background:#ffcc00;color:#000;padding:1px 6px;border-radius:10px">2</span></button></div></div>
 
 <div id="login" class="page active">
 <div class="center"><div style="font-size:60px">🇵🇬</div><h1 style="font-size:36px">Yokel<span style="color:#ffcc00">BTY</span></h1><p style="color:#aaa;margin:8px 0">PNG's Own Community & Money App<br>Made in Papua New Guinea</p></div>
@@ -89,17 +101,11 @@ video{width:100%;border-radius:16px;background:#111;max-height:320px}
 <button class="linkBtn" onclick="showOutside('login')">Already have account? Login here</button></div>
 </div>
 
-<div id="forgot" class="page">
-<div class="center"><h2>Forgot Password?</h2><p style="color:#aaa">We will send code to your phone</p></div>
-<div class="card"><input id="forgotPhone" placeholder="Phone e.g 70001234"><button class="btn" onclick="alert('Code sent - Use 1234'); showOutside('reset')">SEND CODE</button><button class="linkBtn" onclick="showOutside('login')">Back to Login</button></div>
-</div>
-
-<div id="reset" class="page">
-<div class="center"><h2>Reset Password</h2></div>
-<div class="card"><input placeholder="Enter Code - Try 1234"><div class="passWrap"><input id="newPass" type="password" placeholder="New Password"><button class="eye" onclick="toggleEye('newPass',this)">👁️</button></div><button class="btn" onclick="alert('Password changed! Login now'); showOutside('login')">RESET PASSWORD</button></div>
-</div>
+<div id="forgot" class="page"><div class="center"><h2>Forgot Password?</h2><p style="color:#aaa">We will send code to your phone</p></div><div class="card"><input id="forgotPhone" placeholder="Phone e.g 70001234"><button class="btn" onclick="alert('Code sent - Use 1234'); showOutside('reset')">SEND CODE</button><button class="linkBtn" onclick="showOutside('login')">Back to Login</button></div></div>
+<div id="reset" class="page"><div class="center"><h2>Reset Password</h2></div><div class="card"><input placeholder="Enter Code - Try 1234"><div class="passWrap"><input id="newPass" type="password" placeholder="New Password"><button class="eye" onclick="toggleEye('newPass',this)">👁️</button></div><button class="btn" onclick="alert('Password changed! Login now'); showOutside('login')">RESET PASSWORD</button></div></div>
 
 <div id="feed" class="page">
+<div class="storyRow" id="storyRow"></div>
 <div class="card"><div class="flex"><div class="avatar" id="myAvatar">B</div><input id="postText" placeholder="What's on your mind, PNG?"></div>
 <input type="file" accept="image/*" onchange="previewPost(event)"><img id="postPreview" class="postImg hidden">
 <button class="btnGold" onclick="addPost()">POST TO YOKELBTY</button></div>
@@ -116,16 +122,18 @@ video{width:100%;border-radius:16px;background:#111;max-height:320px}
 </div>
 
 <div id="chat" class="page">
-<div class="card"><h3>Messages 💬</h3><p style="color:#aaa;font-size:13px">Choose a person to message directly</p><br><input id="chatSearch" placeholder="🔍 Search person..." oninput="renderChat()"></div>
+<div class="card"><h3>Messages 💬</h3><p style="color:#aaa;font-size:13px">Choose a person or group</p><br>
+<input id="chatSearch" placeholder="🔍 Search person..." oninput="renderChat()">
+<div class="grid2" style="margin-top:10px"><button class="btnGold" onclick="createGroup()">👥 + NEW GROUP</button><button class="btn" onclick="alert('Status: '+myStatus)">🟢 My Status: <span id="statusLabel">Online</span></button></div>
+</div>
 <div id="chatList"></div>
 </div>
 
-<!-- DM -->
 <div id="dm" class="page">
 <div class="card" style="display:flex;align-items:center;gap:8px">
 <button onclick="show('chat')" style="background:#333;color:#fff;border:none;padding:8px 10px;border-radius:20px;font-weight:900">←</button>
 <div class="avatar" id="dmAvatar">M</div>
-<div style="flex:1"><b id="dmName">Mary Kila</b><br><small style="color:#00e676">● Online • PNG</small></div>
+<div style="flex:1"><b id="dmName">Mary Kila</b><br><small style="color:#00e676" id="dmStatus">● Online • PNG</small></div>
 <button class="btnGreen" style="width:44px;padding:8px" onclick="startVoiceCall()">📞</button>
 <button class="btnGold" style="width:44px;padding:8px" onclick="startVideoCall()">📹</button>
 </div>
@@ -141,40 +149,19 @@ video{width:100%;border-radius:16px;background:#111;max-height:320px}
 </div>
 </div>
 
-<!-- VOICE CALL OVERLAY -->
-<div id="voiceCall" class="callOverlay">
-<div class="callAvatar" id="voiceAvatar">M</div>
-<h2 id="voiceName" style="margin-top:16px">Mary Kila</h2>
-<p id="voiceStatus" style="color:#aaa;margin:8px">Calling...</p>
-<p id="voiceTimer" style="font-size:22px;font-weight:900">00:00</p>
-<div style="display:flex;gap:10px;margin-top:30px">
-<button class="callBtn grey" onclick="toggleMute(this)">🔇</button>
-<button class="callBtn grey" onclick="alert('Speaker ON')">🔊</button>
-<button class="callBtn red" onclick="endCall()">📞</button>
-</div>
-<p style="color:#888;font-size:12px;margin-top:16px">YokelBTY Voice Call • PNG 🇵🇬</p>
-</div>
-
-<!-- VIDEO CALL OVERLAY -->
-<div id="videoCall" class="callOverlay">
-<h3 id="videoName">Mary Kila</h3>
-<p id="videoStatus" style="color:#aaa">Video Call • Connecting...</p>
-<video id="myVideo" autoplay playsinline muted style="margin:12px 0"></video>
-<div style="background:#222;width:100%;border-radius:16px;padding:30px 0;margin-bottom:12px"><div style="font-size:50px">👤</div><p id="videoThem">Mary Kila</p><p style="color:#00e676;font-size:12px">● Connected</p></div>
-<p id="videoTimer" style="font-weight:900">00:00</p>
-<div style="display:flex;gap:10px;margin-top:16px">
-<button class="callBtn grey" onclick="toggleMute(this)">🔇</button>
-<button class="callBtn grey" onclick="toggleVideo()">📹</button>
-<button class="callBtn green" onclick="switchCam()">🔄</button>
-<button class="callBtn red" onclick="endCall()">📹</button>
-</div>
-</div>
+<div id="voiceCall" class="callOverlay"><div class="callAvatar" id="voiceAvatar">M</div><h2 id="voiceName" style="margin-top:16px">Mary Kila</h2><p id="voiceStatus" style="color:#aaa;margin:8px">Calling...</p><p id="voiceTimer" style="font-size:22px;font-weight:900">00:00</p><div style="display:flex;gap:10px;margin-top:30px"><button class="callBtn grey" onclick="toggleMute(this)">🔇</button><button class="callBtn grey" onclick="alert('Speaker ON')">🔊</button><button class="callBtn red" onclick="endCall()">📞</button></div><p style="color:#888;font-size:12px;margin-top:16px">YokelBTY Voice Call • PNG 🇵🇬</p></div>
+<div id="videoCall" class="callOverlay"><h3 id="videoName">Mary Kila</h3><p id="videoStatus" style="color:#aaa">Video Call • Connecting...</p><video id="myVideo" autoplay playsinline muted style="margin:12px 0"></video><div style="background:#222;width:100%;border-radius:16px;padding:30px 0;margin-bottom:12px"><div style="font-size:50px">👤</div><p id="videoThem">Mary Kila</p><p style="color:#00e676;font-size:12px">● Connected</p></div><p id="videoTimer" style="font-weight:900">00:00</p><div style="display:flex;gap:10px;margin-top:16px"><button class="callBtn grey" onclick="toggleMute(this)">🔇</button><button class="callBtn grey" onclick="toggleVideo()">📹</button><button class="callBtn green" onclick="switchCam()">🔄</button><button class="callBtn red" onclick="endCall()">📹</button></div></div>
+<div id="storyViewer" class="storyViewer"><div class="avatar" id="storyViewerAvatar" style="width:70px;height:70px;font-size:30px">M</div><h3 id="storyViewerName" style="margin:12px">Mary Kila</h3><div id="storyViewerContent" style="font-size:22px;text-align:center"></div><button class="btn" style="margin-top:20px" onclick="closeStory()">CLOSE ✕</button></div>
 
 <div id="profile" class="page">
 <div class="cover"><span>🦅</span></div>
 <div class="center" style="margin-top:-30px"><div class="avatar" id="profAvatar" style="width:90px;height:90px;font-size:36px;border:4px solid #ffcc00;margin:0 auto">B</div>
 <h2 id="profName">Brenton Yokel</h2><p style="color:#aaa">Port Moresby, PNG • Verified ✅ • GOLD ⭐</p><p style="margin-top:6px"><span class="badge">1.2k Followers</span> <span class="badge" style="background:#d80000;color:#fff">PNG Creator</span></p>
 <label style="display:block;margin-top:12px;background:#333;padding:10px;border-radius:10px;cursor:pointer">📸 Change Profile Photo <input type="file" accept="image/*" onchange="setPhoto(event)" style="display:none"></label></div>
+<div class="card"><h3>⚙️ Settings</h3>
+<button class="btnGold" onclick="toggleTheme()">🌙 / ☀️ Toggle Dark / Light Mode</button><br><br>
+<label style="font-size:14px">My Status:</label><select id="statusSelect" onchange="changeStatus(this.value)"><option value="Online">🟢 Online</option><option value="Away">🟡 Away</option><option value="Busy">🔴 Busy</option><option value="Offline">⚫ Offline</option></select>
+</div>
 <div class="card"><h3>About The Founder</h3><p style="font-size:14px;line-height:1.6;margin-top:8px"><b>Brenton Yokel - Founder of YokelBTY</b><br><br>Born and raised in Papua New Guinea, Brenton saw his people using foreign apps that didn't understand PNG life, PNG markets, PNG language and PNG pride.<br><br>So he decided to build YokelBTY — an app where PNG people can talk, share stories, sell at market, send Money, and support each other.<br><br><b>Mission:</b> One PNG. One Community. One YokelBTY.<br><b>Vision:</b> Every PNG village connected.<br><br>🇵🇬 <i>This is just the beginning.</i></p></div>
 <div class="card"><button class="btn" onclick="logout()">LOG OUT</button></div>
 </div>
@@ -189,7 +176,11 @@ video{width:100%;border-radius:16px;background:#111;max-height:320px}
 </div>
 
 <script>
-let balance=2450, myName="Brenton Yokel", myPhoto="", savedPass="1234", savedPhone="70001234";
+// --- FIREBASE READY: Paste your config here after you create Firebase project ---
+// const firebaseConfig = { apiKey:"YOUR_KEY", authDomain:"...", projectId:"..." };
+// To make it REAL: Go to console.firebase.google.com -> Create Project YokelBTY -> Web App -> Copy config -> Paste above -> Uncomment firebase init
+let balance=2450, myName="Brenton Yokel", myPhoto="", savedPass="1234", savedPhone="70001234", myStatus="Online";
+let stories=[{name:"You",emoji:"➕",text:"Tap to add your story!"},{name:"Mary",emoji:"🐟",text:"Fresh fish at Kokopo Market today! Come early! 🇵🇬"},{name:"Paul",emoji:"🌅",text:"Rabaul sunset - PNG paradise!"},{name:"Ruth",emoji:"🥥",text:"Coconuts for sale!"},{name:"John",emoji:"🏉",text:"Lae game today!"}];
 let posts=[
 {name:"Mary Kila",time:"2h • Kokopo",text:"Fresh fish just arrived at Kokopo Market! Come early, best price today 🐟🇵🇬",img:"",likes:124,reacts:{heart:124,laugh:12,wow:5,angry:0,thumb:20},comments:["Best fish in PNG!","Save 2kg for me please"]},
 {name:"Paul Rabaul",time:"5h • Rabaul",text:"Beautiful sunset in Rabaul today. PNG is paradise! 🌅",img:"",likes:89,reacts:{heart:89,laugh:3,wow:10,angry:0,thumb:15},comments:["Wow! So beautiful"]},
@@ -202,10 +193,13 @@ let dmChats={
 "Paul Rabaul":[{from:"them",text:"Bro, check my new post!"}],
 "Ruth Gazelle":[{from:"them",text:"Hello Brenton!"}],
 "John Lae":[{from:"them",text:"Yo bro, how is YokelBTY?"}],
-"Maria Madang":[{from:"them",text:"Madang is beautiful today!"}]
+"Maria Madang":[{from:"them",text:"Madang is beautiful today!"}],
+"👥 PNG Family Group":[{from:"them",text:"Welcome to PNG Family Group! 🇵🇬"},{from:"me",text:"YokelBTY is for all PNG!"}]
 };
 let currentChat="Mary Kila";
 let muneHist=[{t:"Received from Mary",a:"+K 200.00",c:"green"},{t:"Market - Fresh Fish",a:"-K 45.00",c:"red"},{t:"Digicel Top Up",a:"-K 20.00",c:"red"}];
+function toggleTheme(){document.body.classList.toggle('light');}
+function changeStatus(v){myStatus=v;document.getElementById('statusLabel').innerText=v;alert("Status changed to "+v);}
 function toggleEye(id,btn){let el=document.getElementById(id); if(el.type=="password"){el.type="text";btn.innerText="🙈";}else{el.type="password";btn.innerText="👁️";}}
 function showOutside(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('topBar').style.display='none';document.getElementById('bottomNav').style.display='none';window.scrollTo(0,0);}
 function show(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('topBar').style.display='flex';document.getElementById('bottomNav').style.display='flex';if(el){document.querySelectorAll('.nav div').forEach(d=>d.classList.remove('active'));el.classList.add('active');}window.scrollTo(0,0);}
@@ -216,6 +210,9 @@ function setPhoto(e){let f=e.target.files[0];if(!f)return;let r=new FileReader()
 let tempPostImg="";
 function previewPost(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=function(){tempPostImg=r.result;let im=document.getElementById('postPreview');im.src=tempPostImg;im.classList.remove('hidden');};r.readAsDataURL(f);}
 function addPost(){let t=document.getElementById('postText').value.trim();if(!t&&!tempPostImg)return alert("Write something first");posts.unshift({name:myName,time:"Just now • PNG",text:t,img:tempPostImg,likes:0,reacts:{heart:0,laugh:0,wow:0,angry:0,thumb:0},comments:[]});document.getElementById('postText').value="";tempPostImg="";document.getElementById('postPreview').classList.add('hidden');renderFeed();alert("Posted! 🇵🇬");}
+function renderStories(){document.getElementById('storyRow').innerHTML=stories.map((s,i)=>`<div class="story" onclick="viewStory(${i})"><div class="storyCircle">${s.emoji}</div><small>${s.name}</small></div>`).join('');}
+function viewStory(i){let s=stories[i]; if(i==0){let t=prompt("What is your story?"); if(t){stories[0].text=t; stories[0].emoji="📸"; alert("Story posted!");} return;} document.getElementById('storyViewerAvatar').innerText=s.name.charAt(0); document.getElementById('storyViewerName').innerText=s.name+" - Story"; document.getElementById('storyViewerContent').innerText=s.emoji+" "+s.text; document.getElementById('storyViewer').classList.add('show');}
+function closeStory(){document.getElementById('storyViewer').classList.remove('show');}
 function renderFeed(){document.getElementById('feedList').innerHTML=posts.map((p,i)=>`<div class="card2"><div class="postHead"><div class="avatar">${p.name.charAt(0)}</div><div><b>${p.name}</b><small>${p.time}</small></div></div><p>${p.text}</p>${p.img?`<img src="${p.img}" class="postImg">`:""}<div class="reacts"><span onclick="doReact(${i},'heart',this)" class="${p.myReact=='heart'?'on':''}">❤️ <b>${p.reacts.heart}</b></span><span onclick="doReact(${i},'laugh',this)" class="${p.myReact=='laugh'?'on':''}">😂 <b>${p.reacts.laugh}</b></span><span onclick="doReact(${i},'wow',this)" class="${p.myReact=='wow'?'on':''}">😮 <b>${p.reacts.wow}</b></span><span onclick="doReact(${i},'angry',this)" class="${p.myReact=='angry'?'on':''}">😡 <b>${p.reacts.angry}</b></span><span onclick="doReact(${i},'thumb',this)" class="${p.myReact=='thumb'?'on':''}">👍 <b>${p.reacts.thumb}</b></span></div><div class="actionsRow"><button onclick="likePost(${i})">👍 Like (${p.likes})</button><button onclick="focusComment(${i})">💬 Comment</button><button onclick="sharePost('${p.name}')">↗️ Share</button></div><div>${p.comments.map(c=>`<div class="comment">💬 ${c}</div>`).join('')}</div><div style="display:flex;gap:6px;margin-top:8px"><input id="ci${i}" placeholder="Write a comment..."><button class="btnGreen" onclick="addComment(${i})">Send</button></div></div>`).join('');}
 function doReact(i,type,el){let p=posts[i]; if(p.myReact==type){p.reacts[type]--; p.myReact=null;}else{ if(p.myReact){p.reacts[p.myReact]--;} p.reacts[type]++; p.myReact=type; } renderFeed();}
 function likePost(i){posts[i].likes++;posts[i].reacts.thumb++;renderFeed();}
@@ -226,119 +223,35 @@ function renderFriends(){document.getElementById('friendList').innerHTML=friends
 function toggleFollow(i){friends[i].follow=!friends[i].follow;renderFriends();}
 function renderMarket(){document.getElementById('marketList').innerHTML=markets.map(m=>`<div class="itemBox flex"><div style="font-size:32px">🛒</div><div style="flex:1"><b>${m.name}</b><br><small style="color:#aaa">${m.place} • Seller: ${m.seller}</small></div><b style="color:#ffcc00">K ${m.price}</b></div><button class="btnGold" style="margin:0 16px 12px" onclick="alert('Order sent to ${m.seller}!')">BUY NOW</button>`).join('');}
 function addMarket(){let n=document.getElementById('mName').value.trim();let p=document.getElementById('mPrice').value;if(!n||!p)return alert("Enter item and price");markets.unshift({name:n,price:p,seller:myName,place:"PNG"});renderMarket();alert("Listed! 🇵🇬");}
-// DM
 function renderChat(){
 let q=(document.getElementById('chatSearch')?document.getElementById('chatSearch').value.toLowerCase():"");
 let names=Object.keys(dmChats);
 document.getElementById('chatList').innerHTML=names.filter(n=>n.toLowerCase().includes(q)).map(name=>{
 let last=dmChats[name][dmChats[name].length-1];
 let lastText=last? (last.type=="photo"?"📸 Photo": last.type=="voice"?"🎤 Voice Note": last.text) : "Say hi!";
-let place=friends.find(f=>f.name==name)?.place||"PNG";
-return `<div class="itemBox flex chatPerson" onclick="openDM('${name}')"><div class="avatar">${name.charAt(0)}</div><div style="flex:1"><b>${name}</b><br><small style="color:#aaa">${lastText}</small><br><small style="color:#00e676">● Online • ${place}</small></div><div style="font-size:20px">➡️</div></div>`;
+let isGroup=name.includes("Group");
+return `<div class="itemBox flex chatPerson" onclick="openDM('${name}')"><div class="avatar" style="${isGroup?'background:#00c853':''}">${isGroup?'👥':name.charAt(0)}</div><div style="flex:1"><b>${name}</b><br><small style="color:#aaa">${lastText}</small><br><small style="color:#00e676">● Online • PNG</small></div><div style="font-size:20px">➡️</div></div>`;
 }).join('');
 }
-function openDM(name){
-currentChat=name;
-if(!dmChats[name]) dmChats[name]=[];
-document.getElementById('dmName').innerText=name;
-document.getElementById('dmAvatar').innerText=name.charAt(0);
-document.getElementById('dmInput').placeholder="Type message to "+name+"...";
-show('dm');
-renderDM();
-}
-function renderDM(){
-let msgs=dmChats[currentChat]||[];
-document.getElementById('dmMessages').innerHTML=msgs.map(m=>{
-let cls=m.from=="me"?"msgMe":"msgThem";
-let inner="";
-if(m.type=="photo") inner=`<img src="${m.img}" style="width:200px;max-width:100%;border-radius:12px"><br><small>📸 Photo</small>`;
-else if(m.type=="voice") inner=`🎤 Voice Note<br><audio controls src="${m.audio}" style="width:180px"></audio>`;
-else inner=m.from=="me"?m.text:`<b>${currentChat}:</b> ${m.text}`;
-return `<div class="${cls}">${inner}</div>`;
-}).join('') || `<div class="center" style="color:#aaa">No messages yet. Say hi to ${currentChat}! 👋</div>`;
-window.scrollTo(0,document.body.scrollHeight);
-}
-function sendDM(){
-let inp=document.getElementById('dmInput');
-let v=inp.value.trim(); if(!v) return;
-dmChats[currentChat].push({from:"me",text:v});
-inp.value=""; renderDM(); renderChat();
-setTimeout(()=>{dmChats[currentChat].push({from:"them",text:"Got it bro! Thanks for messaging on YokelBTY 🇵🇬"}); if(document.getElementById('dm').classList.contains('active')) renderDM(); renderChat();},1200);
-}
-// PHOTO SEND
-function sendPhoto(e){
-let f=e.target.files[0]; if(!f) return;
-let r=new FileReader(); r.onload=function(){
-dmChats[currentChat].push({from:"me",type:"photo",img:r.result});
-renderDM(); renderChat();
-setTimeout(()=>{dmChats[currentChat].push({from:"them",text:"Nice photo! 😍"}); if(document.getElementById('dm').classList.contains('active')) renderDM(); renderChat();},1000);
-}; r.readAsDataURL(f);
-}
-// VOICE NOTE
+function createGroup(){let n=prompt("Group Name? e.g PNG Family"); if(!n) return; let gName="👥 "+n+" Group"; dmChats[gName]=[{from:"them",text:"Welcome to "+n+"! 🇵🇬"}]; renderChat(); openDM(gName);}
+function openDM(name){currentChat=name; if(!dmChats[name]) dmChats[name]=[]; document.getElementById('dmName').innerText=name; document.getElementById('dmAvatar').innerText=name.includes("Group")?"👥":name.charAt(0); document.getElementById('dmStatus').innerText=name.includes("Group")?"👥 Group • 5 members":"● "+myStatus+" • PNG"; document.getElementById('dmInput').placeholder="Type message to "+name+"..."; show('dm'); renderDM();}
+function renderDM(){let msgs=dmChats[currentChat]||[]; document.getElementById('dmMessages').innerHTML=msgs.map(m=>{let cls=m.from=="me"?"msgMe":"msgThem"; let inner=""; if(m.type=="photo") inner=`<img src="${m.img}" style="width:200px;max-width:100%;border-radius:12px"><br><small>📸 Photo</small>`; else if(m.type=="voice") inner=`🎤 Voice Note<br><audio controls src="${m.audio}" style="width:180px"></audio>`; else inner=m.from=="me"?m.text:`<b>${currentChat}:</b> ${m.text}`; return `<div class="${cls}">${inner}</div>`;}).join('') || `<div class="center" style="color:#aaa">No messages yet. Say hi to ${currentChat}! 👋</div>`; window.scrollTo(0,document.body.scrollHeight);}
+function sendDM(){let inp=document.getElementById('dmInput'); let v=inp.value.trim(); if(!v) return; dmChats[currentChat].push({from:"me",text:v}); inp.value=""; renderDM(); renderChat(); setTimeout(()=>{dmChats[currentChat].push({from:"them",text:"Got it bro! Thanks for messaging on YokelBTY 🇵🇬"}); if(document.getElementById('dm').classList.contains('active')) renderDM(); renderChat();},1200);}
+function sendPhoto(e){let f=e.target.files[0]; if(!f) return; let r=new FileReader(); r.onload=function(){dmChats[currentChat].push({from:"me",type:"photo",img:r.result}); renderDM(); renderChat(); setTimeout(()=>{dmChats[currentChat].push({from:"them",text:"Nice photo! 😍"}); if(document.getElementById('dm').classList.contains('active')) renderDM(); renderChat();},1000);}; r.readAsDataURL(f);}
 let mediaRecorder=null, audioChunks=[], isRecording=false, recStream=null;
-async function toggleVoiceNote(){
-let btn=document.getElementById('micBtn');
-if(!isRecording){
-try{
-recStream=await navigator.mediaDevices.getUserMedia({audio:true});
-mediaRecorder=new MediaRecorder(recStream); audioChunks=[];
-mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-mediaRecorder.onstop=()=>{
-let blob=new Blob(audioChunks,{type:"audio/webm"});
-let url=URL.createObjectURL(blob);
-dmChats[currentChat].push({from:"me",type:"voice",audio:url});
-renderDM(); renderChat();
-if(recStream) recStream.getTracks().forEach(t=>t.stop());
-};
-mediaRecorder.start(); isRecording=true; btn.classList.add('rec'); btn.innerText="⏹️";
-document.getElementById('recStatus').style.display='block';
-}catch(err){alert("Allow microphone to send voice note bro! 🎤");}
-}else{
-mediaRecorder.stop(); isRecording=false; btn.classList.remove('rec'); btn.innerText="🎤";
-document.getElementById('recStatus').style.display='none';
-}
-}
-// CALLS
+async function toggleVoiceNote(){let btn=document.getElementById('micBtn'); if(!isRecording){try{recStream=await navigator.mediaDevices.getUserMedia({audio:true}); mediaRecorder=new MediaRecorder(recStream); audioChunks=[]; mediaRecorder.ondataavailable=e=>audioChunks.push(e.data); mediaRecorder.onstop=()=>{let blob=new Blob(audioChunks,{type:"audio/webm"}); let url=URL.createObjectURL(blob); dmChats[currentChat].push({from:"me",type:"voice",audio:url}); renderDM(); renderChat(); if(recStream) recStream.getTracks().forEach(t=>t.stop());}; mediaRecorder.start(); isRecording=true; btn.classList.add('rec'); btn.innerText="⏹️"; document.getElementById('recStatus').style.display='block';}catch(err){alert("Allow microphone to send voice note bro! 🎤");}}else{mediaRecorder.stop(); isRecording=false; btn.classList.remove('rec'); btn.innerText="🎤"; document.getElementById('recStatus').style.display='none';}}
 let callTimer=null, callSeconds=0, videoStream=null;
 function fmt(s){let m=Math.floor(s/60), ss=s%60; return (m<10?"0"+m:m)+":"+(ss<10?"0"+ss:ss);}
-function startVoiceCall(){
-document.getElementById('voiceName').innerText=currentChat;
-document.getElementById('voiceAvatar').innerText=currentChat.charAt(0);
-document.getElementById('voiceStatus').innerText="Calling...";
-document.getElementById('voiceCall').classList.add('show');
-callSeconds=0; document.getElementById('voiceTimer').innerText="00:00";
-clearInterval(callTimer);
-callTimer=setInterval(()=>{callSeconds++; document.getElementById('voiceTimer').innerText=fmt(callSeconds); if(callSeconds==3) document.getElementById('voiceStatus').innerText="● Connected - YokelBTY Voice";},1000);
-}
-async function startVideoCall(){
-document.getElementById('videoName').innerText=currentChat+" - Video Call";
-document.getElementById('videoThem').innerText=currentChat;
-document.getElementById('videoStatus').innerText="Connecting...";
-document.getElementById('videoCall').classList.add('show');
-callSeconds=0; document.getElementById('videoTimer').innerText="00:00";
-clearInterval(callTimer);
-callTimer=setInterval(()=>{callSeconds++; document.getElementById('videoTimer').innerText=fmt(callSeconds); if(callSeconds==3) document.getElementById('videoStatus').innerText="● Connected - YokelBTY Video";},1000);
-try{
-videoStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-document.getElementById('myVideo').srcObject=videoStream;
-}catch(e){document.getElementById('videoStatus').innerText="Camera not allowed - Showing demo video"; }
-}
+function startVoiceCall(){document.getElementById('voiceName').innerText=currentChat; document.getElementById('voiceAvatar').innerText=currentChat.charAt(0); document.getElementById('voiceStatus').innerText="Calling..."; document.getElementById('voiceCall').classList.add('show'); callSeconds=0; document.getElementById('voiceTimer').innerText="00:00"; clearInterval(callTimer); callTimer=setInterval(()=>{callSeconds++; document.getElementById('voiceTimer').innerText=fmt(callSeconds); if(callSeconds==3) document.getElementById('voiceStatus').innerText="● Connected - YokelBTY Voice";},1000);}
+async function startVideoCall(){document.getElementById('videoName').innerText=currentChat+" - Video Call"; document.getElementById('videoThem').innerText=currentChat; document.getElementById('videoStatus').innerText="Connecting..."; document.getElementById('videoCall').classList.add('show'); callSeconds=0; document.getElementById('videoTimer').innerText="00:00"; clearInterval(callTimer); callTimer=setInterval(()=>{callSeconds++; document.getElementById('videoTimer').innerText=fmt(callSeconds); if(callSeconds==3) document.getElementById('videoStatus').innerText="● Connected - YokelBTY Video";},1000); try{videoStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); document.getElementById('myVideo').srcObject=videoStream;}catch(e){document.getElementById('videoStatus').innerText="Camera not allowed - Showing demo video";}}
 function toggleMute(btn){ if(btn.innerText=="🔇"){btn.innerText="🎤";}else{btn.innerText="🔇";} }
 function toggleVideo(){ let v=document.getElementById('myVideo'); v.style.display = v.style.display=="none" ? "block":"none"; }
 function switchCam(){ alert("Camera switched! 🔄"); }
-function endCall(){
-clearInterval(callTimer);
-document.getElementById('voiceCall').classList.remove('show');
-document.getElementById('videoCall').classList.remove('show');
-if(videoStream) videoStream.getTracks().forEach(t=>t.stop());
-let dur=fmt(callSeconds);
-dmChats[currentChat].push({from:"me",text:"📞 Call ended - "+dur});
-renderDM(); renderChat();
-}
+function endCall(){clearInterval(callTimer); document.getElementById('voiceCall').classList.remove('show'); document.getElementById('videoCall').classList.remove('show'); if(videoStream) videoStream.getTracks().forEach(t=>t.stop()); let dur=fmt(callSeconds); dmChats[currentChat].push({from:"me",text:"📞 Call ended - "+dur}); renderDM(); renderChat();}
 function renderMune(){document.getElementById('bal').innerText=balance.toFixed(2);document.getElementById('muneList').innerHTML=muneHist.map(m=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #333"><span>${m.t}</span><b style="color:${m.c=='green'?'#00e676':'#ff5252'}">${m.a}</b></div>`).join('');}
 function topup(){let a=Number(prompt("Top up amount K? e.g 100"));if(!a)return;balance+=a;muneHist.unshift({t:"Top Up - Money",a:"+K "+a.toFixed(2),c:"green"});renderMune();alert("Top up K "+a+" success!");}
 function sendMoney(){let to=document.getElementById('sendTo').value.trim();let amt=Number(document.getElementById('sendAmt').value);if(!to||!amt)return alert("Enter name and amount");if(amt>balance)return alert("Not enough Money");balance-=amt;muneHist.unshift({t:"Sent to "+to,a:"-K "+amt.toFixed(2),c:"red"});renderMune();alert("Sent K "+amt+" to "+to+"!");}
-function renderAll(){renderFeed();renderFriends();renderMarket();renderChat();renderMune();}
+function renderAll(){renderStories();renderFeed();renderFriends();renderMarket();renderChat();renderMune();}
 renderAll();
 </script>
 </body>
