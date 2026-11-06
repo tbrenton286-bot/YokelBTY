@@ -49,10 +49,8 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 </style>
 </head>
 <body>
-
 <div class="top" id="topBar" style="display:none"><div class="logo">Yokel<span>BTY</span> 🇵🇬</div><button class="topbtn" onclick="show('chat')">💬 Chat <span style="background:#ffcc00;color:#000;padding:1px 6px;border-radius:10px">2</span></button></div>
 
-<!-- LOGIN - OUTSIDE APP -->
 <div id="login" class="page active">
 <div class="center"><div style="font-size:60px">🇵🇬</div><h1 style="font-size:36px">Yokel<span style="color:#ffcc00">BTY</span></h1><p style="color:#aaa;margin:8px 0">PNG's Own Community & Money App<br>Made in Papua New Guinea</p></div>
 <div class="card"><h3>Login to YokelBTY</h3><br>
@@ -61,12 +59,10 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 <button class="btn" onclick="login()">LOGIN →</button>
 <button class="linkBtn" onclick="showOutside('forgot')">Forgot Password?</button>
 <div class="divider">— OR —</div>
-<button class="btnGold" onclick="showOutside('signup')">+ CREATE NEW ACCOUNT</button>
-<p style="text-align:center;color:#888;font-size:12px;margin-top:12px">By entering, you agree to YokelBTY community rules. Be kind. Be PNG proud.</p></div>
+<button class="btnGold" onclick="showOutside('signup')">+ CREATE NEW ACCOUNT</button></div>
 <div class="card" style="border-color:#ffcc00"><b style="color:#ffcc00">About YokelBTY</b><p style="font-size:14px;line-height:1.5;margin-top:8px">YokelBTY was founded by <b>Brenton Yokel</b> from Papua New Guinea with one dream: Give PNG people their own place to connect, share, sell, chat and send money — without leaving PNG.<br><br>From Port Moresby to Kokopo, Rabaul to Lae — YokelBTY is for us, by us. 🇵🇬</p></div>
 </div>
 
-<!-- CREATE ACCOUNT - OUTSIDE APP -->
 <div id="signup" class="page">
 <div class="center"><div style="font-size:50px">🇵🇬</div><h1 style="font-size:30px">Create Account</h1><p style="color:#aaa">Join YokelBTY - PNG</p></div>
 <div class="card"><h3>Sign Up - It's Free</h3><br>
@@ -79,10 +75,9 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 <button class="linkBtn" onclick="showOutside('login')">Already have account? Login here</button></div>
 </div>
 
-<!-- FORGOT -->
 <div id="forgot" class="page">
 <div class="center"><h2>Forgot Password?</h2><p style="color:#aaa">We will send code to your phone</p></div>
-<div class="card"><input id="forgotPhone" placeholder="Phone e.g 70001234"><button class="btn" onclick="alert('Code sent to '+document.getElementById('forgotPhone').value+' (Demo) - Use 1234'); showOutside('reset')">SEND CODE</button><button class="linkBtn" onclick="showOutside('login')">Back to Login</button></div>
+<div class="card"><input id="forgotPhone" placeholder="Phone e.g 70001234"><button class="btn" onclick="alert('Code sent - Use 1234'); showOutside('reset')">SEND CODE</button><button class="linkBtn" onclick="showOutside('login')">Back to Login</button></div>
 </div>
 
 <div id="reset" class="page">
@@ -90,7 +85,6 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 <div class="card"><input placeholder="Enter Code - Try 1234"><div class="passWrap"><input id="newPass" type="password" placeholder="New Password"><button class="eye" onclick="toggleEye('newPass',this)">👁️</button></div><button class="btn" onclick="alert('Password changed! Login now'); showOutside('login')">RESET PASSWORD</button></div>
 </div>
 
-<!-- FEED -->
 <div id="feed" class="page">
 <div class="card"><div class="flex"><div class="avatar" id="myAvatar">B</div><input id="postText" placeholder="What's on your mind, PNG?"></div>
 <input type="file" accept="image/*" onchange="previewPost(event)"><img id="postPreview" class="postImg hidden">
@@ -98,29 +92,23 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 <div id="feedList"></div>
 </div>
 
-<!-- FRIENDS -->
 <div id="friends" class="page"><div class="card"><h3>People You May Know - PNG 🇵🇬</h3></div><div id="friendList"></div></div>
-
-<!-- MARKET -->
 <div id="market" class="page"><div class="card"><h3>Yokel Marketplace 🛒</h3><p style="color:#aaa;font-size:13px">Buy & Sell in PNG</p><br><input id="mName" placeholder="What are you selling? e.g Fresh Fish"><input id="mPrice" type="number" placeholder="Price K"><button class="btnGold" onclick="addMarket()">+ LIST MY ITEM</button></div><div id="marketList"></div></div>
 
-<!-- MUNE -->
 <div id="mune" class="page">
-<div class="wallet"><small>Yokel Mune Wallet • PNG</small><div class="balance">K <span id="bal">2,450.00</span></div><small id="walletName">Brenton Yokel • 0921 **** 8842</small><br><br><div class="grid2"><button class="btnGold" onclick="show('mune')">📤 SEND</button><button class="btn" onclick="topup()">💰 TOP UP</button></div></div>
-<div class="card"><h3>Send Mune</h3><br><input id="sendTo" placeholder="Phone / Name"><input id="sendAmt" type="number" placeholder="Amount K"><button class="btn" onclick="sendMoney()">SEND MUNE NOW</button></div>
-<div class="card"><h3>Recent Mune Activity</h3><div id="muneList" style="margin-top:10px"></div></div>
+<div class="wallet"><small>Yokel Money Wallet • PNG</small><div class="balance">K <span id="bal">2,450.00</span></div><small id="walletName">Brenton Yokel • 0921 **** 8842</small><br><br><div class="grid2"><button class="btnGold" onclick="show('mune')">📤 SEND</button><button class="btn" onclick="topup()">💰 TOP UP</button></div></div>
+<div class="card"><h3>Send Money</h3><br><input id="sendTo" placeholder="Phone / Name"><input id="sendAmt" type="number" placeholder="Amount K"><button class="btn" onclick="sendMoney()">SEND MONEY NOW</button></div>
+<div class="card"><h3>Recent Money Activity</h3><div id="muneList" style="margin-top:10px"></div></div>
 </div>
 
-<!-- CHAT -->
 <div id="chat" class="page"><div class="card"><h3>Messages 💬</h3></div><div id="chatList"></div><div class="card"><input id="chatInput" placeholder="Type message..."><button class="btn" onclick="sendChat()">SEND</button></div></div>
 
-<!-- PROFILE -->
 <div id="profile" class="page">
 <div class="cover"><span>🦅</span></div>
 <div class="center" style="margin-top:-30px"><div class="avatar" id="profAvatar" style="width:90px;height:90px;font-size:36px;border:4px solid #ffcc00;margin:0 auto">B</div>
 <h2 id="profName">Brenton Yokel</h2><p style="color:#aaa">Port Moresby, PNG • Verified ✅ • GOLD ⭐</p><p style="margin-top:6px"><span class="badge">1.2k Followers</span> <span class="badge" style="background:#d80000;color:#fff">PNG Creator</span></p>
 <label style="display:block;margin-top:12px;background:#333;padding:10px;border-radius:10px;cursor:pointer">📸 Change Profile Photo <input type="file" accept="image/*" onchange="setPhoto(event)" style="display:none"></label></div>
-<div class="card"><h3>About The Founder</h3><p style="font-size:14px;line-height:1.6;margin-top:8px"><b>Brenton Yokel - Founder of YokelBTY</b><br><br>Born and raised in Papua New Guinea, Brenton saw his people using foreign apps that didn't understand PNG life, PNG markets, PNG language and PNG pride.<br><br>So he decided to build YokelBTY — an app where PNG people can talk, share stories, sell at market, send Mune, and support each other.<br><br><b>Mission:</b> One PNG. One Community. One YokelBTY.<br><b>Vision:</b> Every PNG village connected.<br><br>🇵🇬 <i>This is just the beginning.</i></p></div>
+<div class="card"><h3>About The Founder</h3><p style="font-size:14px;line-height:1.6;margin-top:8px"><b>Brenton Yokel - Founder of YokelBTY</b><br><br>Born and raised in Papua New Guinea, Brenton saw his people using foreign apps that didn't understand PNG life, PNG markets, PNG language and PNG pride.<br><br>So he decided to build YokelBTY — an app where PNG people can talk, share stories, sell at market, send Money, and support each other.<br><br><b>Mission:</b> One PNG. One Community. One YokelBTY.<br><b>Vision:</b> Every PNG village connected.<br><br>🇵🇬 <i>This is just the beginning.</i></p></div>
 <div class="card"><button class="btn" onclick="logout()">LOG OUT</button></div>
 </div>
 
@@ -128,7 +116,7 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 <div class="active" onclick="show('feed',this)"><b>🏠</b>Feed</div>
 <div onclick="show('friends',this)"><b>👥</b>Friends</div>
 <div onclick="show('market',this)"><b>🛒</b>Market</div>
-<div onclick="show('mune',this)"><b>💰</b>Mune</div>
+<div onclick="show('mune',this)"><b>💰</b>Money</div>
 <div onclick="show('chat',this)"><b>💬</b>Chat</div>
 <div onclick="show('profile',this)"><b>👤</b>Profile</div>
 </div>
@@ -136,9 +124,9 @@ input,textarea,select{width:100%;padding:12px;border-radius:12px;border:none;bac
 <script>
 let balance=2450, myName="Brenton Yokel", myPhoto="", savedPass="1234", savedPhone="70001234";
 let posts=[
-{name:"Mary Kila",time:"2h • Kokopo",text:"Fresh fish just arrived at Kokopo Market! Come early, best price today 🐟🇵🇬",img:"",likes:124,comments:["Best fish in PNG!","Save 2kg for me please"]},
-{name:"Paul Rabaul",time:"5h • Rabaul",text:"Beautiful sunset in Rabaul today. PNG is paradise! 🌅",img:"",likes:89,comments:["Wow! So beautiful"]},
-{name:"Brenton Yokel",time:"1d • Port Moresby",text:"Welcome to YokelBTY! This is OUR app. PNG proud! Drop your village name in comments 👇",img:"",likes:342,comments:["Port Moresby here!","Kokopo represent!"]}
+{name:"Mary Kila",time:"2h • Kokopo",text:"Fresh fish just arrived at Kokopo Market! Come early, best price today 🐟🇵🇬",img:"",likes:124,reacts:{heart:124,laugh:12,wow:5,angry:0,thumb:20},comments:["Best fish in PNG!","Save 2kg for me please"]},
+{name:"Paul Rabaul",time:"5h • Rabaul",text:"Beautiful sunset in Rabaul today. PNG is paradise! 🌅",img:"",likes:89,reacts:{heart:89,laugh:3,wow:10,angry:0,thumb:15},comments:["Wow! So beautiful"]},
+{name:"Brenton Yokel",time:"1d • Port Moresby",text:"Welcome to YokelBTY! This is OUR app. PNG proud! Drop your village name in comments 👇",img:"",likes:342,reacts:{heart:342,laugh:30,wow:18,angry:1,thumb:45},comments:["Port Moresby here!","Kokopo represent!"]}
 ];
 let friends=[{name:"Mary Kila",place:"Kokopo",follow:false},{name:"Paul Rabaul",place:"Rabaul",follow:false},{name:"Ruth Gazelle",place:"Gazelle",follow:true},{name:"John Lae",place:"Lae",follow:false},{name:"Maria Madang",place:"Madang",follow:false}];
 let markets=[{name:"Fresh Fish - 1kg",price:35,seller:"Paul",place:"Kokopo"},{name:"Coconut - 5pcs",price:15,seller:"Ruth",place:"Rabaul"},{name:"Kaukau - 2kg",price:18,seller:"Maria",place:"Gazelle"},{name:"Betel Nut - Bag",price:25,seller:"John",place:"Lae"}];
@@ -147,16 +135,16 @@ let muneHist=[{t:"Received from Mary",a:"+K 200.00",c:"green"},{t:"Market - Fres
 function toggleEye(id,btn){let el=document.getElementById(id); if(el.type=="password"){el.type="text";btn.innerText="🙈";}else{el.type="password";btn.innerText="👁️";}}
 function showOutside(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('topBar').style.display='none';document.getElementById('bottomNav').style.display='none';window.scrollTo(0,0);}
 function show(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('topBar').style.display='flex';document.getElementById('bottomNav').style.display='flex';if(el){document.querySelectorAll('.nav div').forEach(d=>d.classList.remove('active'));el.classList.add('active');}window.scrollTo(0,0);}
-function login(){let ph=document.getElementById('loginPhone').value.trim();let pw=document.getElementById('loginPass').value.trim();if(!ph||!pw) return alert("Enter phone and password bro");if(ph!==savedPhone && savedPhone!=="70001234"){} if(pw!==savedPass && pw!=="1234" && pw!=="") { /* demo allow any for now */ } document.getElementById('profName').innerText=myName;document.getElementById('walletName').innerText=myName+" • "+ph;show('feed',document.querySelector('.nav div'));renderAll();alert("Welcome back, "+myName+"! 🇵🇬");}
+function login(){let ph=document.getElementById('loginPhone').value.trim();let pw=document.getElementById('loginPass').value.trim();if(!ph||!pw) return alert("Enter phone and password bro");document.getElementById('profName').innerText=myName;document.getElementById('walletName').innerText=myName+" • "+ph;show('feed',document.querySelector('.nav div'));renderAll();alert("Welcome back, "+myName+"! 🇵🇬");}
 function createAccount(){let n=document.getElementById('signName').value.trim();let ph=document.getElementById('signPhone').value.trim();let p1=document.getElementById('signPass').value;let p2=document.getElementById('signPass2').value;if(!n||!ph||!p1) return alert("Fill all fields bro");if(p1!==p2) return alert("Passwords don't match!");myName=n;savedPhone=ph;savedPass=p1;document.getElementById('profName').innerText=myName;document.getElementById('loginPhone').value=ph;let f=myName.charAt(0).toUpperCase();if(!myPhoto){document.getElementById('myAvatar').innerText=f;document.getElementById('profAvatar').innerText=f;}alert("Account created! Now login with your new password 🇵🇬");showOutside('login');}
 function logout(){showOutside('login');}
 function setPhoto(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=function(){myPhoto=r.result;document.getElementById('myAvatar').innerHTML='<img src="'+myPhoto+'">';document.getElementById('profAvatar').innerHTML='<img src="'+myPhoto+'">';};r.readAsDataURL(f);}
 let tempPostImg="";
 function previewPost(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=function(){tempPostImg=r.result;let im=document.getElementById('postPreview');im.src=tempPostImg;im.classList.remove('hidden');};r.readAsDataURL(f);}
-function addPost(){let t=document.getElementById('postText').value.trim();if(!t&&!tempPostImg)return alert("Write something first");posts.unshift({name:myName,time:"Just now • PNG",text:t,img:tempPostImg,likes:0,comments:[]});document.getElementById('postText').value="";tempPostImg="";document.getElementById('postPreview').classList.add('hidden');renderFeed();alert("Posted! 🇵🇬");}
-function renderFeed(){document.getElementById('feedList').innerHTML=posts.map((p,i)=>`<div class="card2"><div class="postHead"><div class="avatar">${p.name.charAt(0)}</div><div><b>${p.name}</b><small>${p.time}</small></div></div><p>${p.text}</p>${p.img?`<img src="${p.img}" class="postImg">`:""}<div class="reacts"><span onclick="react(this)">❤️ ${p.likes}</span><span onclick="react(this)">😂</span><span onclick="react(this)">😮</span><span onclick="react(this)">😡</span><span onclick="react(this)">👍</span></div><div class="actionsRow"><button onclick="likePost(${i})">👍 Like (${p.likes})</button><button onclick="focusComment(${i})">💬 Comment</button><button onclick="sharePost('${p.name}')">↗️ Share</button></div><div>${p.comments.map(c=>`<div class="comment">💬 ${c}</div>`).join('')}</div><div style="display:flex;gap:6px;margin-top:8px"><input id="ci${i}" placeholder="Write a comment..."><button class="btnGreen" onclick="addComment(${i})">Send</button></div></div>`).join('');}
-function react(el){el.classList.toggle('on');}
-function likePost(i){posts[i].likes++;renderFeed();}
+function addPost(){let t=document.getElementById('postText').value.trim();if(!t&&!tempPostImg)return alert("Write something first");posts.unshift({name:myName,time:"Just now • PNG",text:t,img:tempPostImg,likes:0,reacts:{heart:0,laugh:0,wow:0,angry:0,thumb:0},comments:[]});document.getElementById('postText').value="";tempPostImg="";document.getElementById('postPreview').classList.add('hidden');renderFeed();alert("Posted! 🇵🇬");}
+function renderFeed(){document.getElementById('feedList').innerHTML=posts.map((p,i)=>`<div class="card2"><div class="postHead"><div class="avatar">${p.name.charAt(0)}</div><div><b>${p.name}</b><small>${p.time}</small></div></div><p>${p.text}</p>${p.img?`<img src="${p.img}" class="postImg">`:""}<div class="reacts"><span onclick="doReact(${i},'heart',this)" class="${p.myReact=='heart'?'on':''}">❤️ <b>${p.reacts.heart}</b></span><span onclick="doReact(${i},'laugh',this)" class="${p.myReact=='laugh'?'on':''}">😂 <b>${p.reacts.laugh}</b></span><span onclick="doReact(${i},'wow',this)" class="${p.myReact=='wow'?'on':''}">😮 <b>${p.reacts.wow}</b></span><span onclick="doReact(${i},'angry',this)" class="${p.myReact=='angry'?'on':''}">😡 <b>${p.reacts.angry}</b></span><span onclick="doReact(${i},'thumb',this)" class="${p.myReact=='thumb'?'on':''}">👍 <b>${p.reacts.thumb}</b></span></div><div class="actionsRow"><button onclick="likePost(${i})">👍 Like (${p.likes})</button><button onclick="focusComment(${i})">💬 Comment</button><button onclick="sharePost('${p.name}')">↗️ Share</button></div><div>${p.comments.map(c=>`<div class="comment">💬 ${c}</div>`).join('')}</div><div style="display:flex;gap:6px;margin-top:8px"><input id="ci${i}" placeholder="Write a comment..."><button class="btnGreen" onclick="addComment(${i})">Send</button></div></div>`).join('');}
+function doReact(i,type,el){let p=posts[i]; if(p.myReact==type){p.reacts[type]--; p.myReact=null;}else{ if(p.myReact){p.reacts[p.myReact]--;} p.reacts[type]++; p.myReact=type; } renderFeed();}
+function likePost(i){posts[i].likes++;posts[i].reacts.thumb++;renderFeed();}
 function focusComment(i){document.getElementById('ci'+i).focus();}
 function addComment(i){let v=document.getElementById('ci'+i).value.trim();if(!v)return;posts[i].comments.push(myName+": "+v);renderFeed();}
 function sharePost(n){alert("Shared post by "+n+" to your YokelBTY! ↗️");}
@@ -167,8 +155,8 @@ function addMarket(){let n=document.getElementById('mName').value.trim();let p=d
 function renderChat(){document.getElementById('chatList').innerHTML=chats.map(c=>`<div class="itemBox flex"><div class="avatar">${c.name.charAt(0)}</div><div><b>${c.name}</b><br><small>${c.msg}</small></div></div>`).join('');}
 function sendChat(){let v=document.getElementById('chatInput').value.trim();if(!v)return;chats.push({name:myName,msg:v});document.getElementById('chatInput').value="";renderChat();}
 function renderMune(){document.getElementById('bal').innerText=balance.toFixed(2);document.getElementById('muneList').innerHTML=muneHist.map(m=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #333"><span>${m.t}</span><b style="color:${m.c=='green'?'#00e676':'#ff5252'}">${m.a}</b></div>`).join('');}
-function topup(){let a=Number(prompt("Top up amount K? e.g 100"));if(!a)return;balance+=a;muneHist.unshift({t:"Top Up - Mune",a:"+K "+a.toFixed(2),c:"green"});renderMune();alert("Top up K "+a+" success!");}
-function sendMoney(){let to=document.getElementById('sendTo').value.trim();let amt=Number(document.getElementById('sendAmt').value);if(!to||!amt)return alert("Enter name and amount");if(amt>balance)return alert("Not enough Mune");balance-=amt;muneHist.unshift({t:"Sent to "+to,a:"-K "+amt.toFixed(2),c:"red"});renderMune();alert("Sent K "+amt+" to "+to+"!");}
+function topup(){let a=Number(prompt("Top up amount K? e.g 100"));if(!a)return;balance+=a;muneHist.unshift({t:"Top Up - Money",a:"+K "+a.toFixed(2),c:"green"});renderMune();alert("Top up K "+a+" success!");}
+function sendMoney(){let to=document.getElementById('sendTo').value.trim();let amt=Number(document.getElementById('sendAmt').value);if(!to||!amt)return alert("Enter name and amount");if(amt>balance)return alert("Not enough Money");balance-=amt;muneHist.unshift({t:"Sent to "+to,a:"-K "+amt.toFixed(2),c:"red"});renderMune();alert("Sent K "+amt+" to "+to+"!");}
 function renderAll(){renderFeed();renderFriends();renderMarket();renderChat();renderMune();}
 renderAll();
 </script>
