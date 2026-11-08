@@ -45,6 +45,9 @@ body.light .msg{background:#ddd}
 body.light .comment{background:#e5e5e5}
 video{width:95%;max-height:300px;border-radius:12px;background:#222}
 .storyTextOverlay{position:absolute;top:15%;left:0;right:0;text-align:center;font-size:22px;font-weight:bold;text-shadow:2px 2px 4px #000;padding:10px}
+.musicItem{background:#222;padding:10px;border-radius:10px;margin:5px 0;width:92%;display:flex;justify-content:space-between;align-items:center}
+body.light .musicItem{background:#eee}
+.musicItem b{font-size:13px} .musicItem small{font-size:11px;color:#aaa}
 </style>
 </head>
 <body>
@@ -119,17 +122,20 @@ video{width:95%;max-height:300px;border-radius:12px;background:#222}
 </nav>
 </div>
 
-<!-- STORY MODAL WITH PHOTO + MUSIC + TEXT -->
+<!-- STORY MODAL WITH SOCIAL MEDIA MUSIC LIBRARY -->
 <div id="storyModal" class="modal">
 <h2>Create Story 📸🎵✍️</h2>
 <label style="background:var(--gold);color:#000;padding:12px 20px;border-radius:20px;cursor:pointer;margin:5px">📷 CHOOSE PHOTO <input type="file" accept="image/*" style="display:none" onchange="previewPhoto(event)"></label>
 <img id="preview">
-<label style="background:var(--red);color:#fff;padding:12px 20px;border-radius:20px;cursor:pointer;margin:5px">🎵 CHOOSE MUSIC <input type="file" accept="audio/*" style="display:none" onchange="previewStoryMusic(event)"></label>
-<p id="musicName" style="font-size:13px;color:var(--gold)"></p>
-<audio id="storyMusicPreview" controls style="display:none;width:90%"></audio>
-<input type="text" id="captionInput" placeholder="✍️ Write TEXT on story... e.g. YokelBTY is LIVE! 🇵🇬">
+<input type="text" id="captionInput" placeholder="✍️ Write Caption... e.g. YokelBTY is LIVE! 🇵🇬">
 <input type="text" id="storyTextInput" placeholder="✍️ Big Text on Photo... e.g. From Village to GLOBAL!">
-<div style="display:flex;gap:10px"><button class="dark" onclick="closeModal()">Cancel</button><button class="gold" onclick="postStory()">Post Story ✅</button></div>
+<h3 style="margin:10px 0 0">🎵 YokelBTY Music Library — Like Social Media!</h3>
+<p style="font-size:12px;color:var(--gold)">Pick music from library, NOT from phone! 🔥</p>
+<input type="text" id="musicSearch" placeholder="🔍 Search music... PNG, Island, Vibes..." oninput="renderMusicLibrary()">
+<div id="musicLibrary" style="width:95%;max-height:220px;overflow-y:auto"></div>
+<p id="musicName" style="font-size:13px;color:var(--gold)"></p>
+<audio id="musicPreviewPlayer" controls style="display:none;width:90%"></audio>
+<div style="display:flex;gap:10px;margin-top:10px"><button class="dark" onclick="closeModal()">Cancel</button><button class="gold" onclick="postStory()">Post Story ✅</button></div>
 </div>
 
 <!-- CHAT MODAL -->
@@ -149,7 +155,7 @@ video{width:95%;max-height:300px;border-radius:12px;background:#222}
 <div class="chatBox" id="chatBox"><div class="msg"><b>Mary:</b> Fresh fish at Kokopo!</div><div class="msg"><b>Paul:</b> Sunset today was beautiful</div></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0">
 <label style="background:var(--gold);color:#000;padding:8px 12px;border-radius:20px;cursor:pointer">📷 Photo <input type="file" accept="image/*" style="display:none" onchange="sendChatPhoto(event)"></label>
-<label style="background:#333;color:#fff;padding:8px 12px;border-radius:20px;cursor:pointer">🎵 Music <input type="file" accept="audio/*" style="display:none" onchange="sendChatMusic(event)"></label>
+<button onclick="openChatMusic()">🎵 Music Library</button>
 <button onclick="sendVoiceNote()">🎤 Voice Note</button>
 </div>
 <input type="text" id="chatInput" placeholder="Type message...">
@@ -157,7 +163,7 @@ video{width:95%;max-height:300px;border-radius:12px;background:#222}
 <p id="recStatus" style="font-size:12px;color:var(--gold)"></p>
 </div>
 
-<!-- VIEW STORY WITH MUSIC + TEXT -->
+<!-- VIEW STORY -->
 <div id="storyView" onclick="closeStoryView()" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center">
 <div style="position:relative;width:100%;display:flex;justify-content:center">
 <img id="viewImg" style="width:100%;max-height:68vh;object-fit:cover">
@@ -173,9 +179,20 @@ video{width:95%;max-height:300px;border-radius:12px;background:#222}
 let userName="Yokel";
 let stories=[
 {name:"You",img:"",caption:"",bigText:"",music:"",musicName:"",isYou:true},
-{name:"Mary 🐟",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",caption:"Fresh fish at Kokopo Market...",bigText:"Fresh Fish Today! 🐟",music:"",musicName:""},
-{name:"Paul 🌅",img:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=400",caption:"Sunset at Rabaul beach!",bigText:"Rabaul Sunset 🌅",music:"",musicName:""},
-{name:"Ruth 🥥",img:"https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400",caption:"Coconut day in village!",bigText:"Coconut Day! 🥥",music:"",musicName:""},
+{name:"Mary 🐟",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",caption:"Fresh fish at Kokopo Market...",bigText:"Fresh Fish Today! 🐟",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",musicName:"PNG Vibes - Island Beat"},
+{name:"Paul 🌅",img:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=400",caption:"Sunset at Rabaul beach!",bigText:"Rabaul Sunset 🌅",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",musicName:"Kokopo Sunset - Chill"},
+{name:"Ruth 🥥",img:"https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400",caption:"Coconut day in village!",bigText:"Coconut Day! 🥥",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",musicName:"Village to Global - Anthem"},
+];
+// SOCIAL MEDIA MUSIC LIBRARY - NOT FROM PHONE!
+let musicLibrary=[
+{name:"PNG Vibes 🇵🇬",artist:"YokelBTY Sounds",tag:"png island vibes",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},
+{name:"Island Beat 🌴",artist:"Kokopo Crew",tag:"island beat dance",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},
+{name:"Village to Global 🌍",artist:"YokelBTY Anthem",tag:"village global anthem",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},
+{name:"Kokopo Sunset 🌅",artist:"Rabaul Chill",tag:"sunset chill png",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},
+{name:"Mama Market 🐟",artist:"PNG Family",tag:"market mama fish",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"},
+{name:"Wantok Party 🎉",artist:"Port Moresby Boys",tag:"party wantok dance",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"},
+{name:"Coconut Groove 🥥",artist:"Village Stars",tag:"coconut groove island",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"},
+{name:"Rabaul Love ❤️",artist:"PNG Love",tag:"love rabaul romantic",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"},
 ];
 let tempPhoto="";let tempPostPhoto="";let tempStoryMusic="";let tempStoryMusicName="";
 let posts=[{name:"YokelBTY 🇵🇬",text:"Come early, best price today 🐟🇵🇬",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",likes:124,comments:["Mary: Fresh!","Paul: Nice!"]}];
@@ -187,7 +204,7 @@ function openChat(name){if(name)document.getElementById('chatTitle').innerText="
 function closeChat(){document.getElementById('chatModal').classList.remove('show');endCall();}
 function sendChat(){let v=document.getElementById('chatInput').value;if(!v)return;document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> ${v}</div>`;document.getElementById('chatInput').value="";}
 function sendChatPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> 📷 Sent a photo<br><img src="${r.result}" style="width:100%;border-radius:8px;margin-top:5px"></div>`;};r.readAsDataURL(f);}
-function sendChatMusic(e){let f=e.target.files[0];let url=URL.createObjectURL(f);document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> 🎵 Sent music: ${f.name}<br><audio controls src="${url}" style="width:100%"></audio></div>`;}
+function openChatMusic(){let names=musicLibrary.map((m,i)=> (i+1)+". "+m.name+" - "+m.artist).join("\n");let pick=prompt("🎵 YokelBTY Music Library - Type number 1-8:\n"+names);let idx=parseInt(pick)-1;if(musicLibrary[idx]){let m=musicLibrary[idx];document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> 🎵 Sent music: ${m.name}<br><audio controls src="${m.url}" style="width:100%"></audio></div>`;}}
 function sendVoiceNote(){alert("🎤 Tap Record to record voice note!");toggleRecord();}
 async function startVideoCall(){try{document.getElementById('callArea').style.display='block';document.getElementById('callStatus').innerText="📹 Video Call - ON";mediaStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('myVideo').srcObject=mediaStream;alert("📹 Video Call Started!");}catch(e){alert("Allow camera permission bro! 📹");}}
 async function startVoiceCall(){try{document.getElementById('callArea').style.display='block';document.getElementById('callStatus').innerText="📞 Voice / Audio Call - ON";mediaStream=await navigator.mediaDevices.getUserMedia({audio:true});alert("📞 Voice Call Started!");}catch(e){alert("Allow mic permission bro! 📞");}}
@@ -196,7 +213,7 @@ async function toggleRecord(){if(!isRecording){try{let s=await navigator.mediaDe
 function followBtn(b){if(b.innerText.includes("Follow")){b.innerText="✓ Following";}else{b.innerText="+ Follow";}}
 function renderStories(){let h=document.getElementById('stories');h.innerHTML="";stories.forEach((s,i)=>{h.innerHTML+=`<div class="story" onclick="openStory(${i})">${s.img?`<img src="${s.img}">`:`<div class="add">+</div>`}<p>${s.name}</p><p style="font-size:10px;color:#FCD116">${s.musicName? "🎵 "+s.musicName : ""}</p></div>`;});}
 function openStory(i){
-if(stories[i].isYou && !stories[i].img){document.getElementById('storyModal').classList.add('show');return;}
+if(stories[i].isYou && !stories[i].img){document.getElementById('storyModal').classList.add('show');renderMusicLibrary();return;}
 if(stories[i].img){
 document.getElementById('storyView').style.display='flex';
 document.getElementById('viewImg').src=stories[i].img;
@@ -205,19 +222,22 @@ document.getElementById('viewTextOverlay').innerText=stories[i].bigText||"";
 let m=document.getElementById('viewMusic');
 if(stories[i].music){m.src=stories[i].music;m.style.display='block';m.play();document.getElementById('viewMusicName').innerText="🎵 Now Playing: "+stories[i].musicName;}
 else{m.pause();m.style.display='none';document.getElementById('viewMusicName').innerText=""; }
-}else{document.getElementById('storyModal').classList.add('show');}
+}else{document.getElementById('storyModal').classList.add('show');renderMusicLibrary();}
 }
 function closeStoryView(){let m=document.getElementById('viewMusic');m.pause();document.getElementById('storyView').style.display='none';}
 function previewPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){tempPhoto=r.result;let p=document.getElementById('preview');p.src=tempPhoto;p.style.display='block';};r.readAsDataURL(f);}
-function previewStoryMusic(e){let f=e.target.files[0];tempStoryMusicName=f.name;tempStoryMusic=URL.createObjectURL(f);document.getElementById('musicName').innerText="🎵 Selected: "+f.name;let a=document.getElementById('storyMusicPreview');a.src=tempStoryMusic;a.style.display='block';}
+function renderMusicLibrary(){let q=(document.getElementById('musicSearch')?document.getElementById('musicSearch').value.toLowerCase():"");let box=document.getElementById('musicLibrary');box.innerHTML="";musicLibrary.filter(m=> (m.name+" "+m.artist+" "+m.tag).toLowerCase().includes(q)).forEach((m,i)=>{let idx=musicLibrary.indexOf(m);box.innerHTML+=`<div class="musicItem"><div><b>${m.name}</b><br><small>${m.artist} • Trending 🔥</small></div><div><button onclick="previewMusic(${idx})">▶️</button> <button class="gold" onclick="selectMusic(${idx})">Select ✅</button></div></div>`;});}
+function previewMusic(idx){let m=musicLibrary[idx];let a=document.getElementById('musicPreviewPlayer');a.src=m.url;a.style.display='block';a.play();}
+function selectMusic(idx){let m=musicLibrary[idx];tempStoryMusic=m.url;tempStoryMusicName=m.name+" - "+m.artist;document.getElementById('musicName').innerText="✅ Selected: "+tempStoryMusicName;alert("Music Selected: "+tempStoryMusicName+" 🎵");}
 function postStory(){
 let cap=document.getElementById('captionInput').value||"YokelBTY is LIVE! From Village to GLOBAL! 🇵🇬";
 let big=document.getElementById('storyTextInput').value||"From Village to GLOBAL! 🇵🇬";
 if(!tempPhoto){alert("Please choose a photo first bro! 📸");return;}
-stories[0].img=tempPhoto;stories[0].caption=cap;stories[0].bigText=big;stories[0].music=tempStoryMusic;stories[0].musicName=tempStoryMusicName||"My Song 🎵";
-closeModal();renderStories();alert("Story posted with Photo + Music + Text! 🔥🎵");
+if(!tempStoryMusic){alert("Please select music from library bro! 🎵 Tap Select on a song!");return;}
+stories[0].img=tempPhoto;stories[0].caption=cap;stories[0].bigText=big;stories[0].music=tempStoryMusic;stories[0].musicName=tempStoryMusicName;
+closeModal();renderStories();alert("Story posted with Photo + Music Library + Text! 🔥🎵");
 }
-function closeModal(){document.getElementById('storyModal').classList.remove('show');}
+function closeModal(){document.getElementById('storyModal').classList.remove('show');let a=document.getElementById('musicPreviewPlayer');if(a)a.pause();}
 function toggleMode(){document.body.classList.toggle('light');}
 function likePost(i){posts[i].likes++;renderFeed();}
 function addComment(i){let v=prompt("Write your comment:");if(v){posts[i].comments.push(userName+": "+v);renderFeed();}}
@@ -227,7 +247,7 @@ function previewPostPhoto(e){let f=e.target.files[0];let r=new FileReader();r.on
 function addPost(){let t=document.getElementById('newPostText').value||"YokelBTY is LIVE! 🇵🇬";posts.unshift({name:userName+" 🇵🇬",text:t,img:tempPostPhoto,likes:0,comments:[]});document.getElementById('newPostText').value="";tempPostPhoto="";document.getElementById('postPreview').style.display='none';renderFeed();alert("Posted!");}
 function changeProfile(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){document.getElementById('profilePicShow').src=r.result;alert("Profile photo updated!");};r.readAsDataURL(f);}
 function renderFeed(){let h=document.getElementById('feedPosts');h.innerHTML="";posts.forEach((p,i)=>{let coms=p.comments.map(c=>`<div class="comment">${c}</div>`).join("");h.innerHTML+=`<div class="post"><h3>${p.name}</h3><p>${p.text}</p>${p.img?`<img src="${p.img}">`:""}<div class="reactions"><span onclick="reactPost(${i},'❤️')">❤️</span><span onclick="reactPost(${i},'😂')">😂</span><span onclick="reactPost(${i},'😮')">😮</span><span onclick="reactPost(${i},'😡')">😡</span><span onclick="reactPost(${i},'👍')">👍</span></div><div class="actions"><span onclick="likePost(${i})">❤️ Like ${p.likes}</span><span onclick="addComment(${i})">💬 Comment ${p.comments.length}</span><span onclick="sharePost(${i})">🔁 Share</span></div>${coms}</div>`;});}
-renderStories();renderFeed();
+renderStories();renderFeed();renderMusicLibrary();
 </script>
 </body>
 </html>
