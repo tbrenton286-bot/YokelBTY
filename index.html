@@ -4,123 +4,230 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>YokelBTY 🇵🇬</title>
 <style>
-body{background:#111;color:#fff;font-family:Arial;margin:0;padding-bottom:70px}
+:root{--red:#CE1126;--gold:#FCD116}
+body{background:#000;color:#fff;font-family:Arial;margin:0;padding-bottom:75px}
 body.light{background:#fff;color:#000}
-header{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#000}
-body.light header{background:#eee}
-header h1{margin:0;font-size:24px} header h1 span{color:gold}
-button{border:none;padding:8px 12px;border-radius:20px;background:#222;color:#fff;cursor:pointer}
-body.light button{background:#ddd;color:#000}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#000;border-bottom:3px solid var(--red)}
+header h1{margin:0;font-size:23px} header h1 span{color:var(--gold)}
+button{border:none;padding:9px 14px;border-radius:20px;background:var(--red);color:#fff;cursor:pointer;font-weight:bold}
+button.gold{background:var(--gold);color:#000} button.dark{background:#333;color:#fff}
+body.light button.dark{background:#ddd;color:#000}
 .stories{display:flex;gap:12px;padding:12px;overflow-x:auto}
 .story{width:70px;text-align:center;cursor:pointer;flex-shrink:0}
-.story img,.story .add{width:65px;height:65px;border-radius:50%;border:3px solid gold;object-fit:cover;display:flex;align-items:center;justify-content:center;background:#333;font-size:28px}
+.story img,.story .add{width:65px;height:65px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;display:flex;align-items:center;justify-content:center;background:#222;font-size:28px}
 .story p{font-size:12px;margin:4px 0}
-.post{background:#1c1c1c;margin:10px;padding:12px;border-radius:12px}
-body.light .post{background:#f2f2f2}
-.post img{width:100%;border-radius:10px}
-.reactions{display:flex;gap:10px;margin-top:8px}
-.reactions span{background:#333;padding:6px 10px;border-radius:20px;cursor:pointer}
-body.light .reactions span{background:#ddd}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#000;padding:10px}
+.post,.card{background:#1a1a1a;margin:10px;padding:12px;border-radius:12px;border-left:4px solid var(--red)}
+body.light .post,body.light .card{background:#f2f2f2}
+.post img,.card img{width:100%;border-radius:10px;margin-top:8px}
+.actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.actions span,.reactions span{background:#333;padding:7px 10px;border-radius:20px;cursor:pointer;font-size:14px}
+body.light .actions span,body.light .reactions span{background:#ddd}
+.reactions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#000;padding:8px;z-index:50;border-top:3px solid var(--gold)}
 body.light nav{background:#eee}
-nav div{text-align:center;font-size:12px;cursor:pointer}
-/* Modal */
-#storyModal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:99;align-items:center;justify-content:center;flex-direction:column;padding:20px}
-#storyModal.show{display:flex}
-#preview{width:90%;max-height:300px;object-fit:cover;border-radius:12px;display:none;margin:10px 0}
-#storyModal input[type=text]{width:90%;padding:12px;border-radius:10px;border:none;margin:10px 0}
+nav div{text-align:center;font-size:11px;cursor:pointer;padding:6px;border-radius:10px}
+nav div.active{background:var(--gold);color:#000}
+.page{display:none}.page.show{display:block}
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.96);z-index:99;align-items:center;justify-content:center;flex-direction:column;padding:15px;overflow-y:auto}
+.modal.show{display:flex}
+input[type=text],input[type=password]{width:92%;padding:12px;border-radius:10px;border:1px solid #555;margin:8px 0;color:#000}
+#preview{width:120px;height:120px;object-fit:cover;border-radius:50%;border:3px solid var(--gold);display:none;margin:10px}
 #storyView{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:100;flex-direction:column;align-items:center;justify-content:center}
 #storyView.show{display:flex}
-#storyView img{width:100%;max-height:70vh;object-fit:cover}
-#storyView h3{padding:10px}
+#storyView img{width:100%;max-height:68vh;object-fit:cover}
+.chatBox{background:#222;width:95%;height:260px;border-radius:12px;padding:10px;overflow-y:auto;text-align:left}
+body.light .chatBox{background:#eee}
+.msg{background:#333;padding:8px 10px;border-radius:10px;margin:6px 0}
+body.light .msg{background:#ddd}
+.loginWrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;background:linear-gradient(180deg,#000 50%,#CE1126 50%)}
+.loginBox{background:#fff;color:#000;width:95%;max-width:360px;padding:20px;border-radius:16px}
+.comment{font-size:13px;background:#2a2a2a;padding:6px 8px;border-radius:8px;margin:4px 0}
+body.light .comment{background:#e5e5e5}
+video{width:95%;max-height:300px;border-radius:12px;background:#222}
+.storyTextOverlay{position:absolute;top:15%;left:0;right:0;text-align:center;font-size:22px;font-weight:bold;text-shadow:2px 2px 4px #000;padding:10px}
 </style>
 </head>
 <body>
+
+<div id="loginScreen" class="loginWrap">
+<h1 style="font-size:36px">Yokel<span style="color:var(--gold)">BTY</span> 🇵🇬</h1>
+<p>From Village to GLOBAL!</p>
+<div class="loginBox"><h2>Login / Sign Up</h2>
+<input type="text" id="loginName" placeholder="Your Name e.g. Yokel">
+<input type="password" placeholder="Password">
+<button onclick="doLogin()" style="width:100%">Login / Sign Up ✅</button></div>
+</div>
+
+<div id="app" style="display:none">
 <header>
 <h1>Yokel<span>BTY</span> 🇵🇬</h1>
-<div><button onclick="toggleMode()">🌙 / ☀️</button> <button>💬 Chat 2</button></div>
+<div><button class="gold" onclick="toggleMode()">🌙 / ☀️</button> <button onclick="openChat()">💬 Chat 2</button> <button onclick="showPage('menu')">☰ Menu</button></div>
 </header>
 
+<div id="page-feed" class="page show">
 <div class="stories" id="stories"></div>
+<div class="card"><b id="welcomeName">👋 What's on your mind?</b><br>
+<input type="text" id="newPostText" placeholder="Write a post...">
+<label style="background:var(--gold);color:#000;padding:8px 12px;border-radius:20px;cursor:pointer;display:inline-block">📷 Add Photo <input type="file" accept="image/*" style="display:none" onchange="previewPostPhoto(event)"></label>
+<img id="postPreview" style="display:none"><br><button onclick="addPost()" style="margin-top:8px">Post ✅</button></div>
+<div id="feedPosts"></div>
+</div>
 
-<div class="post">
-<h3>YokelBTY 🇵🇬</h3>
-<p>Come early, best price today 🐟🇵🇬</p>
-<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600">
-<div class="reactions">
-<span onclick="like(this)">❤️ <b>124</b></span>
-<span onclick="like(this)">😂 <b>12</b></span>
-<span onclick="like(this)">😮 <b>5</b></span>
-<span onclick="like(this)">😡 <b>0</b></span>
-<span onclick="like(this)">👍 <b>20</b></span>
-</div>
-</div>
+<div id="page-friends" class="page"><h2 style="padding:0 10px">👥 Friends / Follow</h2>
+<div class="card">🐟 Mary - Kokopo <button onclick="followBtn(this)">+ Follow</button></div>
+<div class="card">🌅 Paul - Rabaul <button onclick="followBtn(this)">+ Follow</button></div>
+<div class="card">🥥 Ruth - Village <button onclick="followBtn(this)">+ Follow</button></div></div>
+
+<div id="page-profile" class="page"><h2 style="padding:0 10px">👤 Profile With Photo</h2>
+<div class="card" style="text-align:center"><img id="profilePicShow" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400" style="width:130px;height:130px;border-radius:50%;border:4px solid var(--gold);object-fit:cover">
+<h3 id="profileName">YokelBTY 🇵🇬</h3><p>From Village to GLOBAL! 🇵🇬</p>
+<label style="background:var(--gold);color:#000;padding:10px 16px;border-radius:20px;cursor:pointer">📷 Change Profile Photo <input type="file" accept="image/*" style="display:none" onchange="changeProfile(event)"></label></div></div>
+
+<div id="page-market" class="page"><h2 style="padding:0 10px">🛒 Marketplace</h2>
+<div class="card">🐟 Fresh Fish - K20 <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600"> <button onclick="alert('Added to cart!')">Buy</button></div>
+<div class="card">🥥 Coconut - K5 <button onclick="alert('Added to cart!')">Buy</button></div>
+<div class="card">🍠 Kaukau - K10 <button onclick="alert('Added to cart!')">Buy</button></div></div>
+
+<div id="page-chat" class="page"><h2 style="padding:0 10px">💬 Chat Inbox</h2>
+<div class="card" onclick="openChat('PNG Family Group')">👥 PNG Family Group <br><small>Video, Voice, Photo, Music</small></div>
+<div class="card" onclick="openChat('Mary')">🐟 Mary <br><small>Fresh fish today?</small></div>
+<div class="card" onclick="openChat('Paul')">🌅 Paul <br><small>Sunset today</small></div></div>
+
+<div id="page-money" class="page"><h2 style="padding:0 10px">💰 Money</h2>
+<div class="card"><h3>Balance: K 250.00</h3><p>YokelBTY Wallet 🇵🇬</p><button onclick="alert('Top up coming soon!')">Top Up</button> <button class="gold" onclick="alert('Send money coming soon!')">Send</button></div></div>
+
+<div id="page-menu" class="page"><h2 style="padding:0 10px">☰ Menu</h2>
+<div class="card" onclick="showPage('feed')">🏠 Feed / Posts</div>
+<div class="card" onclick="showPage('friends')">👥 Friends / Follow</div>
+<div class="card" onclick="showPage('profile')">👤 Profile</div>
+<div class="card" onclick="showPage('market')">🛒 Marketplace</div>
+<div class="card" onclick="showPage('chat')">💬 Chat Inbox</div>
+<div class="card" onclick="showPage('money')">💰 Money</div>
+<div class="card" onclick="showPage('about')">ℹ️ About of the App</div>
+<div class="card" onclick="logout()">🚪 Logout</div></div>
+
+<div id="page-about" class="page"><h2 style="padding:0 10px">ℹ️ About of the App</h2>
+<div class="card"><h3>YokelBTY 🇵🇬</h3><p><b>Our Story:</b> YokelBTY was born in the village of Papua New Guinea. The Founder grew up watching mamas sell fish, coconut and kaukau at the market, and saw how hard it was for village people to reach customers in town and around the world.</p><p>So he had a dream: <b>From Village to GLOBAL!</b></p><p><b>Colours:</b> Black, Red, Gold and White — colours of the PNG Flag 🇵🇬</p><p><b>Mission:</b> Connect PNG villages to the world.</p></div></div>
 
 <nav>
-<div>🏠<br>Feed</div><div>👥<br>Friends</div><div>🛒<br>Market</div><div>💰<br>Money</div><div>💬<br>Chat</div><div>👤<br>Profile</div>
+<div id="nav-feed" class="active" onclick="showPage('feed')">🏠<br>Feed</div>
+<div id="nav-friends" onclick="showPage('friends')">👥<br>Friends</div>
+<div id="nav-market" onclick="showPage('market')">🛒<br>Market</div>
+<div id="nav-money" onclick="showPage('money')">💰<br>Money</div>
+<div id="nav-chat" onclick="showPage('chat')">💬<br>Chat</div>
+<div id="nav-profile" onclick="showPage('profile')">👤<br>Profile</div>
 </nav>
+</div>
 
-<!-- ADD STORY MODAL -->
-<div id="storyModal">
-<h2>Add Your Story 📸</h2>
-<label style="background:gold;color:#000;padding:12px 20px;border-radius:20px;cursor:pointer">📷 CHOOSE PHOTO
-<input type="file" id="photoInput" accept="image/*" style="display:none" onchange="previewPhoto(event)">
-</label>
+<!-- STORY MODAL WITH PHOTO + MUSIC + TEXT -->
+<div id="storyModal" class="modal">
+<h2>Create Story 📸🎵✍️</h2>
+<label style="background:var(--gold);color:#000;padding:12px 20px;border-radius:20px;cursor:pointer;margin:5px">📷 CHOOSE PHOTO <input type="file" accept="image/*" style="display:none" onchange="previewPhoto(event)"></label>
 <img id="preview">
-<input type="text" id="captionInput" placeholder="Write caption... e.g. YokelBTY is LIVE! From Village to GLOBAL! 🇵🇬">
-<div style="display:flex;gap:10px">
-<button onclick="closeModal()" style="background:#555">Cancel</button>
-<button onclick="postStory()" style="background:gold;color:#000">Post Story ✅</button>
-</div>
+<label style="background:var(--red);color:#fff;padding:12px 20px;border-radius:20px;cursor:pointer;margin:5px">🎵 CHOOSE MUSIC <input type="file" accept="audio/*" style="display:none" onchange="previewStoryMusic(event)"></label>
+<p id="musicName" style="font-size:13px;color:var(--gold)"></p>
+<audio id="storyMusicPreview" controls style="display:none;width:90%"></audio>
+<input type="text" id="captionInput" placeholder="✍️ Write TEXT on story... e.g. YokelBTY is LIVE! 🇵🇬">
+<input type="text" id="storyTextInput" placeholder="✍️ Big Text on Photo... e.g. From Village to GLOBAL!">
+<div style="display:flex;gap:10px"><button class="dark" onclick="closeModal()">Cancel</button><button class="gold" onclick="postStory()">Post Story ✅</button></div>
 </div>
 
-<!-- VIEW STORY -->
-<div id="storyView" onclick="this.classList.remove('show')">
-<img id="viewImg"><h3 id="viewCaption"></h3><p>Tap anywhere to close ✖️</p>
+<!-- CHAT MODAL -->
+<div id="chatModal" class="modal">
+<h2 id="chatTitle">💬 PNG Family Group</h2>
+<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+<button onclick="startVideoCall()">📹 Video Call</button>
+<button class="gold" onclick="startVoiceCall()">📞 Voice Call</button>
+<button onclick="toggleRecord()" id="recBtn">⏺️ Record</button>
+<button class="dark" onclick="closeChat()">✖️ Close</button>
+</div>
+<div id="callArea" style="display:none;width:100%;text-align:center">
+<video id="myVideo" autoplay playsinline muted></video>
+<p id="callStatus">📹 Video Call - ON</p>
+<button class="gold" onclick="endCall()">End Call ❌</button>
+</div>
+<div class="chatBox" id="chatBox"><div class="msg"><b>Mary:</b> Fresh fish at Kokopo!</div><div class="msg"><b>Paul:</b> Sunset today was beautiful</div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0">
+<label style="background:var(--gold);color:#000;padding:8px 12px;border-radius:20px;cursor:pointer">📷 Photo <input type="file" accept="image/*" style="display:none" onchange="sendChatPhoto(event)"></label>
+<label style="background:#333;color:#fff;padding:8px 12px;border-radius:20px;cursor:pointer">🎵 Music <input type="file" accept="audio/*" style="display:none" onchange="sendChatMusic(event)"></label>
+<button onclick="sendVoiceNote()">🎤 Voice Note</button>
+</div>
+<input type="text" id="chatInput" placeholder="Type message...">
+<button class="gold" onclick="sendChat()" style="width:92%">Send ✅</button>
+<p id="recStatus" style="font-size:12px;color:var(--gold)"></p>
+</div>
+
+<!-- VIEW STORY WITH MUSIC + TEXT -->
+<div id="storyView" onclick="closeStoryView()" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center">
+<div style="position:relative;width:100%;display:flex;justify-content:center">
+<img id="viewImg" style="width:100%;max-height:68vh;object-fit:cover">
+<div id="viewTextOverlay" class="storyTextOverlay"></div>
+</div>
+<h3 id="viewCaption" style="padding:10px;text-align:center"></h3>
+<p id="viewMusicName" style="color:var(--gold);font-size:13px"></p>
+<audio id="viewMusic" controls autoplay style="width:90%"></audio>
+<p>Tap anywhere to close ✖️</p>
 </div>
 
 <script>
-let stories = [
-{name:"You", img:"", caption:"", isYou:true},
-{name:"Mary 🐟", img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400", caption:"Fresh fish at Kokopo Market..."},
-{name:"Paul 🌅", img:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=400", caption:"Sunset at Rabaul beach!"},
-{name:"Ruth 🥥", img:"https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400", caption:"Coconut day in village!"},
+let userName="Yokel";
+let stories=[
+{name:"You",img:"",caption:"",bigText:"",music:"",musicName:"",isYou:true},
+{name:"Mary 🐟",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",caption:"Fresh fish at Kokopo Market...",bigText:"Fresh Fish Today! 🐟",music:"",musicName:""},
+{name:"Paul 🌅",img:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=400",caption:"Sunset at Rabaul beach!",bigText:"Rabaul Sunset 🌅",music:"",musicName:""},
+{name:"Ruth 🥥",img:"https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400",caption:"Coconut day in village!",bigText:"Coconut Day! 🥥",music:"",musicName:""},
 ];
-let tempPhoto = "";
-function renderStories(){
-let h = document.getElementById('stories');
-h.innerHTML = "";
-stories.forEach((s,i)=>{
-h.innerHTML += `<div class="story" onclick="openStory(${i})">${s.img ? `<img src="${s.img}">` : `<div class="add">+</div>`}<p>${s.name}</p></div>`;
-});
-}
+let tempPhoto="";let tempPostPhoto="";let tempStoryMusic="";let tempStoryMusicName="";
+let posts=[{name:"YokelBTY 🇵🇬",text:"Come early, best price today 🐟🇵🇬",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",likes:124,comments:["Mary: Fresh!","Paul: Nice!"]}];
+let mediaStream=null;let recorder=null;let isRecording=false;
+function doLogin(){let n=document.getElementById('loginName').value.trim();if(!n){alert("Please type your name bro!");return;}userName=n;document.getElementById('loginScreen').style.display='none';document.getElementById('app').style.display='block';document.getElementById('welcomeName').innerText="👋 What's on your mind, "+userName+"?";document.getElementById('profileName').innerText=userName+" 🇵🇬";renderFeed();}
+function logout(){document.getElementById('app').style.display='none';document.getElementById('loginScreen').style.display='flex';}
+function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('show'));document.getElementById('page-'+p).classList.add('show');document.querySelectorAll('nav div').forEach(e=>e.classList.remove('active'));let nav=document.getElementById('nav-'+p);if(nav)nav.classList.add('active');window.scrollTo(0,0);}
+function openChat(name){if(name)document.getElementById('chatTitle').innerText="💬 "+name;document.getElementById('chatModal').classList.add('show');}
+function closeChat(){document.getElementById('chatModal').classList.remove('show');endCall();}
+function sendChat(){let v=document.getElementById('chatInput').value;if(!v)return;document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> ${v}</div>`;document.getElementById('chatInput').value="";}
+function sendChatPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> 📷 Sent a photo<br><img src="${r.result}" style="width:100%;border-radius:8px;margin-top:5px"></div>`;};r.readAsDataURL(f);}
+function sendChatMusic(e){let f=e.target.files[0];let url=URL.createObjectURL(f);document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> 🎵 Sent music: ${f.name}<br><audio controls src="${url}" style="width:100%"></audio></div>`;}
+function sendVoiceNote(){alert("🎤 Tap Record to record voice note!");toggleRecord();}
+async function startVideoCall(){try{document.getElementById('callArea').style.display='block';document.getElementById('callStatus').innerText="📹 Video Call - ON";mediaStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('myVideo').srcObject=mediaStream;alert("📹 Video Call Started!");}catch(e){alert("Allow camera permission bro! 📹");}}
+async function startVoiceCall(){try{document.getElementById('callArea').style.display='block';document.getElementById('callStatus').innerText="📞 Voice / Audio Call - ON";mediaStream=await navigator.mediaDevices.getUserMedia({audio:true});alert("📞 Voice Call Started!");}catch(e){alert("Allow mic permission bro! 📞");}}
+function endCall(){if(mediaStream){mediaStream.getTracks().forEach(t=>t.stop());mediaStream=null;}document.getElementById('callArea').style.display='none';}
+async function toggleRecord(){if(!isRecording){try{let s=await navigator.mediaDevices.getUserMedia({audio:true});recorder=new MediaRecorder(s);let chunks=[];recorder.ondataavailable=e=>chunks.push(e.data);recorder.onstop=()=>{let blob=new Blob(chunks,{type:'audio/webm'});let url=URL.createObjectURL(blob);document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> ⏺️ Recorded Voice<br><audio controls src="${url}" style="width:100%"></audio></div>`;document.getElementById('recStatus').innerText="✅ Recording saved and sent!";};recorder.start();isRecording=true;document.getElementById('recBtn').innerText="⏹️ Stop Recording";document.getElementById('recStatus').innerText="🔴 Recording... Tap again to stop";}catch(e){alert("Allow mic to record bro! 🎤");}}else{recorder.stop();isRecording=false;document.getElementById('recBtn').innerText="⏺️ Record";}}
+function followBtn(b){if(b.innerText.includes("Follow")){b.innerText="✓ Following";}else{b.innerText="+ Follow";}}
+function renderStories(){let h=document.getElementById('stories');h.innerHTML="";stories.forEach((s,i)=>{h.innerHTML+=`<div class="story" onclick="openStory(${i})">${s.img?`<img src="${s.img}">`:`<div class="add">+</div>`}<p>${s.name}</p><p style="font-size:10px;color:#FCD116">${s.musicName? "🎵 "+s.musicName : ""}</p></div>`;});}
 function openStory(i){
-if(stories[i].isYou && !stories[i].img){
-document.getElementById('storyModal').classList.add('show');
-}else if(stories[i].img){
-document.getElementById('viewImg').src = stories[i].img;
-document.getElementById('viewCaption').innerText = stories[i].name + ": " + stories[i].caption;
-document.getElementById('storyView').classList.add('show');
-}else{
-document.getElementById('storyModal').classList.add('show');
+if(stories[i].isYou && !stories[i].img){document.getElementById('storyModal').classList.add('show');return;}
+if(stories[i].img){
+document.getElementById('storyView').style.display='flex';
+document.getElementById('viewImg').src=stories[i].img;
+document.getElementById('viewCaption').innerText=stories[i].name+": "+stories[i].caption;
+document.getElementById('viewTextOverlay').innerText=stories[i].bigText||"";
+let m=document.getElementById('viewMusic');
+if(stories[i].music){m.src=stories[i].music;m.style.display='block';m.play();document.getElementById('viewMusicName').innerText="🎵 Now Playing: "+stories[i].musicName;}
+else{m.pause();m.style.display='none';document.getElementById('viewMusicName').innerText=""; }
+}else{document.getElementById('storyModal').classList.add('show');}
 }
-}
-function previewPhoto(e){
-let file = e.target.files[0];
-let r = new FileReader();
-r.onload = function(){ tempPhoto = r.result; let p=document.getElementById('preview'); p.src=tempPhoto; p.style.display='block'; }
-r.readAsDataURL(file);
-}
+function closeStoryView(){let m=document.getElementById('viewMusic');m.pause();document.getElementById('storyView').style.display='none';}
+function previewPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){tempPhoto=r.result;let p=document.getElementById('preview');p.src=tempPhoto;p.style.display='block';};r.readAsDataURL(f);}
+function previewStoryMusic(e){let f=e.target.files[0];tempStoryMusicName=f.name;tempStoryMusic=URL.createObjectURL(f);document.getElementById('musicName').innerText="🎵 Selected: "+f.name;let a=document.getElementById('storyMusicPreview');a.src=tempStoryMusic;a.style.display='block';}
 function postStory(){
-let cap = document.getElementById('captionInput').value || "YokelBTY is LIVE! From Village to GLOBAL! 🇵🇬";
-if(!tempPhoto){ alert("Please choose a photo first bro! 📸"); return; }
-stories[0].img = tempPhoto; stories[0].caption = cap;
-closeModal(); renderStories(); alert("Story posted! 🔥 Tap You to view!");
+let cap=document.getElementById('captionInput').value||"YokelBTY is LIVE! From Village to GLOBAL! 🇵🇬";
+let big=document.getElementById('storyTextInput').value||"From Village to GLOBAL! 🇵🇬";
+if(!tempPhoto){alert("Please choose a photo first bro! 📸");return;}
+stories[0].img=tempPhoto;stories[0].caption=cap;stories[0].bigText=big;stories[0].music=tempStoryMusic;stories[0].musicName=tempStoryMusicName||"My Song 🎵";
+closeModal();renderStories();alert("Story posted with Photo + Music + Text! 🔥🎵");
 }
-function closeModal(){ document.getElementById('storyModal').classList.remove('show'); }
-function toggleMode(){ document.body.classList.toggle('light'); }
-function like(el){ let b=el.querySelector('b'); b.innerText = parseInt(b.innerText)+1; }
-renderStories();
+function closeModal(){document.getElementById('storyModal').classList.remove('show');}
+function toggleMode(){document.body.classList.toggle('light');}
+function likePost(i){posts[i].likes++;renderFeed();}
+function addComment(i){let v=prompt("Write your comment:");if(v){posts[i].comments.push(userName+": "+v);renderFeed();}}
+function sharePost(i){alert("Post shared! 🔁 Link copied!");}
+function reactPost(i,emoji){posts[i].likes++;alert("You reacted "+emoji+"!");renderFeed();}
+function previewPostPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){tempPostPhoto=r.result;let p=document.getElementById('postPreview');p.src=tempPostPhoto;p.style.display='block';};r.readAsDataURL(f);}
+function addPost(){let t=document.getElementById('newPostText').value||"YokelBTY is LIVE! 🇵🇬";posts.unshift({name:userName+" 🇵🇬",text:t,img:tempPostPhoto,likes:0,comments:[]});document.getElementById('newPostText').value="";tempPostPhoto="";document.getElementById('postPreview').style.display='none';renderFeed();alert("Posted!");}
+function changeProfile(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){document.getElementById('profilePicShow').src=r.result;alert("Profile photo updated!");};r.readAsDataURL(f);}
+function renderFeed(){let h=document.getElementById('feedPosts');h.innerHTML="";posts.forEach((p,i)=>{let coms=p.comments.map(c=>`<div class="comment">${c}</div>`).join("");h.innerHTML+=`<div class="post"><h3>${p.name}</h3><p>${p.text}</p>${p.img?`<img src="${p.img}">`:""}<div class="reactions"><span onclick="reactPost(${i},'❤️')">❤️</span><span onclick="reactPost(${i},'😂')">😂</span><span onclick="reactPost(${i},'😮')">😮</span><span onclick="reactPost(${i},'😡')">😡</span><span onclick="reactPost(${i},'👍')">👍</span></div><div class="actions"><span onclick="likePost(${i})">❤️ Like ${p.likes}</span><span onclick="addComment(${i})">💬 Comment ${p.comments.length}</span><span onclick="sharePost(${i})">🔁 Share</span></div>${coms}</div>`;});}
+renderStories();renderFeed();
 </script>
 </body>
 </html>
