@@ -59,7 +59,6 @@ body.light .musicItem{background:#eee}
 </style>
 </head>
 <body>
-
 <div id="loginScreen" class="loginWrap">
 <h1 style="font-size:36px">Yokel<span style="color:var(--gold)">BTY</span> 🇵🇬</h1>
 <p>From Village to GLOBAL! <span class="liveBadge">● MARKET + MONEY LIVE</span></p>
@@ -69,13 +68,8 @@ body.light .musicItem{background:#eee}
 <button onclick="doLogin()" style="width:100%">Login / Sign Up ✅</button>
 <p id="fbStatus" style="font-size:12px;color:#666">Connecting to Firebase...</p></div>
 </div>
-
 <div id="app" style="display:none">
-<header>
-<h1>Yokel<span>BTY</span> 🇵🇬</h1>
-<div><span class="liveBadge">● LIVE</span> <button class="gold" onclick="toggleMode()">🌙 / ☀️</button> <button onclick="openChat()">💬 Chat</button> <button onclick="showPage('menu')">☰ Menu</button></div>
-</header>
-
+<header><h1>Yokel<span>BTY</span> 🇵🇬</h1><div><span class="liveBadge">● LIVE</span> <button class="gold" onclick="toggleMode()">🌙 / ☀️</button> <button onclick="openChat()">💬 Chat</button> <button onclick="showPage('menu')">☰ Menu</button></div></header>
 <div id="page-feed" class="page show">
 <div class="stories" id="stories"></div>
 <div class="card"><b id="welcomeName">👋 What's on your mind?</b><br>
@@ -84,23 +78,18 @@ body.light .musicItem{background:#eee}
 <img id="postPreview" style="display:none"><br><button onclick="addPost()" style="margin-top:8px">Post to Firebase ✅</button></div>
 <div id="feedPosts"></div>
 </div>
-
 <div id="page-friends" class="page"><h2 style="padding:0 10px">👥 Friends / Follow</h2>
 <div class="card">🐟 Mary - Kokopo <button onclick="followBtn(this)">+ Follow</button></div>
 <div class="card">🌅 Paul - Rabaul <button onclick="followBtn(this)">+ Follow</button></div>
 <div class="card">🥥 Ruth - Village <button onclick="followBtn(this)">+ Follow</button></div></div>
-
 <div id="page-profile" class="page"><h2 style="padding:0 10px">👤 Profile</h2>
 <div class="card" style="text-align:center"><img id="profilePicShow" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400" style="width:130px;height:130px;border-radius:50%;border:4px solid var(--gold);object-fit:cover">
 <h3 id="profileName">YokelBTY 🇵🇬</h3><p>From Village to GLOBAL! 🇵🇬</p>
 <label style="background:var(--gold);color:#000;padding:10px 16px;border-radius:20px;cursor:pointer">📷 Change Profile Photo <input type="file" accept="image/*" style="display:none" onchange="changeProfile(event)"></label></div>
-<div class="card"><h3>💰 My Wallet</h3><h2 id="profileWallet">K 0.00</h2><button class="gold" onclick="showPage('money')">Go to Wallet →</button></div>
-</div>
-
+<div class="card"><h3>💰 My Wallet</h3><h2 id="profileWallet">K 0.00</h2><button class="gold" onclick="showPage('money')">Go to Wallet →</button></div></div>
 <div id="page-market" class="page">
 <h2 style="padding:0 10px">🛒 Marketplace - Sell & Buy - FIREBASE LIVE!</h2>
-<div class="card" style="border-left:4px solid var(--gold)">
-<h3>➕ Sell Something - Post Your Item!</h3>
+<div class="card" style="border-left:4px solid var(--gold)"><h3>➕ Sell Something - Post Your Item!</h3>
 <input type="text" id="mTitle" placeholder="What are you selling? e.g. Fresh Fish, Bilum, Kaukau">
 <input type="number" id="mPrice" placeholder="Price in Kina - e.g. 20">
 <input type="text" id="mLocation" placeholder="Location - e.g. Kokopo, POM, Rabaul">
@@ -108,44 +97,29 @@ body.light .musicItem{background:#eee}
 <textarea id="mDesc" placeholder="Describe it... Fresh from today, best price..."></textarea>
 <label style="background:var(--gold);color:#000;padding:10px 16px;border-radius:20px;cursor:pointer;display:inline-block">📷 Add Photo of Item <input type="file" accept="image/*" style="display:none" onchange="previewMarketPhoto(event)"></label>
 <img id="marketPreview" style="display:none;width:100%;border-radius:10px;margin-top:8px">
-<br><button class="gold" onclick="postMarketItem()" style="margin-top:10px;width:100%">Post Item to Market ✅</button>
-<p style="font-size:12px;color:#aaa">Everyone in PNG will see your item! Buyer will chat you to buy.</p>
-</div>
+<br><button class="gold" onclick="postMarketItem()" style="margin-top:10px;width:100%">Post Item to Market ✅</button></div>
 <div id="marketList"></div>
-<div class="card">🐟 Fresh Fish - K20 - Kokopo <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600"> <p>Mary - 7000 1111</p><button onclick="alert('Chat Mary to buy!')">Chat to Buy 💬</button></div>
 </div>
-
 <div id="page-chat" class="page"><h2 style="padding:0 10px">💬 Chat Inbox</h2>
 <div class="card" onclick="openChat('PNG Family Group')">👥 PNG Family Group <br><small>Video, Voice, Photo, Music - LIVE</small></div>
 <div class="card" onclick="openChat('Mary')">🐟 Mary <br><small>Fresh fish today?</small></div>
 <div class="card" onclick="openChat('Paul')">🌅 Paul <br><small>Sunset today</small></div></div>
-
 <div id="page-money" class="page">
 <h2 style="padding:0 10px">💰 Money - YokelBTY Wallet</h2>
 <div class="walletBig"><p style="margin:0">Your Balance</p><h2 id="walletBalance">K 0.00</h2><p id="walletName" style="margin:0;font-size:13px">YokelBTY Wallet 🇵🇬</p></div>
-<div class="card">
-<h3>➕ Top Up Wallet</h3>
-<p style="font-size:13px">1. Send money via Digicel / BSP to admin<br>2. Type amount below, tap Top Up<br>3. Admin will approve, balance updates!</p>
+<div class="card"><h3>➕ Top Up Wallet</h3><p style="font-size:13px">1. Send money via Digicel / BSP to admin<br>2. Type amount below, tap Top Up</p>
 <input type="number" id="topupAmount" placeholder="Amount - e.g. 50">
 <input type="text" id="topupRef" placeholder="Transfer Ref / Your Phone - e.g. 7000 1234">
-<button class="gold" onclick="topUpWallet()" style="width:100%">Top Up ✅ Request</button>
-<p style="font-size:12px;color:#aaa">For now, Top Up adds instantly for testing. Later you approve manually.</p>
-</div>
-<div class="card">
-<h3>📤 Send Money to Friend</h3>
+<button class="gold" onclick="topUpWallet()" style="width:100%">Top Up ✅ Request</button></div>
+<div class="card"><h3>📤 Send Money to Friend</h3>
 <input type="text" id="sendTo" placeholder="Send to Name - e.g. Mary">
 <input type="number" id="sendAmount" placeholder="Amount - e.g. 10">
-<button onclick="sendMoney()" style="width:100%">Send Money ✅</button>
-</div>
-<div class="card">
-<h3>💸 Cash Out</h3>
-<p style="font-size:13px">Want real cash? Request cash out, admin will send to your Digicel / BSP.</p>
+<button onclick="sendMoney()" style="width:100%">Send Money ✅</button></div>
+<div class="card"><h3>💸 Cash Out</h3><p style="font-size:13px">Request cash out, admin will send to your Digicel / BSP.</p>
 <input type="number" id="cashoutAmount" placeholder="Amount - e.g. 20">
-<button class="dark" onclick="cashOut()" style="width:100%">Request Cash Out 💸</button>
-</div>
+<button class="dark" onclick="cashOut()" style="width:100%">Request Cash Out 💸</button></div>
 <div class="card"><h3>📜 Transactions</h3><div id="txList"><p style="font-size:13px;color:#aaa">No transactions yet.</p></div></div>
 </div>
-
 <div id="page-menu" class="page"><h2 style="padding:0 10px">☰ Menu</h2>
 <div class="card" onclick="showPage('feed')">🏠 Feed / Posts</div>
 <div class="card" onclick="showPage('friends')">👥 Friends / Follow</div>
@@ -155,10 +129,8 @@ body.light .musicItem{background:#eee}
 <div class="card" onclick="showPage('money')">💰 Money</div>
 <div class="card" onclick="showPage('about')">ℹ️ About of the App</div>
 <div class="card" onclick="logout()">🚪 Logout</div></div>
-
 <div id="page-about" class="page"><h2 style="padding:0 10px">ℹ️ About of the App</h2>
 <div class="card"><h3>YokelBTY 🇵🇬 - MARKET + MONEY LIVE!</h3><p><b>Our Story:</b> Born in the village of PNG. From Village to GLOBAL!</p><p><b>Market:</b> Sell Fish, Kaukau, Bilum, Phone - Everyone in PNG sees it!</p><p><b>Money:</b> YokelBTY Wallet - Top Up, Send, Buy, Cash Out!</p><p><b>Powered by:</b> Firebase Realtime Database</p></div></div>
-
 <nav>
 <div id="nav-feed" class="active" onclick="showPage('feed')">🏠<br>Feed</div>
 <div id="nav-friends" onclick="showPage('friends')">👥<br>Friends</div>
@@ -168,33 +140,24 @@ body.light .musicItem{background:#eee}
 <div id="nav-profile" onclick="showPage('profile')">👤<br>Profile</div>
 </nav>
 </div>
-
 <div id="storyModal" class="modal">
-<div class="stickyPhoto">
-<h2 style="margin:0">Create Story 📸🎵✍️ <span class="liveBadge">FIREBASE</span></h2>
+<div class="stickyPhoto"><h2 style="margin:0">Create Story 📸🎵✍️ <span class="liveBadge">FIREBASE</span></h2>
 <label style="background:var(--gold);color:#000;padding:12px 20px;border-radius:20px;cursor:pointer;display:inline-block;margin-top:8px;font-weight:bold">📷 CHOOSE PHOTO - TAP HERE! <input type="file" accept="image/*" style="display:none" onchange="previewPhoto(event)"></label>
-<div id="photoStatus" style="font-size:12px;color:var(--gold);margin-top:5px">No photo yet — Tap CHOOSE PHOTO above!</div>
-</div>
+<div id="photoStatus" style="font-size:12px;color:var(--gold);margin-top:5px">No photo yet — Tap CHOOSE PHOTO above!</div></div>
 <img id="preview">
 <input type="text" id="captionInput" placeholder="✍️ Write Caption... e.g. YokelBTY is LIVE! 🇵🇬">
 <textarea id="storyLongText" placeholder="✍️ Write Your Story Here..." style="height:90px"></textarea>
 <input type="text" id="storyTextInput" placeholder="✍️ Big Text on Photo... e.g. From Village to GLOBAL!">
 <h3 style="margin:10px 0 0">🎵 Add Music — UNLIMITED World Music!</h3>
 <input type="text" id="musicSearch" placeholder="🔍 Search ANY song... Jaro, Sean Rii, Drake..." oninput="onMusicTyping()">
-<div style="display:flex;gap:8px;width:92%;flex-wrap:wrap;justify-content:center">
-<button onclick="quickSearch('Jaro')">Jaro</button><button onclick="quickSearch('Sean Rii')">Sean Rii</button><button onclick="quickSearch('Burna Boy')">Burna Boy</button><button onclick="quickSearch('Drake')">Drake</button><button onclick="quickSearch('PNG')">PNG 🇵🇬</button><button class="gold" onclick="clearMusicSearch()">🔄 Trending</button>
-</div>
+<div style="display:flex;gap:8px;width:92%;flex-wrap:wrap;justify-content:center"><button onclick="quickSearch('Jaro')">Jaro</button><button onclick="quickSearch('Sean Rii')">Sean Rii</button><button onclick="quickSearch('Burna Boy')">Burna Boy</button><button onclick="quickSearch('Drake')">Drake</button><button onclick="quickSearch('PNG')">PNG 🇵🇬</button><button class="gold" onclick="clearMusicSearch()">🔄 Trending</button></div>
 <p id="musicStatus" style="font-size:12px;color:#aaa">🔥 Tap a button or type any artist!</p>
 <div id="musicLibrary" style="width:95%;max-height:340px;overflow-y:auto;background:#111;padding:6px;border-radius:10px;min-height:140px"></div>
 <p id="musicName" style="font-size:13px;color:var(--gold)"></p>
 <audio id="musicPreviewPlayer" controls style="display:none;width:90%"></audio>
-<div class="card" style="width:92%;text-align:left"><b>⏱️ How Long Should Music Play?</b><br>
-<select id="musicLength"><option value="full">🎵 FULL - Continuing / Loop</option><option value="60">⏱️ 60 Seconds</option><option value="30">⏱️ 30 Seconds</option><option value="15">⏱️ 15 Seconds</option></select>
-<b>▶️ Start From?</b><br><select id="musicStart"><option value="0">▶️ 0:00</option><option value="15">▶️ 0:15 - Chorus</option><option value="30">▶️ 0:30</option></select>
-<label style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:13px"><input type="checkbox" id="musicContinue" checked style="width:20px"> 🔁 CONTINUE / LOOP</label></div>
+<div class="card" style="width:92%;text-align:left"><b>⏱️ How Long Should Music Play?</b><br><select id="musicLength"><option value="full">🎵 FULL - Continuing / Loop</option><option value="60">⏱️ 60 Seconds</option><option value="30">⏱️ 30 Seconds</option><option value="15">⏱️ 15 Seconds</option></select><b>▶️ Start From?</b><br><select id="musicStart"><option value="0">▶️ 0:00</option><option value="15">▶️ 0:15 - Chorus</option><option value="30">▶️ 0:30</option></select><label style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:13px"><input type="checkbox" id="musicContinue" checked style="width:20px"> 🔁 CONTINUE / LOOP</label></div>
 <div style="display:flex;gap:10px;margin-top:10px"><button class="dark" onclick="closeModal()">Cancel</button><button class="gold" onclick="postStory()">Post Story to Firebase ✅</button></div>
 </div>
-
 <div id="chatModal" class="modal">
 <h2 id="chatTitle">💬 PNG Family Group</h2>
 <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center"><button onclick="startVideoCall()">📹 Video Call</button><button class="gold" onclick="startVoiceCall()">📞 Voice Call</button><button onclick="toggleRecord()" id="recBtn">⏺️ Record</button><button class="dark" onclick="closeChat()">✖️ Close</button></div>
@@ -203,39 +166,21 @@ body.light .musicItem{background:#eee}
 <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0"><label style="background:var(--gold);color:#000;padding:8px 12px;border-radius:20px;cursor:pointer">📷 Photo <input type="file" accept="image/*" style="display:none" onchange="sendChatPhoto(event)"></label><button onclick="openChatMusic()">🎵 Music</button><button onclick="sendVoiceNote()">🎤 Voice Note</button></div>
 <input type="text" id="chatInput" placeholder="Type message..."><button class="gold" onclick="sendChat()" style="width:92%">Send ✅</button><p id="recStatus" style="font-size:12px;color:var(--gold)"></p>
 </div>
-
 <div id="storyView" onclick="closeStoryView()" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center;overflow-y:auto;padding:10px">
 <div style="position:relative;width:100%;display:flex;justify-content:center"><img id="viewImg" style="width:100%;max-height:55vh;object-fit:cover"><div id="viewTextOverlay" class="storyTextOverlay"></div></div>
 <h3 id="viewCaption" style="padding:10px;text-align:center"></h3><p id="viewLongText" style="padding:0 15px;text-align:center;font-size:14px;line-height:1.5;white-space:pre-wrap"></p><p id="viewMusicName" style="color:var(--gold);font-size:13px"></p><p id="viewMusicLength" style="font-size:12px;color:#fff"></p><audio id="viewMusic" controls autoplay style="width:90%"></audio>
 <div style="display:flex;gap:8px;margin-top:8px" onclick="event.stopPropagation()"><button onclick="toggleStoryMusic()">⏸️ Pause / ▶️ Play</button><button class="gold" onclick="toggleStoryLoop()">🔁 Continue: ON</button></div><p>Tap photo to close ✖️</p>
 </div>
-
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyA7JJpeSfV-pY-XCtsdXLvITFQmAvZ8pKo",
-  authDomain: "yokelbook-global.firebaseapp.com",
-  databaseURL: "https://yokelbook-global-default-rtdb.firebaseio.com",
-  projectId: "yokelbook-global",
-  storageBucket: "yokelbook-global.firebasestorage.app",
-  messagingSenderId: "1048288092483",
-  appId: "1:1048288092483:web:5c17ea9a5e55db3bd3cff6",
-  measurementId: "G-NT90RVWPMZ"
-};
+const firebaseConfig = {apiKey: "AIzaSyA7JJpeSfV-pY-XCtsdXLvITFQmAvZ8pKo",authDomain: "yokelbook-global.firebaseapp.com",databaseURL: "https://yokelbook-global-default-rtdb.firebaseio.com",projectId: "yokelbook-global",storageBucket: "yokelbook-global.firebasestorage.app",messagingSenderId: "1048288092483",appId: "1:1048288092483:web:5c17ea9a5e55db3bd3cff6",measurementId: "G-NT90RVWPMZ"};
 firebase.initializeApp(firebaseConfig);
 let db = firebase.database();
 firebase.auth().signInAnonymously().then(()=>{document.getElementById('fbStatus').innerText="✅ Connected to Firebase! LIVE!";}).catch(e=>{document.getElementById('fbStatus').innerText="Firebase: "+e.message;});
-let userName="Yokel";
-let userKey="yokel";
-let myBalance=0;
-let myTx=[];
-let stories=[
-{name:"You",img:"",caption:"",longText:"",bigText:"",music:"",musicName:"",musicLength:"full",musicStart:0,musicContinue:true,isYou:true},
-{name:"Mary 🐟",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",caption:"Fresh fish at Kokopo Market...",longText:"Today in Kokopo, we went to market early. Fresh fish, good price. Come and support our mamas! 🇵🇬🐟",bigText:"Fresh Fish Today! 🐟",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",musicName:"PNG Vibes - Island Beat",musicLength:"full",musicStart:0,musicContinue:true},
-];
+let userName="Yokel";let userKey="yokel";let myBalance=0;let myTx=[];
+let stories=[{name:"You",img:"",caption:"",longText:"",bigText:"",music:"",musicName:"",musicLength:"full",musicStart:0,musicContinue:true,isYou:true},{name:"Mary 🐟",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",caption:"Fresh fish at Kokopo Market...",longText:"Today in Kokopo, we went to market early. Fresh fish, good price! 🇵🇬🐟",bigText:"Fresh Fish Today! 🐟",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",musicName:"PNG Vibes - Island Beat",musicLength:"full",musicStart:0,musicContinue:true}];
 let worldSongs=[];let tempPhoto="";let tempPostPhoto="";let tempMarketPhoto="";let tempStoryMusic="";let tempStoryMusicName="";
-let posts=[{name:"YokelBTY 🇵🇬",text:"Come early, best price today 🐟🇵🇬",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",likes:124,comments:["Mary: Fresh!"]}];
-let marketItems=[];
-let mediaStream=null;let recorder=null;let isRecording=false;let storyMusicTimer=null;let typingTimer=null;
+let posts=[{name:"YokelBTY 🇵🇬",text:"Come early, best price today 🐟🇵🇬",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",likes:124,comments:["Mary: Fresh!"],reacts:{'❤️':5,'😂':2,'😮':1,'👍':3},myReact:""}];
+let marketItems=[];let mediaStream=null;let recorder=null;let isRecording=false;let storyMusicTimer=null;let typingTimer=null;
 function safeKey(n){return n.toLowerCase().replace(/[^a-z0-9]/g,"_").substring(0,40)||"user";}
 function doLogin(){let n=document.getElementById('loginName').value.trim();if(!n){alert("Please type your name bro!");return;}userName=n;userKey=safeKey(n);document.getElementById('loginScreen').style.display='none';document.getElementById('app').style.display='block';document.getElementById('welcomeName').innerText="👋 What's on your mind, "+userName+"?";document.getElementById('profileName').innerText=userName+" 🇵🇬";document.getElementById('walletName').innerText=userName+" - YokelBTY Wallet 🇵🇬";loadFromFirebase();loadWallet();loadMarket();}
 function logout(){document.getElementById('app').style.display='none';document.getElementById('loginScreen').style.display='flex';}
@@ -245,21 +190,13 @@ function loadWallet(){db.ref('wallets/'+userKey).on('value', snap=>{let v=snap.v
 function saveWallet(){db.ref('wallets/'+userKey).set({name:userName,balance:myBalance,tx:myTx});updateWalletUI();}
 function addTx(type,amount,note){myTx.push({type:type,amount:amount,note:note,time:Date.now()});if(myTx.length>30) myTx=myTx.slice(-30);}
 function topUpWallet(){let amt=parseFloat(document.getElementById('topupAmount').value);let ref=document.getElementById('topupRef').value||"Top Up";if(!amt||amt<=0){alert("Type amount bro! e.g. 50");return;}myBalance+=amt;addTx("TOP UP +",amt,"Top Up - Ref: "+ref);saveWallet();alert("✅ Top Up Successful! +K "+amt+" added! New Balance: K "+myBalance.toFixed(2));document.getElementById('topupAmount').value="";}
-function sendMoney(){let to=document.getElementById('sendTo').value.trim();let amt=parseFloat(document.getElementById('sendAmount').value);if(!to||!amt){alert("Type name + amount bro!");return;}if(amt>myBalance){alert("Not enough balance bro! Your balance: K "+myBalance.toFixed(2)+" - Top Up first!");return;}let toKey=safeKey(to);myBalance-=amt;addTx("SENT -",amt,"Sent to "+to);saveWallet();db.ref('wallets/'+toKey).once('value').then(snap=>{let v=snap.val()||{name:to,balance:0,tx:[]};v.balance=(v.balance||0)+amt;v.tx=v.tx||[];v.tx.push({type:"RECEIVED +",amount:amt,note:"Received from "+userName,time:Date.now()});db.ref('wallets/'+toKey).set(v);});alert("✅ Sent K "+amt+" to "+to+"! Your new balance: K "+myBalance.toFixed(2));document.getElementById('sendTo').value="";document.getElementById('sendAmount').value="";}
-function cashOut(){let amt=parseFloat(document.getElementById('cashoutAmount').value);if(!amt||amt<=0){alert("Type amount bro!");return;}if(amt>myBalance){alert("Not enough balance!");return;}myBalance-=amt;addTx("CASH OUT -",amt,"Cash Out Request - Admin will send real money");saveWallet();db.ref('cashouts').push({name:userName,amount:amt,time:Date.now(),status:"PENDING"});alert("💸 Cash Out Request Sent! K "+amt+" - Admin will send to your Digicel / BSP soon!");document.getElementById('cashoutAmount').value="";}
+function sendMoney(){let to=document.getElementById('sendTo').value.trim();let amt=parseFloat(document.getElementById('sendAmount').value);if(!to||!amt){alert("Type name + amount bro!");return;}if(amt>myBalance){alert("Not enough balance bro! Balance: K "+myBalance.toFixed(2)+" - Top Up first!");return;}let toKey=safeKey(to);myBalance-=amt;addTx("SENT -",amt,"Sent to "+to);saveWallet();db.ref('wallets/'+toKey).once('value').then(snap=>{let v=snap.val()||{name:to,balance:0,tx:[]};v.balance=(v.balance||0)+amt;v.tx=v.tx||[];v.tx.push({type:"RECEIVED +",amount:amt,note:"Received from "+userName,time:Date.now()});db.ref('wallets/'+toKey).set(v);});alert("✅ Sent K "+amt+" to "+to+"! New balance: K "+myBalance.toFixed(2));document.getElementById('sendTo').value="";document.getElementById('sendAmount').value="";}
+function cashOut(){let amt=parseFloat(document.getElementById('cashoutAmount').value);if(!amt||amt<=0){alert("Type amount bro!");return;}if(amt>myBalance){alert("Not enough balance!");return;}myBalance-=amt;addTx("CASH OUT -",amt,"Cash Out Request - Admin will send real money");saveWallet();db.ref('cashouts').push({name:userName,amount:amt,time:Date.now(),status:"PENDING"});alert("💸 Cash Out Request Sent! K "+amt+" - Admin will send soon!");document.getElementById('cashoutAmount').value="";}
 function previewMarketPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){tempMarketPhoto=r.result;let p=document.getElementById('marketPreview');p.src=tempMarketPhoto;p.style.display='block';};r.readAsDataURL(f);}
-function postMarketItem(){let title=document.getElementById('mTitle').value.trim();let price=parseFloat(document.getElementById('mPrice').value);let loc=document.getElementById('mLocation').value.trim()||"PNG";let phone=document.getElementById('mPhone').value.trim()||"";let desc=document.getElementById('mDesc').value||"";if(!title||!price){alert("Type what you sell + price bro! e.g. Fresh Fish - 20");return;}let item={title:title,price:price,location:loc,phone:phone,desc:desc,img:tempMarketPhoto,seller:userName,sellerKey:userKey,sold:false,time:Date.now()};db.ref('market').push(item);alert("✅ Item Posted to Market! Everyone in PNG can see it!");document.getElementById('mTitle').value="";document.getElementById('mPrice').value="";document.getElementById('mLocation').value="";document.getElementById('mPhone').value="";document.getElementById('mDesc').value="";tempMarketPhoto="";document.getElementById('marketPreview').style.display='none';}
+function postMarketItem(){let title=document.getElementById('mTitle').value.trim();let price=parseFloat(document.getElementById('mPrice').value);let loc=document.getElementById('mLocation').value.trim()||"PNG";let phone=document.getElementById('mPhone').value.trim()||"";let desc=document.getElementById('mDesc').value||"";if(!title||!price){alert("Type what you sell + price bro!");return;}let item={title:title,price:price,location:loc,phone:phone,desc:desc,img:tempMarketPhoto,seller:userName,sellerKey:userKey,sold:false,time:Date.now()};db.ref('market').push(item);alert("✅ Item Posted to Market! Everyone in PNG can see it!");document.getElementById('mTitle').value="";document.getElementById('mPrice').value="";document.getElementById('mLocation').value="";document.getElementById('mPhone').value="";document.getElementById('mDesc').value="";tempMarketPhoto="";document.getElementById('marketPreview').style.display='none';}
 function loadMarket(){db.ref('market').limitToLast(30).on('value', snap=>{marketItems=[];snap.forEach(child=>{let v=child.val();v._id=child.key;marketItems.push(v);});marketItems.reverse();renderMarket();});}
 function renderMarket(){let h=document.getElementById('marketList');if(!h) return;if(marketItems.length===0){h.innerHTML="<div class='card'><p>No items yet - Be first to sell! Post above! 🔥</p></div>";return;}h.innerHTML=marketItems.map(item=>{let isMine=item.sellerKey===userKey;let btn=item.sold?`<span class="badgeSold">SOLD ✅</span>`:isMine?`<button class="dark" onclick="markSold('${item._id}')">Mark as Sold</button> <button onclick="deleteMarket('${item._id}')">Delete</button>`:`<button class="gold" onclick="buyMarket('${item._id}',${item.price},'${item.sellerKey}','${item.seller}')">Buy with Wallet - K ${item.price} 💰</button> <button onclick="chatSeller('${item.seller}')">Chat Seller 💬</button>`;return `<div class="card"><h3>${item.title} - K ${item.price}</h3><p>📍 ${item.location} | 👤 ${item.seller} | 📞 ${item.phone||"No phone"}</p><p style="font-size:13px">${item.desc||""}</p>${item.img?`<img class="marketImg" src="${item.img}">`:""}<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">${btn}</div>${item.sold?`<p style="color:#FCD116">✅ Sold!</p>`:""}</div>`;}).join("");}
-function buyMarket(id,price,sellerKey,sellerName){
-if(sellerKey===userKey){alert("This is your own item bro!");return;}
-if(price>myBalance){alert("Not enough balance bro! Balance: K "+myBalance.toFixed(2)+" - Top Up first in Money page! Price: K "+price);showPage('money');return;}
-if(!confirm("Buy this for K "+price+"? Wallet will go from K "+myBalance.toFixed(2)+" to K "+(myBalance-price).toFixed(2))){return;}
-myBalance-=price;addTx("BUY -",price,"Bought item from "+sellerName);saveWallet();
-db.ref('wallets/'+sellerKey).once('value').then(snap=>{let v=snap.val()||{name:sellerName,balance:0,tx:[]};v.balance=(v.balance||0)+price;v.tx=v.tx||[];v.tx.push({type:"SOLD +",amount:price,note:"Sold item to "+userName,time:Date.now()});db.ref('wallets/'+sellerKey).set(v);});
-db.ref('market/'+id).update({sold:true});
-alert("✅ BOUGHT! K "+price+" sent to "+sellerName+"! Chat them to arrange delivery!");openChat(sellerName);
-}
+function buyMarket(id,price,sellerKey,sellerName){if(sellerKey===userKey){alert("This is your own item bro!");return;}if(price>myBalance){alert("Not enough balance bro! Balance: K "+myBalance.toFixed(2)+" - Top Up first! Price: K "+price);showPage('money');return;}if(!confirm("Buy this for K "+price+"?")){return;}myBalance-=price;addTx("BUY -",price,"Bought item from "+sellerName);saveWallet();db.ref('wallets/'+sellerKey).once('value').then(snap=>{let v=snap.val()||{name:sellerName,balance:0,tx:[]};v.balance=(v.balance||0)+price;v.tx=v.tx||[];v.tx.push({type:"SOLD +",amount:price,note:"Sold item to "+userName,time:Date.now()});db.ref('wallets/'+sellerKey).set(v);});db.ref('market/'+id).update({sold:true});alert("✅ BOUGHT! K "+price+" sent to "+sellerName+"! Chat them for delivery!");openChat(sellerName);}
 function markSold(id){db.ref('market/'+id).update({sold:true});}
 function deleteMarket(id){if(confirm("Delete this item?")){db.ref('market/'+id).remove();}}
 function chatSeller(name){openChat(name);showPage('chat');}
@@ -269,7 +206,7 @@ function sendChat(){let v=document.getElementById('chatInput').value;if(!v)retur
 function loadChatFromFirebase(){db.ref('chats/PNGFamilyGroup').limitToLast(20).on('value', snap=>{let box=document.getElementById('chatBox');let html="<div class='msg'><b>Mary:</b> Fresh fish at Kokopo!</div>";snap.forEach(child=>{let m=child.val();html+=`<div class="msg"><b>${m.name}:</b> ${m.text||""} ${m.img?`<br><img src="${m.img}" style="width:100%;border-radius:8px">`:""}</div>`;});box.innerHTML=html;box.scrollTop=box.scrollHeight;});}
 function sendChatPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){db.ref('chats/PNGFamilyGroup').push({name:userName,img:r.result,time:Date.now()});};r.readAsDataURL(f);}
 function openChatMusic(){alert("🎵 Go to Story → Search ANY music!");}
-function sendVoiceNote(){alert("🎤 Tap Record!");toggleRecord();}
+function sendVoiceNote(){toggleRecord();}
 async function startVideoCall(){try{document.getElementById('callArea').style.display='block';document.getElementById('callStatus').innerText="📹 Video Call - ON";mediaStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('myVideo').srcObject=mediaStream;alert("📹 Video Call Started!");}catch(e){alert("Allow camera permission bro! 📹");}}
 async function startVoiceCall(){try{document.getElementById('callArea').style.display='block';document.getElementById('callStatus').innerText="📞 Voice Call - ON";mediaStream=await navigator.mediaDevices.getUserMedia({audio:true});alert("📞 Voice Call Started!");}catch(e){alert("Allow mic permission bro! 📞");}}
 function endCall(){if(mediaStream){mediaStream.getTracks().forEach(t=>t.stop());mediaStream=null;}document.getElementById('callArea').style.display='none';}
@@ -297,11 +234,11 @@ function toggleMode(){document.body.classList.toggle('light');}
 function likePost(i){posts[i].likes++;renderFeed();}
 function addComment(i){let v=prompt("Write comment:");if(v){posts[i].comments.push(userName+": "+v);renderFeed();}}
 function sharePost(i){alert("Post shared! 🔁");}
-function reactPost(i,emoji){posts[i].likes++;alert("You reacted "+emoji+"!");renderFeed();}
+function reactPost(i,emoji){let p=posts[i];if(!p.reacts)p.reacts={'❤️':0,'😂':0,'😮':0,'👍':0};if(!p.myReact)p.myReact="";if(p.myReact===emoji){p.reacts[emoji]--;p.myReact="";alert("Removed your "+emoji+" ❌");}else{if(p.myReact&&p.reacts[p.myReact]>0){p.reacts[p.myReact]--;}p.reacts[emoji]++;p.myReact=emoji;alert("You reacted "+emoji+" ✅ Tap same again to remove, or tap another to CHANGE!");}renderFeed();}
 function previewPostPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){tempPostPhoto=r.result;let p=document.getElementById('postPreview');p.src=tempPostPhoto;p.style.display='block';};r.readAsDataURL(f);}
-function addPost(){let t=document.getElementById('newPostText').value||"YokelBTY is LIVE! 🇵🇬";let newPost={name:userName+" 🇵🇬",text:t,img:tempPostPhoto,likes:0,comments:[],time:Date.now()};db.ref('posts').push(newPost);posts.unshift(newPost);document.getElementById('newPostText').value="";tempPostPhoto="";document.getElementById('postPreview').style.display='none';renderFeed();alert("Posted to Firebase! ✅");}
+function addPost(){let t=document.getElementById('newPostText').value||"YokelBTY is LIVE! 🇵🇬";let newPost={name:userName+" 🇵🇬",text:t,img:tempPostPhoto,likes:0,comments:[],reacts:{'❤️':0,'😂':0,'😮':0,'👍':0},myReact:"",time:Date.now()};db.ref('posts').push(newPost);posts.unshift(newPost);document.getElementById('newPostText').value="";tempPostPhoto="";document.getElementById('postPreview').style.display='none';renderFeed();alert("Posted to Firebase! ✅");}
 function changeProfile(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){document.getElementById('profilePicShow').src=r.result;alert("Profile photo updated!");};r.readAsDataURL(f);}
-function renderFeed(){let h=document.getElementById('feedPosts');h.innerHTML="";posts.forEach((p,i)=>{let coms=(p.comments||[]).map(c=>`<div class="comment">${c}</div>`).join("");h.innerHTML+=`<div class="post"><h3>${p.name}</h3><p>${p.text}</p>${p.img?`<img src="${p.img}">`:""}<div class="reactions"><span onclick="reactPost(${i},'❤️')">❤️</span><span onclick="reactPost(${i},'😂')">😂</span><span onclick="reactPost(${i},'😮')">😮</span><span onclick="reactPost(${i},'👍')">👍</span></div><div class="actions"><span onclick="likePost(${i})">❤️ Like ${p.likes||0}</span><span onclick="addComment(${i})">💬 Comment ${(p.comments||[]).length}</span><span onclick="sharePost(${i})">🔁 Share</span></div>${coms}</div>`;});}
+function renderFeed(){let h=document.getElementById('feedPosts');h.innerHTML="";posts.forEach((p,i)=>{if(!p.reacts)p.reacts={'❤️':0,'😂':0,'😮':0,'👍':0};if(!p.myReact)p.myReact="";let coms=(p.comments||[]).map(c=>`<div class="comment">${c}</div>`).join("");h.innerHTML+=`<div class="post"><h3>${p.name}</h3><p>${p.text}</p>${p.img?`<img src="${p.img}">`:""}<div class="reactions"><span onclick="reactPost(${i},'❤️')" style="${p.myReact==='❤️'?'background:#FCD116;color:#000':''}">❤️ ${p.reacts['❤️']||0}</span><span onclick="reactPost(${i},'😂')" style="${p.myReact==='😂'?'background:#FCD116;color:#000':''}">😂 ${p.reacts['😂']||0}</span><span onclick="reactPost(${i},'😮')" style="${p.myReact==='😮'?'background:#FCD116;color:#000':''}">😮 ${p.reacts['😮']||0}</span><span onclick="reactPost(${i},'👍')" style="${p.myReact==='👍'?'background:#FCD116;color:#000':''}">👍 ${p.reacts['👍']||0}</span></div><div class="actions"><span onclick="likePost(${i})">❤️ Like ${p.likes||0}</span><span onclick="addComment(${i})">💬 Comment ${(p.comments||[]).length}</span><span onclick="sharePost(${i})">🔁 Share</span></div>${coms}</div>`;});}
 renderStories();renderFeed();
 </script>
 </body>
