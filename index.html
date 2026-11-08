@@ -2,7 +2,10 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YokelBTY 🇵🇬</title>
+<title>YokelBTY 🇵🇬 FIREBASE LIVE</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <style>
 :root{--red:#CE1126;--gold:#FCD116}
 body{background:#000;color:#fff;font-family:Arial;margin:0;padding-bottom:75px}
@@ -33,9 +36,6 @@ nav div.active{background:var(--gold);color:#000}
 input[type=text],input[type=password],textarea{width:92%;padding:12px;border-radius:10px;border:1px solid #555;margin:8px 0;color:#000;font-family:Arial}
 select{width:92%;padding:12px;border-radius:10px;margin:5px 0;color:#000}
 #preview{width:200px;height:200px;object-fit:cover;border-radius:12px;border:3px solid var(--gold);display:none;margin:10px}
-#storyView{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:100;flex-direction:column;align-items:center;justify-content:center}
-#storyView.show{display:flex}
-#storyView img{width:100%;max-height:55vh;object-fit:cover}
 .chatBox{background:#222;width:95%;height:260px;border-radius:12px;padding:10px;overflow-y:auto;text-align:left}
 body.light .chatBox{background:#eee}
 .msg{background:#333;padding:8px 10px;border-radius:10px;margin:6px 0}
@@ -51,31 +51,33 @@ body.light .musicItem{background:#eee}
 .musicItem b{font-size:13px} .musicItem small{font-size:11px;color:#aaa}
 .musicItem img{width:55px;height:55px;border-radius:8px;object-fit:cover;flex-shrink:0;background:#444}
 .stickyPhoto{position:sticky;top:0;background:#000;padding:10px;width:100%;text-align:center;z-index:10;border-bottom:2px solid var(--gold)}
+.liveBadge{background:#00c853;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold}
 </style>
 </head>
 <body>
 
 <div id="loginScreen" class="loginWrap">
 <h1 style="font-size:36px">Yokel<span style="color:var(--gold)">BTY</span> 🇵🇬</h1>
-<p>From Village to GLOBAL!</p>
+<p>From Village to GLOBAL! <span class="liveBadge">● FIREBASE LIVE</span></p>
 <div class="loginBox"><h2>Login / Sign Up</h2>
-<input type="text" id="loginName" placeholder="Your Name e.g. Yokel">
+<input type="text" id="loginName" placeholder="Your Name e.g. Taani">
 <input type="password" placeholder="Password">
-<button onclick="doLogin()" style="width:100%">Login / Sign Up ✅</button></div>
+<button onclick="doLogin()" style="width:100%">Login / Sign Up ✅</button>
+<p id="fbStatus" style="font-size:12px;color:#666">Connecting to Firebase...</p></div>
 </div>
 
 <div id="app" style="display:none">
 <header>
 <h1>Yokel<span>BTY</span> 🇵🇬</h1>
-<div><button class="gold" onclick="toggleMode()">🌙 / ☀️</button> <button onclick="openChat()">💬 Chat 2</button> <button onclick="showPage('menu')">☰ Menu</button></div>
+<div><span class="liveBadge">● LIVE</span> <button class="gold" onclick="toggleMode()">🌙 / ☀️</button> <button onclick="openChat()">💬 Chat</button> <button onclick="showPage('menu')">☰ Menu</button></div>
 </header>
 
 <div id="page-feed" class="page show">
 <div class="stories" id="stories"></div>
 <div class="card"><b id="welcomeName">👋 What's on your mind?</b><br>
-<input type="text" id="newPostText" placeholder="Write a post...">
+<input type="text" id="newPostText" placeholder="Write a post... Firebase will save it!">
 <label style="background:var(--gold);color:#000;padding:8px 12px;border-radius:20px;cursor:pointer;display:inline-block">📷 Add Photo <input type="file" accept="image/*" style="display:none" onchange="previewPostPhoto(event)"></label>
-<img id="postPreview" style="display:none"><br><button onclick="addPost()" style="margin-top:8px">Post ✅</button></div>
+<img id="postPreview" style="display:none"><br><button onclick="addPost()" style="margin-top:8px">Post to Firebase ✅</button></div>
 <div id="feedPosts"></div>
 </div>
 
@@ -94,8 +96,8 @@ body.light .musicItem{background:#eee}
 <div class="card">🥥 Coconut - K5 <button onclick="alert('Added to cart!')">Buy</button></div>
 <div class="card">🍠 Kaukau - K10 <button onclick="alert('Added to cart!')">Buy</button></div></div>
 
-<div id="page-chat" class="page"><h2 style="padding:0 10px">💬 Chat Inbox</h2>
-<div class="card" onclick="openChat('PNG Family Group')">👥 PNG Family Group <br><small>Video, Voice, Photo, Music</small></div>
+<div id="page-chat" class="page"><h2 style="padding:0 10px">💬 Chat Inbox - Firebase Live Chat</h2>
+<div class="card" onclick="openChat('PNG Family Group')">👥 PNG Family Group <br><small>Video, Voice, Photo, Music - LIVE</small></div>
 <div class="card" onclick="openChat('Mary')">🐟 Mary <br><small>Fresh fish today?</small></div>
 <div class="card" onclick="openChat('Paul')">🌅 Paul <br><small>Sunset today</small></div></div>
 
@@ -113,7 +115,7 @@ body.light .musicItem{background:#eee}
 <div class="card" onclick="logout()">🚪 Logout</div></div>
 
 <div id="page-about" class="page"><h2 style="padding:0 10px">ℹ️ About of the App</h2>
-<div class="card"><h3>YokelBTY 🇵🇬</h3><p><b>Our Story:</b> YokelBTY was born in the village of Papua New Guinea. The Founder grew up watching mamas sell fish, coconut and kaukau at the market, and saw how hard it was for village people to reach customers in town and around the world.</p><p>So he had a dream: <b>From Village to GLOBAL!</b></p><p><b>Colours:</b> Black, Red, Gold and White — colours of the PNG Flag 🇵🇬</p><p><b>Mission:</b> Connect PNG villages to the world.</p></div></div>
+<div class="card"><h3>YokelBTY 🇵🇬 - FIREBASE LIVE!</h3><p><b>Our Story:</b> YokelBTY was born in the village of Papua New Guinea. From Village to GLOBAL!</p><p><b>Powered by:</b> Firebase Realtime Database - Your stories save in the cloud, everyone in PNG can see them!</p><p><b>Colours:</b> Black, Red, Gold and White — PNG Flag 🇵🇬</p><p><b>Mission:</b> Connect PNG villages to the world.</p></div></div>
 
 <nav>
 <div id="nav-feed" class="active" onclick="showPage('feed')">🏠<br>Feed</div>
@@ -127,13 +129,12 @@ body.light .musicItem{background:#eee}
 
 <div id="storyModal" class="modal">
 <div class="stickyPhoto">
-<h2 style="margin:0">Create Story 📸🎵✍️</h2>
+<h2 style="margin:0">Create Story 📸🎵✍️ <span class="liveBadge">FIREBASE</span></h2>
 <label style="background:var(--gold);color:#000;padding:12px 20px;border-radius:20px;cursor:pointer;display:inline-block;margin-top:8px;font-weight:bold">📷 CHOOSE PHOTO - TAP HERE! <input type="file" accept="image/*" style="display:none" onchange="previewPhoto(event)"></label>
 <div id="photoStatus" style="font-size:12px;color:var(--gold);margin-top:5px">No photo yet — Tap CHOOSE PHOTO above!</div>
 </div>
 <img id="preview">
 <p style="font-size:12px;color:#aaa">👆 Your photo will show here after you choose it!</p>
-<label style="background:#333;color:#fff;padding:10px 16px;border-radius:20px;cursor:pointer;display:inline-block">📷 Change Photo <input type="file" accept="image/*" style="display:none" onchange="previewPhoto(event)"></label>
 <input type="text" id="captionInput" placeholder="✍️ Write Caption... e.g. YokelBTY is LIVE! 🇵🇬">
 <textarea id="storyLongText" placeholder="✍️ Write Your Story Here... Tell your full story bro! e.g. Today in Kokopo, we went to market early, fresh fish, good price, village to global..." style="height:90px"></textarea>
 <input type="text" id="storyTextInput" placeholder="✍️ Big Text on Photo... e.g. From Village to GLOBAL!">
@@ -169,12 +170,7 @@ body.light .musicItem{background:#eee}
 </select>
 <label style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:13px"><input type="checkbox" id="musicContinue" checked style="width:20px"> 🔁 CONTINUE / LOOP - Keep playing, don't stop!</label>
 </div>
-<div class="card" style="width:92%;text-align:center;background:#222;border:2px solid var(--gold)">
-<b>📷 Didn't add photo yet?</b><br>
-<label style="background:var(--gold);color:#000;padding:12px 20px;border-radius:20px;cursor:pointer;display:inline-block;margin-top:8px;font-weight:bold">📷 ADD PHOTO HERE TOO! <input type="file" accept="image/*" style="display:none" onchange="previewPhoto(event)"></label>
-<p style="font-size:11px;color:#aaa">Photo + Caption + Story + Music = Perfect Story!</p>
-</div>
-<div style="display:flex;gap:10px;margin-top:10px"><button class="dark" onclick="closeModal()">Cancel</button><button class="gold" onclick="postStory()">Post Story ✅</button></div>
+<div style="display:flex;gap:10px;margin-top:10px"><button class="dark" onclick="closeModal()">Cancel</button><button class="gold" onclick="postStory()">Post Story to Firebase ✅</button></div>
 </div>
 
 <div id="chatModal" class="modal">
@@ -219,6 +215,20 @@ body.light .musicItem{background:#eee}
 </div>
 
 <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyA7JJpeSfV-pY-XCtsdXLvITFQmAvZ8pKo",
+  authDomain: "yokelbook-global.firebaseapp.com",
+  databaseURL: "https://yokelbook-global-default-rtdb.firebaseio.com",
+  projectId: "yokelbook-global",
+  storageBucket: "yokelbook-global.firebasestorage.app",
+  messagingSenderId: "1048288092483",
+  appId: "1:1048288092483:web:5c17ea9a5e55db3bd3cff6",
+  measurementId: "G-NT90RVWPMZ"
+};
+firebase.initializeApp(firebaseConfig);
+let db = firebase.database();
+firebase.auth().signInAnonymously().then(()=>{document.getElementById('fbStatus').innerText="✅ Connected to Firebase! LIVE!";}).catch(e=>{document.getElementById('fbStatus').innerText="Firebase: "+e.message;});
+
 let userName="Yokel";
 let stories=[
 {name:"You",img:"",caption:"",longText:"",bigText:"",music:"",musicName:"",musicLength:"full",musicStart:0,musicContinue:true,isYou:true},
@@ -229,13 +239,29 @@ let worldSongs=[];
 let tempPhoto="";let tempPostPhoto="";let tempStoryMusic="";let tempStoryMusicName="";
 let posts=[{name:"YokelBTY 🇵🇬",text:"Come early, best price today 🐟🇵🇬",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",likes:124,comments:["Mary: Fresh!","Paul: Nice!"]}];
 let mediaStream=null;let recorder=null;let isRecording=false;let storyMusicTimer=null;let typingTimer=null;
-function doLogin(){let n=document.getElementById('loginName').value.trim();if(!n){alert("Please type your name bro!");return;}userName=n;document.getElementById('loginScreen').style.display='none';document.getElementById('app').style.display='block';document.getElementById('welcomeName').innerText="👋 What's on your mind, "+userName+"?";document.getElementById('profileName').innerText=userName+" 🇵🇬";renderFeed();}
+
+function doLogin(){let n=document.getElementById('loginName').value.trim();if(!n){alert("Please type your name bro!");return;}userName=n;document.getElementById('loginScreen').style.display='none';document.getElementById('app').style.display='block';document.getElementById('welcomeName').innerText="👋 What's on your mind, "+userName+"?";document.getElementById('profileName').innerText=userName+" 🇵🇬";loadFromFirebase();}
 function logout(){document.getElementById('app').style.display='none';document.getElementById('loginScreen').style.display='flex';}
 function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('show'));document.getElementById('page-'+p).classList.add('show');document.querySelectorAll('nav div').forEach(e=>e.classList.remove('active'));let nav=document.getElementById('nav-'+p);if(nav)nav.classList.add('active');window.scrollTo(0,0);}
-function openChat(name){if(name)document.getElementById('chatTitle').innerText="💬 "+name;document.getElementById('chatModal').classList.add('show');}
+function openChat(name){if(name)document.getElementById('chatTitle').innerText="💬 "+name;document.getElementById('chatModal').classList.add('show');loadChatFromFirebase();}
 function closeChat(){document.getElementById('chatModal').classList.remove('show');endCall();}
-function sendChat(){let v=document.getElementById('chatInput').value;if(!v)return;document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> ${v}</div>`;document.getElementById('chatInput').value="";}
-function sendChatPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> 📷 Sent a photo<br><img src="${r.result}" style="width:100%;border-radius:8px;margin-top:5px"></div>`;};r.readAsDataURL(f);}
+function sendChat(){
+let v=document.getElementById('chatInput').value;if(!v)return;
+db.ref('chats/PNGFamilyGroup').push({name:userName,text:v,time:Date.now()});
+document.getElementById('chatInput').value="";
+}
+function loadChatFromFirebase(){
+db.ref('chats/PNGFamilyGroup').limitToLast(20).on('value', snap=>{
+let box=document.getElementById('chatBox');
+let html="<div class='msg'><b>Mary:</b> Fresh fish at Kokopo!</div><div class='msg'><b>Paul:</b> Sunset today was beautiful</div>";
+snap.forEach(child=>{
+let m=child.val();
+html+=`<div class="msg"><b>${m.name}:</b> ${m.text||""} ${m.img?`<br><img src="${m.img}" style="width:100%;border-radius:8px">`:""}</div>`;
+});
+box.innerHTML=html; box.scrollTop=box.scrollHeight;
+});
+}
+function sendChatPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){db.ref('chats/PNGFamilyGroup').push({name:userName,img:r.result,time:Date.now()});};r.readAsDataURL(f);}
 function openChatMusic(){alert("🎵 Go to Story → Search ANY music to send music in chat! Unlimited world music!");}
 function sendVoiceNote(){alert("🎤 Tap Record to record voice note!");toggleRecord();}
 async function startVideoCall(){try{document.getElementById('callArea').style.display='block';document.getElementById('callStatus').innerText="📹 Video Call - ON";mediaStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('myVideo').srcObject=mediaStream;alert("📹 Video Call Started!");}catch(e){alert("Allow camera permission bro! 📹");}}
@@ -320,8 +346,28 @@ let start=parseInt(document.getElementById('musicStart').value);
 let cont=document.getElementById('musicContinue').checked;
 if(!tempPhoto){alert("Please choose a photo first bro! 📸 Tap CHOOSE PHOTO at top!");return;}
 if(!tempStoryMusic){alert("Please select music bro! 🎵 Search ANY music, tap Select on a song!");return;}
+let newStory={name:userName+" 🇵🇬",img:tempPhoto,caption:cap,longText:longStory,bigText:big,music:tempStoryMusic,musicName:tempStoryMusicName,musicLength:len,musicStart:start,musicContinue:cont,time:Date.now()};
+db.ref('stories').push(newStory).then(()=>{alert("Story posted to FIREBASE! 🎵 Everyone in PNG can see it now! 🔥");}).catch(e=>{alert("Firebase error: "+e.message+" — Check Rules = true!");});
 stories[0].img=tempPhoto;stories[0].caption=cap;stories[0].longText=longStory;stories[0].bigText=big;stories[0].music=tempStoryMusic;stories[0].musicName=tempStoryMusicName;stories[0].musicLength=len;stories[0].musicStart=start;stories[0].musicContinue=cont;
-closeModal();renderStories();alert("Story posted! 🎵 Photo + Caption + Story + Music! Like Facebook / WhatsApp! 🔥");
+closeModal();renderStories();
+}
+function loadFromFirebase(){
+db.ref('stories').limitToLast(20).on('value', snap=>{
+let fbStories=[];
+snap.forEach(child=>{fbStories.push(child.val());});
+fbStories.reverse();
+if(fbStories.length>0){
+let you = stories[0];
+stories = [you, ...fbStories, stories[1], stories[2]];
+renderStories();
+}
+});
+db.ref('posts').limitToLast(20).on('value', snap=>{
+let fbPosts=[];
+snap.forEach(child=>{fbPosts.push(child.val());});
+fbPosts.reverse();
+if(fbPosts.length>0){posts=[...fbPosts, ...posts]; renderFeed();}
+});
 }
 function closeModal(){document.getElementById('storyModal').classList.remove('show');let a=document.getElementById('musicPreviewPlayer');if(a)a.pause();}
 function toggleMode(){document.body.classList.toggle('light');}
@@ -330,9 +376,14 @@ function addComment(i){let v=prompt("Write your comment:");if(v){posts[i].commen
 function sharePost(i){alert("Post shared! 🔁 Link copied!");}
 function reactPost(i,emoji){posts[i].likes++;alert("You reacted "+emoji+"!");renderFeed();}
 function previewPostPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){tempPostPhoto=r.result;let p=document.getElementById('postPreview');p.src=tempPostPhoto;p.style.display='block';};r.readAsDataURL(f);}
-function addPost(){let t=document.getElementById('newPostText').value||"YokelBTY is LIVE! 🇵🇬";posts.unshift({name:userName+" 🇵🇬",text:t,img:tempPostPhoto,likes:0,comments:[]});document.getElementById('newPostText').value="";tempPostPhoto="";document.getElementById('postPreview').style.display='none';renderFeed();alert("Posted!");}
+function addPost(){
+let t=document.getElementById('newPostText').value||"YokelBTY is LIVE! 🇵🇬";
+let newPost={name:userName+" 🇵🇬",text:t,img:tempPostPhoto,likes:0,comments:[],time:Date.now()};
+db.ref('posts').push(newPost);
+posts.unshift(newPost);document.getElementById('newPostText').value="";tempPostPhoto="";document.getElementById('postPreview').style.display='none';renderFeed();alert("Posted to Firebase! ✅ Everyone sees it!");
+}
 function changeProfile(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){document.getElementById('profilePicShow').src=r.result;alert("Profile photo updated!");};r.readAsDataURL(f);}
-function renderFeed(){let h=document.getElementById('feedPosts');h.innerHTML="";posts.forEach((p,i)=>{let coms=p.comments.map(c=>`<div class="comment">${c}</div>`).join("");h.innerHTML+=`<div class="post"><h3>${p.name}</h3><p>${p.text}</p>${p.img?`<img src="${p.img}">`:""}<div class="reactions"><span onclick="reactPost(${i},'❤️')">❤️</span><span onclick="reactPost(${i},'😂')">😂</span><span onclick="reactPost(${i},'😮')">😮</span><span onclick="reactPost(${i},'👍')">👍</span></div><div class="actions"><span onclick="likePost(${i})">❤️ Like ${p.likes}</span><span onclick="addComment(${i})">💬 Comment ${p.comments.length}</span><span onclick="sharePost(${i})">🔁 Share</span></div>${coms}</div>`;});}
+function renderFeed(){let h=document.getElementById('feedPosts');h.innerHTML="";posts.forEach((p,i)=>{let coms=(p.comments||[]).map(c=>`<div class="comment">${c}</div>`).join("");h.innerHTML+=`<div class="post"><h3>${p.name}</h3><p>${p.text}</p>${p.img?`<img src="${p.img}">`:""}<div class="reactions"><span onclick="reactPost(${i},'❤️')">❤️</span><span onclick="reactPost(${i},'😂')">😂</span><span onclick="reactPost(${i},'😮')">😮</span><span onclick="reactPost(${i},'👍')">👍</span></div><div class="actions"><span onclick="likePost(${i})">❤️ Like ${p.likes||0}</span><span onclick="addComment(${i})">💬 Comment ${(p.comments||[]).length}</span><span onclick="sharePost(${i})">🔁 Share</span></div>${coms}</div>`;});}
 renderStories();renderFeed();
 </script>
 </body>
