@@ -28,6 +28,9 @@ body.light .actions span,body.light .reactions span{background:#ddd}
 .reactions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .reactCount{background:#222;color:#FCD116;padding:6px 10px;border-radius:20px;font-size:13px;font-weight:bold;display:inline-block;margin-top:8px}
 body.light .reactCount{background:#eee}
+.commentBox{display:flex;gap:6px;margin-top:10px}
+.commentBox input{flex:1;padding:10px;border-radius:20px;border:1px solid #555;color:#000}
+.commentInput{width:100%;padding:10px;border-radius:20px;border:1px solid #555;color:#000;margin-top:8px}
 nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#000;padding:8px;z-index:50;border-top:3px solid var(--gold)}
 body.light nav{background:#eee}
 nav div{text-align:center;font-size:11px;cursor:pointer;padding:6px;border-radius:10px}
@@ -183,7 +186,7 @@ firebase.auth().signInAnonymously().then(()=>{document.getElementById('fbStatus'
 let userName="Yokel";let userKey="yokel";let myBalance=0;let myTx=[];let myProfilePic="";
 let stories=[{name:"You",img:"",caption:"",longText:"",bigText:"",music:"",musicName:"",musicLength:"full",musicStart:0,musicContinue:true,isYou:true},{name:"Mary 🐟",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",caption:"Fresh fish at Kokopo Market...",longText:"Today in Kokopo, we went to market early. Fresh fish, good price! 🇵🇬🐟",bigText:"Fresh Fish Today! 🐟",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",musicName:"PNG Vibes - Island Beat",musicLength:"full",musicStart:0,musicContinue:true}];
 let worldSongs=[];let tempPhoto="";let tempPostPhoto="";let tempMarketPhoto="";let tempStoryMusic="";let tempStoryMusicName="";
-let posts=[{name:"YokelBTY 🇵🇬",text:"Come early, best price today 🐟🇵🇬",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",likes:124,comments:["Mary: Fresh!"],reacts:{'❤️':5,'😂':2,'😮':1,'👍':3},myReact:""}];
+let posts=[{name:"YokelBTY 🇵🇬",text:"Come early, best price today 🐟🇵🇬",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",likes:124,comments:["Mary: Fresh!"],reacts:{'❤️':5,'😂':2,'😮':1,'👍':3},myReact:"",_fbKey:""}];
 let marketItems=[];let mediaStream=null;let recorder=null;let isRecording=false;let storyMusicTimer=null;let typingTimer=null;
 function safeKey(n){return n.toLowerCase().replace(/[^a-z0-9]/g,"_").substring(0,40)||"user";}
 function doLogin(){let n=document.getElementById('loginName').value.trim();if(!n){alert("Please type your name bro!");return;}userName=n;userKey=safeKey(n);document.getElementById('loginScreen').style.display='none';document.getElementById('app').style.display='block';document.getElementById('welcomeName').innerText="👋 What's on your mind, "+userName+"?";document.getElementById('profileName').innerText=userName+" 🇵🇬";document.getElementById('walletName').innerText=userName+" - YokelBTY Wallet 🇵🇬";loadProfilePic();loadFromFirebase();loadWallet();loadMarket();}
@@ -234,11 +237,21 @@ function renderWorldSongs(){let box=document.getElementById('musicLibrary');let 
 function previewWorld(idx){let m=worldSongs[idx];let a=document.getElementById('musicPreviewPlayer');a.src=m.url;a.style.display='block';a.loop=true;a.play();}
 function selectWorld(idx){let m=worldSongs[idx];tempStoryMusic=m.url;tempStoryMusicName=m.name+" - "+m.artist;document.getElementById('musicName').innerText="✅ Selected: "+tempStoryMusicName;alert("Music Selected: "+tempStoryMusicName+" 🎵");}
 function postStory(){let cap=document.getElementById('captionInput').value||"YokelBTY is LIVE! 🇵🇬";let longStory=document.getElementById('storyLongText').value||"";let big=document.getElementById('storyTextInput').value||"From Village to GLOBAL! 🇵🇬";let len=document.getElementById('musicLength').value;let start=parseInt(document.getElementById('musicStart').value);let cont=document.getElementById('musicContinue').checked;if(!tempPhoto){alert("Please choose photo first! 📸");return;}if(!tempStoryMusic){alert("Please select music! 🎵");return;}let newStory={name:userName+" 🇵🇬",img:tempPhoto,caption:cap,longText:longStory,bigText:big,music:tempStoryMusic,musicName:tempStoryMusicName,musicLength:len,musicStart:start,musicContinue:cont,time:Date.now()};db.ref('stories').push(newStory);stories[0].img=tempPhoto;stories[0].caption=cap;stories[0].longText=longStory;stories[0].bigText=big;stories[0].music=tempStoryMusic;stories[0].musicName=tempStoryMusicName;closeModal();renderStories();alert("Story posted to FIREBASE! 🎵");}
-function loadFromFirebase(){db.ref('stories').limitToLast(20).on('value', snap=>{let fb=[];snap.forEach(c=>{fb.push(c.val());});fb.reverse();if(fb.length>0){let you=stories[0];stories=[you,...fb];renderStories();}});db.ref('posts').limitToLast(20).on('value', snap=>{let fb=[];snap.forEach(c=>{fb.push(c.val());});fb.reverse();if(fb.length>0){posts=[...fb,...posts];renderFeed();}});}
+function loadFromFirebase(){db.ref('stories').limitToLast(20).on('value', snap=>{let fb=[];snap.forEach(c=>{fb.push(c.val());});fb.reverse();if(fb.length>0){let you=stories[0];stories=[you,...fb];renderStories();}});db.ref('posts').limitToLast(20).on('value', snap=>{let fbPosts=[];snap.forEach(c=>{let v=c.val();v._fbKey=c.key;if(!v.comments) v.comments=[];if(!v.reacts) v.reacts={'❤️':0,'😂':0,'😮':0,'👍':0};fbPosts.push(v);});fbPosts.reverse();if(fbPosts.length>0){let localOnly=posts.filter(p=>!p._fbKey);posts=[...fbPosts,...localOnly];renderFeed();}});}
 function closeModal(){document.getElementById('storyModal').classList.remove('show');let a=document.getElementById('musicPreviewPlayer');if(a)a.pause();}
 function toggleMode(){document.body.classList.toggle('light');}
-function likePost(i){posts[i].likes++;renderFeed();}
-function addComment(i){let v=prompt("Write comment:");if(v){posts[i].comments.push(userName+": "+v);renderFeed();}}
+function likePost(i){posts[i].likes++;if(posts[i]._fbKey){db.ref('posts/'+posts[i]._fbKey+'/likes').set(posts[i].likes);}renderFeed();}
+function addComment(i){
+  let input=document.getElementById('commentInput-'+i);
+  let v=input ? input.value.trim() : "";
+  if(!v){v=prompt("Write comment:"); if(!v) return;}
+  let full=userName+": "+v;
+  if(!posts[i].comments) posts[i].comments=[];
+  posts[i].comments.push(full);
+  if(posts[i]._fbKey){db.ref('posts/'+posts[i]._fbKey+'/comments').set(posts[i].comments);}
+  renderFeed();
+}
+function submitComment(i){addComment(i);}
 function sharePost(i){alert("Post shared! 🔁");}
 function reactPost(i,emoji){
   let p=posts[i];
@@ -250,7 +263,6 @@ function reactPost(i,emoji){
     p.reacts[emoji]=(p.reacts[emoji]||0)+1;
     p.myReact=emoji;
   }
-  // SAVE COUNTS TO FIREBASE SO THEY STAY!
   if(p._fbKey){db.ref('posts/'+p._fbKey+'/reacts').set(p.reacts);}
   renderFeed();
 }
@@ -268,7 +280,7 @@ function getReactText(p){
 }
 function previewPostPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){tempPostPhoto=r.result;let p=document.getElementById('postPreview');p.src=tempPostPhoto;p.style.display='block';};r.readAsDataURL(f);}
 function addPost(){let t=document.getElementById('newPostText').value||"YokelBTY is LIVE! 🇵🇬";let newPost={name:userName+" 🇵🇬",text:t,img:tempPostPhoto,likes:0,comments:[],reacts:{'❤️':0,'😂':0,'😮':0,'👍':0},myReact:"",time:Date.now()};let ref=db.ref('posts').push(newPost);newPost._fbKey=ref.key;posts.unshift(newPost);document.getElementById('newPostText').value="";tempPostPhoto="";document.getElementById('postPreview').style.display='none';renderFeed();alert("Posted to Firebase! ✅");}
-function renderFeed(){let h=document.getElementById('feedPosts');h.innerHTML="";posts.forEach((p,i)=>{if(!p.reacts)p.reacts={'❤️':0,'😂':0,'😮':0,'👍':0};if(!p.myReact)p.myReact="";let coms=(p.comments||[]).map(c=>`<div class="comment">${c}</div>`).join("");let reactSummary=getReactText(p);h.innerHTML+=`<div class="post"><h3>${p.name}</h3><p>${p.text}</p>${p.img?`<img src="${p.img}">`:""}<div class="reactCount">🔥 ${reactSummary}</div><div class="reactions"><span onclick="reactPost(${i},'❤️')" style="${p.myReact==='❤️'?'background:#FCD116;color:#000':''}">❤️ ${p.reacts['❤️']||0}</span><span onclick="reactPost(${i},'😂')" style="${p.myReact==='😂'?'background:#FCD116;color:#000':''}">😂 ${p.reacts['😂']||0}</span><span onclick="reactPost(${i},'😮')" style="${p.myReact==='😮'?'background:#FCD116;color:#000':''}">😮 ${p.reacts['😮']||0}</span><span onclick="reactPost(${i},'👍')" style="${p.myReact==='👍'?'background:#FCD116;color:#000':''}">👍 ${p.reacts['👍']||0}</span></div><div class="actions"><span onclick="likePost(${i})">❤️ Like ${p.likes||0}</span><span onclick="addComment(${i})">💬 Comment ${(p.comments||[]).length}</span><span onclick="sharePost(${i})">🔁 Share</span></div>${coms}</div>`;});}
+function renderFeed(){let h=document.getElementById('feedPosts');h.innerHTML="";posts.forEach((p,i)=>{if(!p.reacts)p.reacts={'❤️':0,'😂':0,'😮':0,'👍':0};if(!p.myReact)p.myReact="";if(!p.comments)p.comments=[];let coms=p.comments.map(c=>`<div class="comment">${c}</div>`).join("");let reactSummary=getReactText(p);h.innerHTML+=`<div class="post"><h3>${p.name}</h3><p>${p.text}</p>${p.img?`<img src="${p.img}">`:""}<div class="reactCount">🔥 ${reactSummary}</div><div class="reactions"><span onclick="reactPost(${i},'❤️')" style="${p.myReact==='❤️'?'background:#FCD116;color:#000':''}">❤️ ${p.reacts['❤️']||0}</span><span onclick="reactPost(${i},'😂')" style="${p.myReact==='😂'?'background:#FCD116;color:#000':''}">😂 ${p.reacts['😂']||0}</span><span onclick="reactPost(${i},'😮')" style="${p.myReact==='😮'?'background:#FCD116;color:#000':''}">😮 ${p.reacts['😮']||0}</span><span onclick="reactPost(${i},'👍')" style="${p.myReact==='👍'?'background:#FCD116;color:#000':''}">👍 ${p.reacts['👍']||0}</span></div><div class="actions"><span onclick="likePost(${i})">❤️ Like ${p.likes||0}</span><span>💬 Comment ${p.comments.length}</span><span onclick="sharePost(${i})">🔁 Share</span></div>${coms}<div class="commentBox"><input type="text" id="commentInput-${i}" placeholder="Write a comment... e.g. Fresh! 🇵🇬" onkeydown="if(event.key==='Enter'){submitComment(${i})}"><button class="gold" onclick="submitComment(${i})">Comment ✅</button></div></div>`;});}
 renderStories();renderFeed();
 </script>
 </body>
