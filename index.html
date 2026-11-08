@@ -46,9 +46,10 @@ body.light .msg{background:#ddd}
 body.light .comment{background:#e5e5e5}
 video{width:95%;max-height:300px;border-radius:12px;background:#222}
 .storyTextOverlay{position:absolute;top:15%;left:0;right:0;text-align:center;font-size:22px;font-weight:bold;text-shadow:2px 2px 4px #000;padding:10px}
-.musicItem{background:#222;padding:10px;border-radius:10px;margin:5px 0;width:92%;display:flex;justify-content:space-between;align-items:center}
+.musicItem{background:#222;padding:10px;border-radius:10px;margin:5px 0;width:92%;display:flex;justify-content:space-between;align-items:center;gap:8px}
 body.light .musicItem{background:#eee}
 .musicItem b{font-size:13px} .musicItem small{font-size:11px;color:#aaa}
+.musicItem img{width:50px;height:50px;border-radius:8px;object-fit:cover;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -123,24 +124,32 @@ body.light .musicItem{background:#eee}
 </nav>
 </div>
 
-<!-- STORY MODAL WITH LONG + CONTINUING MUSIC -->
+<!-- STORY MODAL - LIKE FACEBOOK / WHATSAPP STORY EDIT - WORLD MUSIC SEARCH -->
 <div id="storyModal" class="modal">
 <h2>Create Story 📸🎵✍️</h2>
 <label style="background:var(--gold);color:#000;padding:12px 20px;border-radius:20px;cursor:pointer;margin:5px">📷 CHOOSE PHOTO <input type="file" accept="image/*" style="display:none" onchange="previewPhoto(event)"></label>
 <img id="preview">
 <input type="text" id="captionInput" placeholder="✍️ Write Caption... e.g. YokelBTY is LIVE! 🇵🇬">
 <input type="text" id="storyTextInput" placeholder="✍️ Big Text on Photo... e.g. From Village to GLOBAL!">
-<h3 style="margin:10px 0 0">🎵 YokelBTY Music Library — FULL SONG + CONTINUING!</h3>
-<p style="font-size:12px;color:var(--gold)">Not short clip! Full song, continues playing! 🔥</p>
-<input type="text" id="musicSearch" placeholder="🔍 Search music... PNG, Island, Vibes..." oninput="renderMusicLibrary()">
-<div id="musicLibrary" style="width:95%;max-height:220px;overflow-y:auto"></div>
+<h3 style="margin:10px 0 0">🎵 Add Music — Like Facebook / WhatsApp Story!</h3>
+<p style="font-size:12px;color:var(--gold)">Search ANY music from around the world! 🌍 Type artist or song, it will pop up!</p>
+<input type="text" id="musicSearch" placeholder="🔍 Search ANY music... Sean Rii, Jaro, Drake, PNG..." oninput="searchWorldMusic()">
+<div style="display:flex;gap:8px;width:92%;flex-wrap:wrap;justify-content:center">
+<button onclick="quickSearch('Sean Rii')">Sean Rii</button>
+<button onclick="quickSearch('Jaro')">Jaro</button>
+<button onclick="quickSearch('PNG')">PNG 🇵🇬</button>
+<button onclick="quickSearch('Burna Boy')">Burna Boy</button>
+<button onclick="quickSearch('Love')">Love ❤️</button>
+<button class="gold" onclick="clearMusicSearch()">🔄 Show Trending</button>
+</div>
+<p id="musicStatus" style="font-size:12px;color:#aaa">🔥 Trending songs below — or search above for world music!</p>
+<div id="musicLibrary" style="width:95%;max-height:300px;overflow-y:auto"></div>
 <p id="musicName" style="font-size:13px;color:var(--gold)"></p>
 <audio id="musicPreviewPlayer" controls style="display:none;width:90%"></audio>
-<!-- LONG MUSIC CONTROLS -->
 <div class="card" style="width:92%;text-align:left">
 <b>⏱️ How Long Should Music Play?</b><br>
 <select id="musicLength">
-<option value="full">🎵 FULL SONG - Play Whole Song (Continuing)</option>
+<option value="full">🎵 FULL - Play Whole Preview (Continuing / Loop)</option>
 <option value="60">⏱️ 60 Seconds - Long</option>
 <option value="30">⏱️ 30 Seconds</option>
 <option value="15">⏱️ 15 Seconds - Short</option>
@@ -150,15 +159,13 @@ body.light .musicItem{background:#eee}
 <option value="0">▶️ Start from Beginning 0:00</option>
 <option value="15">▶️ Start from 0:15 - Chorus</option>
 <option value="30">▶️ Start from 0:30</option>
-<option value="60">▶️ Start from 1:00</option>
 </select>
 <label style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:13px"><input type="checkbox" id="musicContinue" checked style="width:20px"> 🔁 CONTINUE / LOOP - Keep playing, don't stop!</label>
-<p style="font-size:11px;color:#aaa">If CONTINUE is ON, song will loop and keep playing on your story like TikTok / Insta!</p>
+<p style="font-size:11px;color:#aaa">Like Facebook / WhatsApp: Music keeps playing on your story! Note: World catalog gives 30-sec preview clips — we loop them to keep playing CONTINUING like story music!</p>
 </div>
 <div style="display:flex;gap:10px;margin-top:10px"><button class="dark" onclick="closeModal()">Cancel</button><button class="gold" onclick="postStory()">Post Story ✅</button></div>
 </div>
 
-<!-- CHAT MODAL -->
 <div id="chatModal" class="modal">
 <h2 id="chatTitle">💬 PNG Family Group</h2>
 <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
@@ -183,7 +190,6 @@ body.light .musicItem{background:#eee}
 <p id="recStatus" style="font-size:12px;color:var(--gold)"></p>
 </div>
 
-<!-- VIEW STORY WITH LONG CONTINUING MUSIC -->
 <div id="storyView" onclick="closeStoryView()" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center">
 <div style="position:relative;width:100%;display:flex;justify-content:center">
 <img id="viewImg" style="width:100%;max-height:68vh;object-fit:cover">
@@ -204,23 +210,22 @@ body.light .musicItem{background:#eee}
 let userName="Yokel";
 let stories=[
 {name:"You",img:"",caption:"",bigText:"",music:"",musicName:"",musicLength:"full",musicStart:0,musicContinue:true,isYou:true},
-{name:"Mary 🐟",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",caption:"Fresh fish at Kokopo Market...",bigText:"Fresh Fish Today! 🐟",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",musicName:"PNG Vibes - Island Beat (FULL SONG)",musicLength:"full",musicStart:0,musicContinue:true},
-{name:"Paul 🌅",img:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=400",caption:"Sunset at Rabaul beach!",bigText:"Rabaul Sunset 🌅",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",musicName:"Kokopo Sunset - Chill (FULL SONG)",musicLength:"full",musicStart:0,musicContinue:true},
-{name:"Ruth 🥥",img:"https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400",caption:"Coconut day in village!",bigText:"Coconut Day! 🥥",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",musicName:"Village to Global - Anthem (FULL SONG)",musicLength:"full",musicStart:0,musicContinue:true},
+{name:"Mary 🐟",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",caption:"Fresh fish at Kokopo Market...",bigText:"Fresh Fish Today! 🐟",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",musicName:"PNG Vibes - Island Beat",musicLength:"full",musicStart:0,musicContinue:true},
+{name:"Paul 🌅",img:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=400",caption:"Sunset at Rabaul beach!",bigText:"Rabaul Sunset 🌅",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",musicName:"Kokopo Sunset - Chill",musicLength:"full",musicStart:0,musicContinue:true},
+{name:"Ruth 🥥",img:"https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400",caption:"Coconut day in village!",bigText:"Coconut Day! 🥥",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",musicName:"Village to Global - Anthem",musicLength:"full",musicStart:0,musicContinue:true},
 ];
+// FALLBACK TRENDING - shows instantly while world search loads
 let musicLibrary=[
-{name:"PNG Vibes 🇵🇬",artist:"YokelBTY Sounds",tag:"png island vibes",duration:"3:45 FULL",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},
-{name:"Island Beat 🌴",artist:"Kokopo Crew",tag:"island beat dance",duration:"4:12 FULL",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},
-{name:"Village to Global 🌍",artist:"YokelBTY Anthem",tag:"village global anthem",duration:"3:58 FULL",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},
-{name:"Kokopo Sunset 🌅",artist:"Rabaul Chill",tag:"sunset chill png",duration:"4:30 FULL",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},
-{name:"Mama Market 🐟",artist:"PNG Family",tag:"market mama fish",duration:"3:20 FULL",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"},
-{name:"Wantok Party 🎉",artist:"Port Moresby Boys",tag:"party wantok dance",duration:"4:05 FULL",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"},
-{name:"Coconut Groove 🥥",artist:"Village Stars",tag:"coconut groove island",duration:"3:33 FULL",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"},
-{name:"Rabaul Love ❤️",artist:"PNG Love",tag:"love rabaul romantic",duration:"4:20 FULL",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"},
+{name:"PNG Vibes 🇵🇬",artist:"YokelBTY Sounds",tag:"png island vibes",duration:"FULL",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=100",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},
+{name:"Island Beat 🌴",artist:"Kokopo Crew",tag:"island beat dance",duration:"FULL",img:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=100",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},
+{name:"Village to Global 🌍",artist:"YokelBTY Anthem",tag:"village global anthem",duration:"FULL",img:"https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=100",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},
+{name:"Kokopo Sunset 🌅",artist:"Rabaul Chill",tag:"sunset chill png",duration:"FULL",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=100",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},
+{name:"Wantok Party 🎉",artist:"Port Moresby Boys",tag:"party wantok dance",duration:"FULL",img:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=100",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"},
 ];
+let worldResults=[]; // real world search results
 let tempPhoto="";let tempPostPhoto="";let tempStoryMusic="";let tempStoryMusicName="";
 let posts=[{name:"YokelBTY 🇵🇬",text:"Come early, best price today 🐟🇵🇬",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",likes:124,comments:["Mary: Fresh!","Paul: Nice!"]}];
-let mediaStream=null;let recorder=null;let isRecording=false;let storyMusicTimer=null;
+let mediaStream=null;let recorder=null;let isRecording=false;let storyMusicTimer=null;let searchTimer=null;
 function doLogin(){let n=document.getElementById('loginName').value.trim();if(!n){alert("Please type your name bro!");return;}userName=n;document.getElementById('loginScreen').style.display='none';document.getElementById('app').style.display='block';document.getElementById('welcomeName').innerText="👋 What's on your mind, "+userName+"?";document.getElementById('profileName').innerText=userName+" 🇵🇬";renderFeed();}
 function logout(){document.getElementById('app').style.display='none';document.getElementById('loginScreen').style.display='flex';}
 function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('show'));document.getElementById('page-'+p).classList.add('show');document.querySelectorAll('nav div').forEach(e=>e.classList.remove('active'));let nav=document.getElementById('nav-'+p);if(nav)nav.classList.add('active');window.scrollTo(0,0);}
@@ -228,7 +233,7 @@ function openChat(name){if(name)document.getElementById('chatTitle').innerText="
 function closeChat(){document.getElementById('chatModal').classList.remove('show');endCall();}
 function sendChat(){let v=document.getElementById('chatInput').value;if(!v)return;document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> ${v}</div>`;document.getElementById('chatInput').value="";}
 function sendChatPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> 📷 Sent a photo<br><img src="${r.result}" style="width:100%;border-radius:8px;margin-top:5px"></div>`;};r.readAsDataURL(f);}
-function openChatMusic(){let names=musicLibrary.map((m,i)=> (i+1)+". "+m.name+" - "+m.artist+" ["+m.duration+"]").join("\n");let pick=prompt("🎵 YokelBTY Music Library - FULL SONGS - Type number 1-8:\n"+names);let idx=parseInt(pick)-1;if(musicLibrary[idx]){let m=musicLibrary[idx];document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> 🎵 Sent FULL SONG: ${m.name}<br><audio controls loop src="${m.url}" style="width:100%"></audio></div>`;}}
+function openChatMusic(){let names=musicLibrary.map((m,i)=> (i+1)+". "+m.name+" - "+m.artist).join("\n");let pick=prompt("🎵 YokelBTY Music - Type number 1-5:\n"+names);let idx=parseInt(pick)-1;if(musicLibrary[idx]){let m=musicLibrary[idx];document.getElementById('chatBox').innerHTML+=`<div class="msg"><b>${userName}:</b> 🎵 Sent music: ${m.name}<br><audio controls loop src="${m.url}" style="width:100%"></audio></div>`;}}
 function sendVoiceNote(){alert("🎤 Tap Record to record voice note!");toggleRecord();}
 async function startVideoCall(){try{document.getElementById('callArea').style.display='block';document.getElementById('callStatus').innerText="📹 Video Call - ON";mediaStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('myVideo').srcObject=mediaStream;alert("📹 Video Call Started!");}catch(e){alert("Allow camera permission bro! 📹");}}
 async function startVoiceCall(){try{document.getElementById('callArea').style.display='block';document.getElementById('callStatus').innerText="📞 Voice / Audio Call - ON";mediaStream=await navigator.mediaDevices.getUserMedia({audio:true});alert("📞 Voice Call Started!");}catch(e){alert("Allow mic permission bro! 📞");}}
@@ -249,8 +254,8 @@ m.src=stories[i].music;m.style.display='block';
 m.loop = stories[i].musicContinue ? true : false;
 m.currentTime = stories[i].musicStart || 0;
 m.play();
-document.getElementById('viewMusicName').innerText="🎵 Now Playing (FULL / CONTINUING): "+stories[i].musicName;
-document.getElementById('viewMusicLength').innerText = stories[i].musicLength==="full" ? "⏱️ Length: FULL SONG - Continuing 🔁" : "⏱️ Length: "+stories[i].musicLength+" seconds";
+document.getElementById('viewMusicName').innerText="🎵 Now Playing: "+stories[i].musicName;
+document.getElementById('viewMusicLength').innerText = stories[i].musicLength==="full" ? "⏱️ Length: CONTINUING 🔁" : "⏱️ Length: "+stories[i].musicLength+" seconds";
 if(storyMusicTimer) clearTimeout(storyMusicTimer);
 if(stories[i].musicLength!=="full" && !stories[i].musicContinue){
 let len=parseInt(stories[i].musicLength)*1000;
@@ -263,9 +268,51 @@ function closeStoryView(){let m=document.getElementById('viewMusic');m.pause();i
 function toggleStoryMusic(){let m=document.getElementById('viewMusic');if(m.paused){m.play();}else{m.pause();}}
 function toggleStoryLoop(){let m=document.getElementById('viewMusic');m.loop=!m.loop;alert(m.loop ? "🔁 CONTINUE ON - Music will keep looping!" : "⏹️ CONTINUE OFF - Music will stop at end");}
 function previewPhoto(e){let f=e.target.files[0];let r=new FileReader();r.onload=function(){tempPhoto=r.result;let p=document.getElementById('preview');p.src=tempPhoto;p.style.display='block';};r.readAsDataURL(f);}
-function renderMusicLibrary(){let q=(document.getElementById('musicSearch')?document.getElementById('musicSearch').value.toLowerCase():"");let box=document.getElementById('musicLibrary');box.innerHTML="";musicLibrary.filter(m=> (m.name+" "+m.artist+" "+m.tag).toLowerCase().includes(q)).forEach((m)=>{let idx=musicLibrary.indexOf(m);box.innerHTML+=`<div class="musicItem"><div><b>${m.name}</b><br><small>${m.artist} • ${m.duration} • Trending 🔥</small></div><div><button onclick="previewMusic(${idx})">▶️</button> <button class="gold" onclick="selectMusic(${idx})">Select ✅</button></div></div>`;});}
-function previewMusic(idx){let m=musicLibrary[idx];let a=document.getElementById('musicPreviewPlayer');a.src=m.url;a.style.display='block';a.loop=true;a.play();}
-function selectMusic(idx){let m=musicLibrary[idx];tempStoryMusic=m.url;tempStoryMusicName=m.name+" - "+m.artist+" ["+m.duration+"]";document.getElementById('musicName').innerText="✅ Selected FULL SONG: "+tempStoryMusicName;alert("FULL SONG Selected: "+tempStoryMusicName+" 🎵 It will play LONG + CONTINUING!");}
+function quickSearch(term){document.getElementById('musicSearch').value=term;searchWorldMusic();}
+function clearMusicSearch(){document.getElementById('musicSearch').value="";worldResults=[];document.getElementById('musicStatus').innerText="🔥 Trending songs below — or search above for world music!";renderMusicLibrary();}
+function searchWorldMusic(){
+let q=document.getElementById('musicSearch').value.trim();
+if(!q){worldResults=[];renderMusicLibrary();return;}
+document.getElementById('musicStatus').innerText="🔍 Searching world music for '"+q+"'... Please wait 1 sec...";
+clearTimeout(searchTimer);
+searchTimer=setTimeout(async ()=>{
+try{
+let res=await fetch("https://itunes.apple.com/search?term="+encodeURIComponent(q)+"&media=music&limit=20");
+let data=await res.json();
+if(data.results && data.results.length>0){
+worldResults=data.results.filter(r=>r.previewUrl).map(r=>({name:r.trackName,artist:r.artistName,tag:(r.trackName+" "+r.artistName).toLowerCase(),duration:"Preview • World 🌍",img:r.artworkUrl100,url:r.previewUrl}));
+document.getElementById('musicStatus').innerText="🌍 Found "+worldResults.length+" world songs for '"+q+"' — Tap ▶️ to preview, Select ✅ to use!";
+}else{
+document.getElementById('musicStatus').innerText="😢 No world song found for '"+q+"'. Try another name — or tap Show Trending.";
+worldResults=[];
+}
+renderMusicLibrary();
+}catch(e){
+document.getElementById('musicStatus').innerText="⚠️ No internet for world search right now — showing trending songs. Try again with data ON.";
+worldResults=[];
+renderMusicLibrary();
+}
+},600);
+}
+function renderMusicLibrary(){
+let box=document.getElementById('musicLibrary');box.innerHTML="";
+let list = worldResults.length>0 ? worldResults : musicLibrary;
+list.forEach((m)=>{
+let idx=list.indexOf(m);
+let isWorld = worldResults.length>0;
+box.innerHTML+=`<div class="musicItem"><img src="${m.img||'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=100'}"><div style="flex:1"><b>${m.name}</b><br><small>${m.artist} • ${m.duration}</small></div><div><button onclick="previewMusicWorld(${idx},${isWorld})">▶️</button> <button class="gold" onclick="selectMusicWorld(${idx},${isWorld})">Select ✅</button></div></div>`;
+});
+}
+function previewMusicWorld(idx,isWorld){
+let list = isWorld ? worldResults : musicLibrary;
+let m=list[idx];let a=document.getElementById('musicPreviewPlayer');a.src=m.url;a.style.display='block';a.loop=true;a.play();
+}
+function selectMusicWorld(idx,isWorld){
+let list = isWorld ? worldResults : musicLibrary;
+let m=list[idx];tempStoryMusic=m.url;tempStoryMusicName=m.name+" - "+m.artist;
+document.getElementById('musicName').innerText="✅ Selected: "+tempStoryMusicName;
+alert("Music Selected: "+tempStoryMusicName+" 🎵 Like Facebook / WhatsApp story! It will play CONTINUING!");
+}
 function postStory(){
 let cap=document.getElementById('captionInput').value||"YokelBTY is LIVE! From Village to GLOBAL! 🇵🇬";
 let big=document.getElementById('storyTextInput').value||"From Village to GLOBAL! 🇵🇬";
@@ -273,9 +320,9 @@ let len=document.getElementById('musicLength').value;
 let start=parseInt(document.getElementById('musicStart').value);
 let cont=document.getElementById('musicContinue').checked;
 if(!tempPhoto){alert("Please choose a photo first bro! 📸");return;}
-if(!tempStoryMusic){alert("Please select music from library bro! 🎵 Tap Select on a song!");return;}
+if(!tempStoryMusic){alert("Please select music bro! 🎵 Search ANY music, tap Select on a song!");return;}
 stories[0].img=tempPhoto;stories[0].caption=cap;stories[0].bigText=big;stories[0].music=tempStoryMusic;stories[0].musicName=tempStoryMusicName;stories[0].musicLength=len;stories[0].musicStart=start;stories[0].musicContinue=cont;
-closeModal();renderStories();alert("Story posted! 🎵 Photo + FULL SONG + CONTINUING + Text! 🔥");
+closeModal();renderStories();alert("Story posted! 🎵 Photo + World Music + Text! Like Facebook / WhatsApp! 🔥");
 }
 function closeModal(){document.getElementById('storyModal').classList.remove('show');let a=document.getElementById('musicPreviewPlayer');if(a)a.pause();}
 function toggleMode(){document.body.classList.toggle('light');}
