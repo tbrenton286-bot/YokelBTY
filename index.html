@@ -6,7 +6,19 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<style>
+<style><script>
+const firebaseConfig = {
+  apiKey: "AIzaSyA7JJpeSfV-pY-XCtsdXLvITFQmAvZ8pKo",
+  authDomain: "yokelbook-global.firebaseapp.com",
+  databaseURL: "https://yokelbook-global-default-rtdb.firebaseio.com",
+  projectId: "yokelbook-global",
+  storageBucket: "yokelbook-global.firebasestorage.app",
+  messagingSenderId: "1048288092483",
+  appId: "1:1048288092483:web:0f6eb6073dfc94b0d3cff6",
+  measurementId: "G-PWSQK0RMRK"
+};
+firebase.initializeApp(firebaseConfig);
+</script>
 :root{--red:#CE1126;--gold:#FCD116}
 body{background:#000;color:#fff;font-family:Arial;margin:0;padding-bottom:75px}
 body.light{background:#fff;color:#000}
