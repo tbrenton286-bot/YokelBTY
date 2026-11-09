@@ -184,8 +184,7 @@ body.light .musicItem{background:#eee}
 </div>
 <script>
 const firebaseConfig = {apiKey: "AIzaSyA7JJpeSfV-pY-XCtsdXLvITFQmAvZ8pKo",authDomain: "yokelbook-global.firebaseapp.com",databaseURL: "https://yokelbook-global-default-rtdb.firebaseio.com",projectId: "yokelbook-global",storageBucket: "yokelbook-global.firebasestorage.app",messagingSenderId: "1048288092483",appId: "1:1048288092483:web:5c17ea9a5e55db3bd3cff6",measurementId: "G-NT90RVWPMZ"};
-firebase.initializeApp(firebaseConfig);
-let db = firebase.database();
+const firebaseConfig = { apiKey: "AIzaSyA7JJpeSfV-pY-XCtsdXLvITFQmAvZ8pKo", authDomain: "yokelbook-global.firebaseapp.com", databaseURL: "https://yokelbook-global-default-rtdb.firebaseio.com", projectId: "yokelbook-global", storageBucket: "yokelbook-global.firebasestorage.app", messagingSenderId: "1048288092483", appId: "1:1048288092483:web:0f6eb6073dfc94b0d3cff6", measurementId: "G-PWSQK0RMRK" };
 firebase.auth().signInAnonymously().then(()=>{document.getElementById('fbStatus').innerText="✅ Connected to Firebase! LIVE!";}).catch(e=>{document.getElementById('fbStatus').innerText="Firebase: "+e.message;});
 let userName="Yokel";let userKey="yokel";let myBalance=0;let myTx=[];let myProfilePic="";
 let stories=[{name:"You",img:"",caption:"",longText:"",bigText:"",music:"",musicName:"",musicLength:"full",musicStart:0,musicContinue:true,isYou:true},{name:"Mary 🐟",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",caption:"Fresh fish at Kokopo Market...",longText:"Today in Kokopo, we went to market early. Fresh fish, good price! 🇵🇬🐟",bigText:"Fresh Fish Today! 🐟",music:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",musicName:"PNG Vibes - Island Beat",musicLength:"full",musicStart:0,musicContinue:true}];
